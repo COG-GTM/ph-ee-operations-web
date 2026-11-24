@@ -10,7 +10,6 @@
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true,
     "target": "ES2022",
     "resolveJsonModule": true,
     "esModuleInterop": true,

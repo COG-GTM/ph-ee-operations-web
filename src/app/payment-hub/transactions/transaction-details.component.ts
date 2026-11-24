@@ -108,7 +108,7 @@ export class TransactionDetailsComponent implements OnInit {
     });
     const source = from(this.datasource.tasks);
     const example = source.pipe(
-      groupBy(transaction => transaction['type']),
+      groupBy((transaction: any) => transaction['type']),
       mergeMap(group => group.pipe(toArray()))
     );
     const subscribe = example.subscribe(val => {

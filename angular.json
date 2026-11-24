@@ -99,21 +99,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "mifosx-web-app:build"
+            "buildTarget": "mifosx-web-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "mifosx-web-app:build:production"
+              "buildTarget": "mifosx-web-app:build:production"
             },
             "kubernetes": {
-              "browserTarget": "mifosx-web-app:build:kubernetes"
+              "buildTarget": "mifosx-web-app:build:kubernetes"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "mifosx-web-app:build"
+            "buildTarget": "mifosx-web-app:build"
           }
         },
         "test": {

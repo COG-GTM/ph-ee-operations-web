@@ -13,7 +13,7 @@ import * as uuid from 'uuid';
 
 /** Http request options headers. */
 const httpOptions = {
-  headers: { }
+  headers: {} as Record<string, any>
 };
 
 /** Authorization header. */

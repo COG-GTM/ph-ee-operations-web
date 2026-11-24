@@ -1,5 +1,7 @@
 @use '@angular/material' as mat;
-@import '@angular/material/theming';
+// Contrast colors formerly provided by the removed '@angular/material/theming' entry point.
+$dark-primary-text: rgba(black, 0.87);
+$light-primary-text: white;
 
 // Plus imports for other components in your app.
 // Custom material palette

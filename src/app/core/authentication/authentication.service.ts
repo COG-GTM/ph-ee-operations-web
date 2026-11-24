@@ -109,7 +109,7 @@ export class AuthenticationService {
 
   hasAccess(permission: String): Boolean {
     const credentials = JSON.parse(this.getStoreageItem(this.credentialsStorageKey));
-    const decoded = jwt_decode(credentials.accessToken);
+    const decoded = jwt_decode<any>(credentials.accessToken);
     const authorities = decoded['authorities'];
     return authorities.includes('ALL_FUNCTIONS') || authorities.includes(permission);
   }
