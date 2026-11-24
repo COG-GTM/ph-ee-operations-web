@@ -16,7 +16,7 @@ import { RetryResolveDialogComponent } from './transactions/retry-resolve-dialog
 import { FilterSelectorComponent } from './filter-selector/filter-selector.component';
 import { BatchesComponent } from './batches/batches.component';
 import { SubBatchesComponent } from './sub-batches/sub-batches.component';
-import { DirectivesModule } from 'app/directives/directives.module';
+
 import { TransfersComponent } from './transfers/transfers.component';
 import { BatchesBulkImportComponent } from './batches-bulk-import/batches-bulk-import.component';
 import { ViewTransferDetailsComponent } from './transfers/view-transfer-details/view-transfer-details.component';
@@ -30,24 +30,23 @@ import { SubBatchSummaryComponent } from './transfers/sub-batch-summary/sub-batc
  */
 @NgModule({
     imports: [
-        SharedModule,
-        PaymentHubRoutingModule,
-        PipesModule,
-        DirectivesModule,
-        IncomingTransactionsComponent,
-        OutgoingTransactionsComponent,
-        TransactionDetailsComponent,
-        PaymentHubComponent,
-        BpmnDialogComponent,
-        RetryResolveDialogComponent,
-        FilterSelectorComponent,
-        BatchesComponent,
-        SubBatchesComponent,
-        TransfersComponent,
-        BatchesBulkImportComponent,
-        ViewTransferDetailsComponent,
-        BatchSummaryComponent,
-        SubBatchSummaryComponent
-    ]
+    SharedModule,
+    PaymentHubRoutingModule,
+    PipesModule,
+    IncomingTransactionsComponent,
+    OutgoingTransactionsComponent,
+    TransactionDetailsComponent,
+    PaymentHubComponent,
+    BpmnDialogComponent,
+    RetryResolveDialogComponent,
+    FilterSelectorComponent,
+    BatchesComponent,
+    SubBatchesComponent,
+    TransfersComponent,
+    BatchesBulkImportComponent,
+    ViewTransferDetailsComponent,
+    BatchSummaryComponent,
+    SubBatchSummaryComponent
+]
 })
 export class PaymentHubModule {}

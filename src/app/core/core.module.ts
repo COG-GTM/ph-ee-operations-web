@@ -27,7 +27,7 @@ import { RouteReusableStrategy } from './route/route-reusable-strategy';
 
 /** Custom Modules */
 import { SharedModule } from '../shared/shared.module';
-import { DirectivesModule } from 'app/directives/directives.module';
+
 
 /** Custom Components */
 import { ShellComponent } from './shell/shell.component';
@@ -44,12 +44,12 @@ import { ContentComponent } from './shell/content/content.component';
     exports: [
         SharedModule // TO BE REMOVED: Once all components have replaced the core module import by shared module.
     ], imports: [SharedModule,
-        TranslateModule,
-        RouterModule,
-        DirectivesModule, ShellComponent,
-        SidenavComponent,
-        ToolbarComponent,
-        ContentComponent], providers: [
+    TranslateModule,
+    RouterModule,
+    ShellComponent,
+    SidenavComponent,
+    ToolbarComponent,
+    ContentComponent], providers: [
         // Must precede the HttpClient -> HttpService override below.
         provideHttpClient(withInterceptorsFromDi()),
         AuthenticationService,
