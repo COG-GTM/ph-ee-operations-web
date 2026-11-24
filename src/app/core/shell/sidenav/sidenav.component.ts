@@ -8,7 +8,7 @@ import { NgClass, NgStyle } from '@angular/common';
 import { ExtendedModule } from '@angular/flex-layout/extended';
 import { FlexModule } from '@angular/flex-layout/flex';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
-import { MatNavList, MatListItem } from '@angular/material/list';
+import { MatNavList, MatListItem, MatListItemIcon, MatListItemTitle } from '@angular/material/list';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
 import { MatLine } from '@angular/material/grid-list';
@@ -23,7 +23,7 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'mifosx-sidenav',
     templateUrl: './sidenav.component.html',
     styleUrls: ['./sidenav.component.scss'],
-    imports: [NgClass, ExtendedModule, FlexModule, FaIconComponent, MatNavList, MatListItem, MatTooltip, RouterLink, MatIcon, MatLine, HasRoleDirective, NgStyle, MatFabButton, TranslateModule]
+    imports: [NgClass, ExtendedModule, FlexModule, FaIconComponent, MatNavList, MatListItem, MatListItemIcon, MatListItemTitle, MatTooltip, RouterLink, MatIcon, MatLine, HasRoleDirective, NgStyle, MatFabButton, TranslateModule]
 })
 export class SidenavComponent implements OnInit {
   private router = inject(Router);

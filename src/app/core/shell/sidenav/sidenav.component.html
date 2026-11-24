@@ -18,28 +18,28 @@
       </div>
 
       <mat-nav-list>
-        <mat-list-item [routerLink]="['/dashboard']" matTooltip="Dashboard">
-          <mat-icon matListIcon >
+        <mat-list-item lines="1" [routerLink]="['/dashboard']" matTooltip="Dashboard">
+          <mat-icon matListItemIcon>
             <fa-icon icon="tachometer-alt" size="lg"></fa-icon>
           </mat-icon>
           @if (!sidenavCollapsed) {
-            <a matLine #dashboard>{{ 'labels.menus.Dashboard' | translate }}</a>
+            <a matListItemTitle #dashboard>{{ 'labels.menus.Dashboard' | translate }}</a>
           }
         </mat-list-item>
 
         <!-- User Management Section -->
-        <mat-list-item *userHasRole="['Admin Maker', 'Admin Checker']" (click)="toggleUserManagement($event)" matTooltip="User Management">
+        <mat-list-item lines="1" *userHasRole="['Admin Maker', 'Admin Checker']" (click)="toggleUserManagement($event)" matTooltip="User Management">
           @if (!sidenavCollapsed) {
-            <a fxLayout="row" fxLayoutAlign="space-between center" matLine #userManagement>
+            <a fxLayout="row" fxLayoutAlign="space-between center" matListItemTitle #userManagement>
               <p>{{ "labels.menus.User Management" | translate }}</p>
               @if (!sidenavCollapsed) {
-                <mat-icon matListIcon>
+                <mat-icon>
                   <fa-icon [icon]="isUserManagementExpanded ? 'caret-up' : 'caret-down'" size="lg" class="mat-list-icon"></fa-icon>
                 </mat-icon>
               }
             </a>
           }
-          <mat-icon matListIcon>
+          <mat-icon matListItemIcon>
             <fa-icon icon="users" size="sm"></fa-icon>
           </mat-icon>
         </mat-list-item>
@@ -74,12 +74,12 @@
         }
 
 
-        <mat-list-item [routerLink]="['/settings']" matTooltip="Settings">
-          <mat-icon matListIcon >
+        <mat-list-item lines="1" [routerLink]="['/settings']" matTooltip="Settings">
+          <mat-icon matListItemIcon>
             <fa-icon icon="cog" size="lg"></fa-icon>
           </mat-icon>
           @if (!sidenavCollapsed) {
-            <a matLine #dashboard>{{ 'labels.menus.Settings' | translate }}</a>
+            <a matListItemTitle #dashboard>{{ 'labels.menus.Settings' | translate }}</a>
           }
         </mat-list-item>
       </mat-nav-list>
