@@ -1,6 +1,6 @@
 /** Angular Imports */
-import { Injectable, inject } from '@angular/core';
-import { ActivatedRouteSnapshot } from '@angular/router';
+import { inject } from '@angular/core';
+import { ActivatedRouteSnapshot, ResolveFn } from '@angular/router';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
@@ -11,18 +11,8 @@ import { TransactionsService } from '../service/transactions.service';
 /**
  * Transaction data resolver.
  */
-@Injectable()
-export class TransactionResolver  {
-  private transactionsService = inject(TransactionsService);
-
-
-  /**
-   * Returns the transaction data.
-   * @returns {Observable<any>}
-   */
-  resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const transactionId = route.paramMap.get('id');
-    return this.transactionsService.getTransactionDetail(transactionId);
-  }
-
-}
+export const transactionResolver: ResolveFn<any> = (route: ActivatedRouteSnapshot) => {
+  const transactionsService = inject(TransactionsService);
+  const transactionId = route.paramMap.get('id');
+  return transactionsService.getTransactionDetail(transactionId);
+};

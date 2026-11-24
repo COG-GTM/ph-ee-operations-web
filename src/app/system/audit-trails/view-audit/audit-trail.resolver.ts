@@ -1,6 +1,6 @@
 /** Angular Imports */
-import { Injectable, inject } from '@angular/core';
-import { ActivatedRouteSnapshot } from '@angular/router';
+import { inject } from '@angular/core';
+import { ActivatedRouteSnapshot, ResolveFn } from '@angular/router';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
@@ -11,18 +11,8 @@ import { SystemService } from '../../system.service';
 /**
  * Audit Trail data resolver.
  */
-@Injectable()
-export class AuditTrailResolver  {
-  private systemService = inject(SystemService);
-
-
-  /**
-   * Returns the Audit Trail data.
-   * @returns {Observable<any>}
-   */
-  resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const auditTrailId = route.paramMap.get('id');
-    return this.systemService.getAuditTrail(auditTrailId);
-  }
-
-}
+export const auditTrailResolver: ResolveFn<any> = (route: ActivatedRouteSnapshot) => {
+  const systemService = inject(SystemService);
+  const auditTrailId = route.paramMap.get('id');
+  return systemService.getAuditTrail(auditTrailId);
+};

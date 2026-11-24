@@ -12,9 +12,9 @@ import { ViewUserComponent } from './view-user/view-user.component';
 import { UserRequestsComponent } from './user-requests/user-requests.component';
 
 /** Custom Resolvers */
-import { UsersResolver } from './users.resolver';
-import { UsersTemplateResolver } from './users-template.resolver';
-import { UserResolver } from './user.resolver';
+import { usersResolver } from './users.resolver';
+import { usersTemplateResolver } from './users-template.resolver';
+import { userResolver } from './user.resolver';
 
 /** Users Routes */
 const routes: Routes = [
@@ -27,7 +27,7 @@ const routes: Routes = [
           path: '',
           component: UsersComponent,
           resolve: {
-            users: UsersResolver
+            users: usersResolver
           }
         },
         {
@@ -35,7 +35,7 @@ const routes: Routes = [
           component: CreateUserComponent,
           data: { title: 'Create User', breadcrumb: 'Create' },
           resolve: {
-            usersTemplate: UsersTemplateResolver
+            usersTemplate: usersTemplateResolver
           }
         },
         {
@@ -47,7 +47,7 @@ const routes: Routes = [
           path: ':id',
           data: { title: 'View User', breadcrumb:'View User' },
           resolve: {
-            user: UserResolver
+            user: userResolver
           },
           children: [
             {
@@ -69,10 +69,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [
-    UsersResolver,
-    UsersTemplateResolver,
-    UserResolver  
-  ]
+  providers: []
 })
 export class UsersRoutingModule { }

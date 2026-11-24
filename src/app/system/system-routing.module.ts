@@ -12,9 +12,9 @@ import { AuditTrailsComponent } from './audit-trails/audit-trails.component';
 import { ViewAuditComponent } from './audit-trails/view-audit/view-audit.component';
 
 /** Custom Resolvers */
-import { RolesAndPermissionsResolver } from './roles-and-permissions/roles-and-permissions.resolver';
-import { AuditTrailSearchTemplateResolver } from './audit-trails/audit-trail-search-template.resolver';
-import { AuditTrailResolver } from './audit-trails/view-audit/audit-trail.resolver';
+import { rolesAndPermissionsResolver } from './roles-and-permissions/roles-and-permissions.resolver';
+import { auditTrailSearchTemplateResolver } from './audit-trails/audit-trail-search-template.resolver';
+import { auditTrailResolver } from './audit-trails/view-audit/audit-trail.resolver';
 
 
 const routes: Routes = [
@@ -35,7 +35,7 @@ const routes: Routes = [
               path: '',
               component: RolesAndPermissionsComponent,
               resolve: {
-                roles: RolesAndPermissionsResolver
+                roles: rolesAndPermissionsResolver
               }
             },
             {
@@ -53,7 +53,7 @@ const routes: Routes = [
               path: '',
               component: AuditTrailsComponent,
               resolve: {
-                auditTrailSearchTemplate: AuditTrailSearchTemplateResolver
+                auditTrailSearchTemplate: auditTrailSearchTemplateResolver
               }
             },
             {
@@ -61,7 +61,7 @@ const routes: Routes = [
              component: ViewAuditComponent,
              data: { title: 'View Audit', routeParamBreadcrumb: 'id' },
              resolve: {
-               auditTrail: AuditTrailResolver
+               auditTrail: auditTrailResolver
              }
             }
           ]
@@ -74,10 +74,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [
-    RolesAndPermissionsResolver,
-    AuditTrailSearchTemplateResolver,
-    AuditTrailResolver
-  ]
+  providers: []
 })
 export class SystemRoutingModule { }

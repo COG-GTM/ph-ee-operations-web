@@ -12,9 +12,9 @@ import { UpdateG2pPaymentComponent } from './update-g2p-payment/update-g2p-payme
 import { CreateG2pPaymentComponent } from './create-g2p-payment/create-g2p-payment.component';
 
 /** Custom Resolvers */
-import { ViewPaymentConfigResolver } from './resolver/view-payment.resolver';
-import { G2PTemplateResolver } from './resolver/template.resolver';
-import { G2PPaymentConfigsResolver } from './resolver/g2p-payment-configs.resolver';
+import { viewPaymentConfigResolver } from './resolver/view-payment.resolver';
+import { g2pTemplateResolver } from './resolver/template.resolver';
+import { g2pPaymentConfigsResolver } from './resolver/g2p-payment-configs.resolver';
 
 
 /**
@@ -44,14 +44,14 @@ const routes: Routes = [
                   path: "",
                   component: G2pPaymentComponent,
                   resolve: {
-                    g2pPayments: G2PPaymentConfigsResolver
+                    g2pPayments: g2pPaymentConfigsResolver
                   },
                 },
                 {
                   path: ":id",
                   resolve: {
-                    program: ViewPaymentConfigResolver,
-                    template: G2PTemplateResolver
+                    program: viewPaymentConfigResolver,
+                    template: g2pTemplateResolver
                   },
                   component: UpdateG2pPaymentComponent,
                   data: { breadcrumb: { skip: true } },
@@ -65,7 +65,7 @@ const routes: Routes = [
               component: CreateG2pPaymentComponent,
               data: { breadcrumb: "Create"},
               resolve: {
-                template: G2PTemplateResolver
+                template: g2pTemplateResolver
               }
             },
 
@@ -84,6 +84,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [ViewPaymentConfigResolver, G2PTemplateResolver, G2PPaymentConfigsResolver]
+  providers: []
 })
 export class ConfigurationRoutingModule { }

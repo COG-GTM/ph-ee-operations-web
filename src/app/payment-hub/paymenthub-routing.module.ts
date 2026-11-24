@@ -16,9 +16,9 @@ import { TransfersComponent } from './transfers/transfers.component';
 import { BatchesBulkImportComponent } from './batches-bulk-import/batches-bulk-import.component';
 
 /** Custom Resolvers */
-import { CurrenciesResolver } from './transactions/resolver/currencies.resolver';
-import { TransactionResolver } from './transactions/resolver/transaction.resolver';
-import { DfspResolver } from './transactions/resolver/dfsp.resolver';
+import { currenciesResolver } from './transactions/resolver/currencies.resolver';
+import { transactionResolver } from './transactions/resolver/transaction.resolver';
+import { dfspResolver } from './transactions/resolver/dfsp.resolver';
 
 /** Payment HUB Routes */
 const routes: Routes = [
@@ -114,6 +114,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [CurrenciesResolver, TransactionResolver, DfspResolver],
+  providers: [],
 })
 export class PaymentHubRoutingModule {}

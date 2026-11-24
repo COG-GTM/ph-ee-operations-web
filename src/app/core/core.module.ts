@@ -14,7 +14,6 @@ import { ProgressBarService } from './progress-bar/progress-bar.service';
 import { I18nService } from './i18n/i18n.service';
 
 /** Custom Guards */
-import { AuthenticationGuard } from './authentication/guard/authentication.guard';
 
 /** Custom Interceptors */
 import { ProgressInterceptor } from './progress-bar/progress.interceptor';
@@ -53,7 +52,6 @@ import { ContentComponent } from './shell/content/content.component';
         // Must precede the HttpClient -> HttpService override below.
         provideHttpClient(withInterceptorsFromDi()),
         AuthenticationService,
-        AuthenticationGuard,
         AuthenticationInterceptor,
         {
             provide: HTTP_INTERCEPTORS,

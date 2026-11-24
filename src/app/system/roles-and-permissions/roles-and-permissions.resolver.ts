@@ -1,5 +1,6 @@
 /** Angular Imports */
-import { Injectable, inject } from '@angular/core';
+import { inject } from '@angular/core';
+import { ResolveFn } from '@angular/router';
 
 
 /** rxjs Imports */
@@ -11,17 +12,7 @@ import { SystemService } from '../system.service';
 /**
  * Roles and Permissions data resolver.
  */
-@Injectable()
-export class RolesAndPermissionsResolver  {
-  private systemService = inject(SystemService);
-
-
-  /**
-   * Returns the roles and permissions data.
-   * @returns {Observable<any>}
-   */
-  resolve(): Observable<any> {
-    return this.systemService.getRoles();
-  }
-
-}
+export const rolesAndPermissionsResolver: ResolveFn<any> = () => {
+  const systemService = inject(SystemService);
+  return systemService.getRoles();
+};

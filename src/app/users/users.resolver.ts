@@ -1,5 +1,6 @@
 /** Angular Imports */
-import { Injectable, inject } from '@angular/core';
+import { inject } from '@angular/core';
+import { ResolveFn } from '@angular/router';
 
 
 /** rxjs Imports */
@@ -11,17 +12,7 @@ import { KeycloakAdminService } from './services/users-keycloak.service';
 /**
  * Users data resolver.
  */
-@Injectable()
-export class UsersResolver  {
-  private keycloakAdminService = inject(KeycloakAdminService);
-
-
-  /**
-   * Returns the users data.
-   * @returns {Observable<any>}
-   */
-  resolve(): Observable<any> {
-    return this.keycloakAdminService.getAllUsers();
-  }
-
-}
+export const usersResolver: ResolveFn<any> = () => {
+  const keycloakAdminService = inject(KeycloakAdminService);
+  return keycloakAdminService.getAllUsers();
+};
