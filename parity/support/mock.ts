@@ -54,7 +54,7 @@ data['g2p'] = Array.from({ length: 3 }, (_, i) => ({
   dfsp: data.dfsps[i % 2], account: String(400000000000 + i), status: i % 2 ? 'Inactive' : 'Active',
 }));
 
-export interface ApiCall { method: string; path: string; body: any }
+export interface ApiCall { method: string; path: string; body: any; headers?: Record<string, string> }
 
 /** Random per-run credential, never committed. */
 export const randomPassword = () => 'Pw!' + randomBytes(9).toString('base64url');
@@ -78,7 +78,7 @@ async function installMocks(page: Page, calls: ApiCall[]) {
     const method = req.method();
     let body: any = null;
     try { body = req.postDataJSON(); } catch { body = req.postData(); }
-    if (method !== 'OPTIONS') calls.push({ method, path: p, body });
+    if (method !== 'OPTIONS') calls.push({ method, path: p, body, headers: req.headers() });
     const json = (j: any) => r.fulfill({ json: j, headers: { 'access-control-allow-origin': '*' } });
     if (method === 'OPTIONS') return r.fulfill({ status: 204, headers: {
       'access-control-allow-origin': '*', 'access-control-allow-headers': '*', 'access-control-allow-methods': '*' } });
