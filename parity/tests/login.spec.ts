@@ -17,6 +17,8 @@ test('login: page renders, validation errors, sign in', async ({ page, calls, sh
   const username = `parity_${RUN}`;
   await user.fill(username);
   await pass.fill(randomPassword());
+  // Material MDC (v15+) keeps a focused field's error until blur; legacy components cleared it on keystroke.
+  await pass.blur();
   await expect(page.locator('mat-error')).toHaveCount(0);
   await expect(login).toBeEnabled();
   await login.click();
