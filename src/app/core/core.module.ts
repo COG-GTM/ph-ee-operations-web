@@ -1,6 +1,6 @@
 /** Angular Imports */
 import { NgModule, inject } from '@angular/core';
-import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
 
 /** Translation Imports */
@@ -16,10 +16,10 @@ import { I18nService } from './i18n/i18n.service';
 /** Custom Guards */
 
 /** Custom Interceptors */
-import { ProgressInterceptor } from './progress-bar/progress.interceptor';
+import { progressInterceptor } from './progress-bar/progress.interceptor';
 import { ErrorHandlerInterceptor } from './http/error-handler.interceptor';
 import { CacheInterceptor } from './http/cache.interceptor';
-import { AuthenticationInterceptor } from './authentication/authentication.interceptor';
+import { authenticationInterceptor } from './authentication/authentication.interceptor';
 
 /** Custom Strategies */
 import { RouteReusableStrategy } from './route/route-reusable-strategy';
@@ -50,14 +50,8 @@ import { ContentComponent } from './shell/content/content.component';
     ToolbarComponent,
     ContentComponent], providers: [
         // Must precede the HttpClient -> HttpService override below.
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withInterceptors([authenticationInterceptor, progressInterceptor]), withInterceptorsFromDi()),
         AuthenticationService,
-        AuthenticationInterceptor,
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: AuthenticationInterceptor,
-            multi: true
-        },
         I18nService,
         HttpCacheService,
         ErrorHandlerInterceptor,
@@ -67,11 +61,6 @@ import { ContentComponent } from './shell/content/content.component';
             useClass: HttpService
         },
         ProgressBarService,
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: ProgressInterceptor,
-            multi: true
-        },
         {
             provide: RouteReuseStrategy,
             useClass: RouteReusableStrategy
