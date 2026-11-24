@@ -8,8 +8,8 @@ describe('AuditTrailsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AuditTrailsComponent ]
-    })
+    imports: [AuditTrailsComponent]
+})
     .compileComponents();
   }));
 

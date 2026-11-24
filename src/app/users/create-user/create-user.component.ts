@@ -1,7 +1,7 @@
 /** Angular Imports */
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
 /** Custom Services */
@@ -13,6 +13,14 @@ import { JbpmService } from '../services/users-jbpm.service';
 import { SuccessDialogComponent } from 'app/shared/success-dialog/success-dialog.component';
 import { User } from '../models/user.model';
 import { AlertService } from 'app/core/alert/alert.service';
+import { MatCard, MatCardContent, MatCardActions } from '@angular/material/card';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatLabel, MatFormField, MatError } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/autocomplete';
+import { MatInput } from '@angular/material/input';
+import { MatButton } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 /**
@@ -22,7 +30,7 @@ import { AlertService } from 'app/core/alert/alert.service';
     selector: 'mifosx-create-user',
     templateUrl: './create-user.component.html',
     styleUrls: ['./create-user.component.scss'],
-    standalone: false
+    imports: [MatCard, ReactiveFormsModule, MatCardContent, FlexModule, MatLabel, MatFormField, MatSelect, MatOption, MatError, MatInput, MatCardActions, MatButton, RouterLink, TranslateModule]
 })
 export class CreateUserComponent implements OnInit {
 

@@ -1,9 +1,6 @@
 import { Directive, EventEmitter, HostBinding, HostListener, Output } from '@angular/core';
 
-@Directive({
-    selector: '[mifosxFileDragNDrop]',
-    standalone: false
-})
+@Directive({ selector: '[mifosxFileDragNDrop]' })
 export class FileDragNDropDirective {
   @HostBinding('class.fileover') fileOver: boolean;
   @Output() fileDropped = new EventEmitter<any>();

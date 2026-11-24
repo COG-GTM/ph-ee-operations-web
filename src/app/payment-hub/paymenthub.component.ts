@@ -1,5 +1,8 @@
 /** Angular Imports */
 import { Component, OnInit } from '@angular/core';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { FilterSelectorComponent } from './filter-selector/filter-selector.component';
+import { RouterOutlet } from '@angular/router';
 
 /**
  * Payment HUB component.
@@ -8,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
     selector: 'mifosx-paymenthubee',
     templateUrl: './paymenthub.component.html',
     styleUrls: ['./paymenthub.component.scss'],
-    standalone: false
+    imports: [FlexModule, FilterSelectorComponent, RouterOutlet]
 })
 export class PaymentHubComponent implements OnInit {
 

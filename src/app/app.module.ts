@@ -42,8 +42,7 @@ import { AppRoutingModule } from './app-routing.module';
  *
  * Core module and all feature modules should be imported here in proper order.
  */
-@NgModule({ declarations: [WebAppComponent, NotFoundComponent],
-    bootstrap: [WebAppComponent], imports: [BrowserModule,
+@NgModule({ declarations: [WebAppComponent], bootstrap: [WebAppComponent], imports: [BrowserModule,
         BrowserAnimationsModule,
         TranslateModule.forRoot({
             loader: {
@@ -67,7 +66,7 @@ import { AppRoutingModule } from './app-routing.module';
         AccountMapperModule,
         VisualizationsModule,
         ConfigurationModule,
-        AppRoutingModule], providers: [
+        AppRoutingModule, NotFoundComponent], providers: [
         DatePipe
     ] })
 export class AppModule { }

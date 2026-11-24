@@ -17,15 +17,13 @@ import { UserRequestsComponent } from './user-requests/user-requests.component';
  * Users components should be declared here.
  */
 @NgModule({
-  imports: [
-    SharedModule,
-    UsersRoutingModule
-  ],
-  declarations: [
-    UsersComponent,
-    CreateUserComponent,
-    ViewUserComponent,
-    UserRequestsComponent
-  ]
+    imports: [
+        SharedModule,
+        UsersRoutingModule,
+        UsersComponent,
+        CreateUserComponent,
+        ViewUserComponent,
+        UserRequestsComponent
+    ]
 })
 export class UsersModule { }

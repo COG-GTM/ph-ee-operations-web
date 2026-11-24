@@ -8,8 +8,8 @@ describe('UpdateG2pPaymentComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [UpdateG2pPaymentComponent]
-    });
+    imports: [UpdateG2pPaymentComponent]
+});
     fixture = TestBed.createComponent(UpdateG2pPaymentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

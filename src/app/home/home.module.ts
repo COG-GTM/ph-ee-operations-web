@@ -16,14 +16,12 @@ import { DirectivesModule } from 'app/directives/directives.module';
  * Home and dashboard components should be declared here.
  */
 @NgModule({
-  imports: [
-    SharedModule,
-    HomeRoutingModule,
-    TranslateModule,
-    DirectivesModule
-  ],
-  declarations: [
-    DashboardComponent
-  ]
+    imports: [
+        SharedModule,
+        HomeRoutingModule,
+        TranslateModule,
+        DirectivesModule,
+        DashboardComponent
+    ]
 })
 export class HomeModule { }

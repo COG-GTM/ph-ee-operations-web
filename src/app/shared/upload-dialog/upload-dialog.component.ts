@@ -11,6 +11,11 @@ import { VoucherInstruction } from 'app/vouchers/models/vouchers-model';
 
 /** External Imports */
 import * as XLSX from 'xlsx';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { MatButton } from '@angular/material/button';
+import { DragDropFileComponent } from '../drag-drop-file/drag-drop-file.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 /** Upload Dialog Componenent */
@@ -18,7 +23,7 @@ import * as XLSX from 'xlsx';
     selector: 'mifosx-upload-dialog',
     templateUrl: './upload-dialog.component.html',
     styleUrls: ['./upload-dialog.component.scss'],
-    standalone: false
+    imports: [FlexModule, FaIconComponent, MatButton, DragDropFileComponent, TranslateModule]
 })
 export class UploadDialogComponent {
 

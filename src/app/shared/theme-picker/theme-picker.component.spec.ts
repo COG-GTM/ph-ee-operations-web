@@ -8,8 +8,8 @@ describe('ThemePickerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ThemePickerComponent ]
-    })
+    imports: [ThemePickerComponent]
+})
     .compileComponents();
   }));
 

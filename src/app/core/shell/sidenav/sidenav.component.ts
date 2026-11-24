@@ -1,9 +1,20 @@
 /** Angular Imports */
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 /** Custom Services */
 import { AuthenticationService } from '../../authentication/authentication.service';
+import { NgClass, NgStyle } from '@angular/common';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { MatNavList, MatListItem } from '@angular/material/list';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { MatLine } from '@angular/material/grid-list';
+import { HasRoleDirective } from '../../../directives/has-role/has-role.directive';
+import { MatFabButton } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Sidenav component.
@@ -12,7 +23,7 @@ import { AuthenticationService } from '../../authentication/authentication.servi
     selector: 'mifosx-sidenav',
     templateUrl: './sidenav.component.html',
     styleUrls: ['./sidenav.component.scss'],
-    standalone: false
+    imports: [NgClass, ExtendedModule, FlexModule, FaIconComponent, MatNavList, MatListItem, MatTooltip, RouterLink, MatIcon, MatLine, HasRoleDirective, NgStyle, MatFabButton, TranslateModule]
 })
 export class SidenavComponent implements OnInit {
 

@@ -1,8 +1,8 @@
 /** Angular Imports */
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatNoDataRow } from '@angular/material/table';
 
 /** rxjs Imports */
 import { EMPTY, catchError, finalize } from 'rxjs';
@@ -10,6 +10,15 @@ import { EMPTY, catchError, finalize } from 'rxjs';
 /** Custom Services */
 import { AlertService } from 'app/core/alert/alert.service';
 import { UsersService } from '../services/users.service';
+import { MatCard } from '@angular/material/card';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatIcon } from '@angular/material/icon';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatButton } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 /**
@@ -19,7 +28,7 @@ import { UsersService } from '../services/users.service';
     selector: 'mifosx-user-requests',
     templateUrl: './user-requests.component.html',
     styleUrls: ['./user-requests.component.scss'],
-    standalone: false
+    imports: [MatCard, MatProgressBar, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatFormField, MatLabel, MatInput, MatIcon, FaIconComponent, MatCellDef, MatCell, FlexModule, MatButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatNoDataRow, MatPaginator, TranslateModule]
 })
 export class UserRequestsComponent implements OnInit {
   /** Loading indicator */

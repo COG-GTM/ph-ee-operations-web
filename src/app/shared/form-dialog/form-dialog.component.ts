@@ -1,10 +1,14 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UntypedFormGroup } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
+import { UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { FormfieldBase } from './formfield/model/formfield-base';
 
 import { FormGroupService } from './form-group.service';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { FormfieldComponent } from './formfield/formfield.component';
+import { MatButton } from '@angular/material/button';
 
 const layoutGap = 2;
 
@@ -12,7 +16,7 @@ const layoutGap = 2;
     selector: 'mifosx-form-dialog',
     templateUrl: './form-dialog.component.html',
     styleUrls: ['./form-dialog.component.scss'],
-    standalone: false
+    imports: [MatDialogTitle, CdkScrollable, MatDialogContent, FlexModule, ReactiveFormsModule, FormfieldComponent, MatDialogActions, MatButton, MatDialogClose]
 })
 export class FormDialogComponent implements OnInit {
 

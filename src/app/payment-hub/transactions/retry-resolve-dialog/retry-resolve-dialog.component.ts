@@ -1,13 +1,14 @@
 /** Angular Imports */
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
+import { MatButton } from '@angular/material/button';
 
 
 @Component({
     selector: 'mifosx-retry-resolve-dialog',
     templateUrl: './retry-resolve-dialog.component.html',
     styleUrls: ['./retry-resolve-dialog.component.scss'],
-    standalone: false
+    imports: [MatDialogTitle, MatDialogActions, MatButton, MatDialogClose]
 })
 export class RetryResolveDialogComponent implements OnInit {
 

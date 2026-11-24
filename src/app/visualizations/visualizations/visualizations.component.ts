@@ -11,8 +11,7 @@ import { environment } from 'environments/environment';
 @Component({
     selector: 'mifosx-visualizations',
     templateUrl: './visualizations.component.html',
-    styleUrls: ['./visualizations.component.scss'],
-    standalone: false
+    styleUrls: ['./visualizations.component.scss']
 })
 export class VisualizationsComponent {
   grafanaUrl: SafeResourceUrl;

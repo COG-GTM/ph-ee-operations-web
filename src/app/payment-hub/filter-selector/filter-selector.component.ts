@@ -2,12 +2,14 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Section } from './section-model';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { ListItemComponent } from '../../shared/list-item/list-item.component';
 
 @Component({
     selector: 'mifosx-filter-selector',
     templateUrl: './filter-selector.component.html',
     styleUrls: ['./filter-selector.component.scss'],
-    standalone: false
+    imports: [FlexModule, ListItemComponent]
 })
 export class FilterSelectorComponent implements OnInit {
 

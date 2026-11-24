@@ -8,8 +8,8 @@ describe('UpdatePasswordDialogComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [UpdatePasswordDialogComponent]
-    });
+    imports: [UpdatePasswordDialogComponent]
+});
     fixture = TestBed.createComponent(UpdatePasswordDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

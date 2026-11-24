@@ -40,18 +40,16 @@ import { ContentComponent } from './shell/content/content.component';
  *
  * Main app shell components and singleton services should be here.
  */
-@NgModule({ declarations: [
-        ShellComponent,
-        SidenavComponent,
-        ToolbarComponent,
-        ContentComponent
-    ],
+@NgModule({
     exports: [
         SharedModule // TO BE REMOVED: Once all components have replaced the core module import by shared module.
     ], imports: [SharedModule,
         TranslateModule,
         RouterModule,
-        DirectivesModule], providers: [
+        DirectivesModule, ShellComponent,
+        SidenavComponent,
+        ToolbarComponent,
+        ContentComponent], providers: [
         // Must precede the HttpClient -> HttpService override below.
         provideHttpClient(withInterceptorsFromDi()),
         AuthenticationService,

@@ -10,6 +10,14 @@ import { Alert } from '../core/alert/alert.model';
 
 /** Custom Services */
 import { AlertService } from '../core/alert/alert.service';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { LanguageSelectorComponent } from '../shared/language-selector/language-selector.component';
+import { MatIcon } from '@angular/material/icon';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { LoginFormComponent } from './login-form/login-form.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { FooterComponent } from '../shared/footer/footer.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Login component.
@@ -18,7 +26,7 @@ import { AlertService } from '../core/alert/alert.service';
     selector: 'mifosx-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
-    standalone: false
+    imports: [FlexModule, LanguageSelectorComponent, MatIcon, FaIconComponent, LoginFormComponent, ResetPasswordComponent, FooterComponent, TranslateModule]
 })
 export class LoginComponent implements OnInit, OnDestroy {
 

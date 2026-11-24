@@ -8,8 +8,8 @@ describe('BatchSummaryComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [BatchSummaryComponent]
-    });
+    imports: [BatchSummaryComponent]
+});
     fixture = TestBed.createComponent(BatchSummaryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -8,8 +8,8 @@ describe('VisualizationsSelectorComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [VisualizationsSelectorComponent]
-    });
+    imports: [VisualizationsSelectorComponent]
+});
     fixture = TestBed.createComponent(VisualizationsSelectorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

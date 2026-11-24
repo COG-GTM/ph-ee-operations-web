@@ -1,8 +1,8 @@
 /** Angular Imports */
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 /** Custom Components */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
@@ -10,6 +10,15 @@ import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.co
 /** Custom Services */
 import { AlertService } from 'app/core/alert/alert.service';
 import { G2PPaymentConfigService } from '../services/g2p-payment-config.service';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatButton } from '@angular/material/button';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { MatCard, MatCardContent, MatCardActions } from '@angular/material/card';
+import { MatLabel, MatFormField } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/autocomplete';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Update G2P Payment Component
@@ -18,7 +27,7 @@ import { G2PPaymentConfigService } from '../services/g2p-payment-config.service'
     selector: 'mifosx-update-g2p-payment',
     templateUrl: './update-g2p-payment.component.html',
     styleUrls: ['./update-g2p-payment.component.scss'],
-    standalone: false
+    imports: [FlexModule, MatButton, FaIconComponent, MatCard, ReactiveFormsModule, MatCardContent, MatLabel, MatFormField, MatInput, MatSelect, MatOption, MatCardActions, RouterLink, TranslateModule]
 })
 export class UpdateG2pPaymentComponent {
   programForm: FormGroup;

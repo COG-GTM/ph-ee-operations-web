@@ -8,8 +8,8 @@ describe('ViewTransactionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewTransactionComponent ]
-    })
+    imports: [ViewTransactionComponent]
+})
     .compileComponents();
   }));
 

@@ -33,9 +33,7 @@ import { SubBatchSummaryComponent } from './transfers/sub-batch-summary/sub-batc
         SharedModule,
         PaymentHubRoutingModule,
         PipesModule,
-        DirectivesModule
-    ],
-    declarations: [
+        DirectivesModule,
         IncomingTransactionsComponent,
         OutgoingTransactionsComponent,
         TransactionDetailsComponent,

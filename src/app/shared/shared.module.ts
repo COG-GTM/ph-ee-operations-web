@@ -44,9 +44,7 @@ import { UploadDialogComponent } from './upload-dialog/upload-dialog.component';
         BreadcrumbComponent,
         BreadcrumbItemDirective,
         NgxCsvParserModule,
-        NgxFileDropModule
-    ],
-    declarations: [
+        NgxFileDropModule,
         FormfieldComponent,
         FormDialogComponent,
         DeleteDialogComponent,

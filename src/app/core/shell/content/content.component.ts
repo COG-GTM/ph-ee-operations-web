@@ -1,6 +1,10 @@
 /** Angular Imports */
 import { Component, OnInit } from '@angular/core';
 import { ExternalIdentifierPipe } from 'app/pipes/external-identifier.pipe';
+import { BreadcrumbComponent, BreadcrumbItemDirective } from 'xng-breadcrumb';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { RouterOutlet } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Content component.
@@ -9,7 +13,7 @@ import { ExternalIdentifierPipe } from 'app/pipes/external-identifier.pipe';
     selector: 'mifosx-content',
     templateUrl: './content.component.html',
     styleUrls: ['./content.component.scss'],
-    standalone: false
+    imports: [BreadcrumbComponent, BreadcrumbItemDirective, FaIconComponent, RouterOutlet, TranslateModule]
 })
 export class ContentComponent implements OnInit {
 

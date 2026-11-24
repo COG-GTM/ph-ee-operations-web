@@ -1,13 +1,21 @@
 /** Angular Imports */
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
 
 /** Custom Services */
 import { G2PPaymentConfigService } from "app/configuration/services/g2p-payment-config.service";
 import { AccountMapperService } from "../services/account-mapper.service";
 
 /** Router Imports */
-import { Router } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
+import { MatCard, MatCardContent, MatCardActions } from "@angular/material/card";
+import { FlexModule } from "@angular/flex-layout/flex";
+import { MatLabel, MatFormField, MatError } from "@angular/material/form-field";
+import { MatInput } from "@angular/material/input";
+import { MatSelect } from "@angular/material/select";
+import { MatOption } from "@angular/material/autocomplete";
+import { MatButton } from "@angular/material/button";
+import { TranslateModule } from "@ngx-translate/core";
 
 /**
  * Create Beneficiaries Component
@@ -16,7 +24,7 @@ import { Router } from "@angular/router";
     selector: 'mifosx-create-beneficiaries',
     templateUrl: './create-beneficiaries.component.html',
     styleUrls: ['./create-beneficiaries.component.scss'],
-    standalone: false
+    imports: [MatCard, ReactiveFormsModule, MatCardContent, FlexModule, MatLabel, MatFormField, MatInput, MatSelect, MatOption, MatError, MatCardActions, MatButton, RouterLink, TranslateModule]
 })
 export class CreateBeneficiariesComponent implements OnInit {
   programForm: FormGroup;

@@ -3,21 +3,37 @@ import { TransactionsDataSource } from '../transactions/dataSource/transactions.
 import { Dates } from 'app/core/utils/dates';
 import { Batch } from '../batches/model/batch.model';
 import { SubBatchesService } from './sub-batches.service';
-import { UntypedFormControl } from '@angular/forms';
+import { UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BatchDetail, SubBatchList } from '../batches/model/batch-detail.model';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatNoDataRow } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatExpansionPanel } from '@angular/material/expansion';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { MatExpansionPanel, MatAccordion, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
 import { BatchSummaryComponent } from './batch-summary/batch-summary.component';
 import { MatDialog } from '@angular/material/dialog';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatButton } from '@angular/material/button';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { NgClass, DecimalPipe } from '@angular/common';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { MatLabel, MatFormField, MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/autocomplete';
+import { MatCard } from '@angular/material/card';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { IdentifierComponent } from '../../shared/identifier/identifier.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { DatetimeFormatPipe } from '../../pipes/datetime-format.pipe';
 
 @Component({
     selector: 'mifosx-sub-batches',
     templateUrl: './sub-batches.component.html',
     styleUrls: ['./sub-batches.component.scss'],
-    standalone: false
+    imports: [FlexModule, MatButton, MatProgressSpinner, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, NgClass, ExtendedModule, FaIconComponent, MatLabel, MatFormField, MatInput, MatDatepickerInput, ReactiveFormsModule, MatDatepickerToggle, MatSuffix, MatDatepicker, MatSelect, MatOption, MatCard, MatProgressBar, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, IdentifierComponent, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatNoDataRow, MatPaginator, DecimalPipe, TranslateModule, DatetimeFormatPipe]
 })
 export class SubBatchesComponent implements OnInit {
 

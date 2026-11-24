@@ -2,10 +2,7 @@ import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 import { AuthenticationService } from 'app/core/authentication/authentication.service';
 import { environment } from 'environments/environment';
 
-@Directive({
-    selector: '[userHasRole]',
-    standalone: false
-})
+@Directive({ selector: '[userHasRole]' })
 export class HasRoleDirective {
 
   public static ADMIN_MAKER = 'Admin Maker';

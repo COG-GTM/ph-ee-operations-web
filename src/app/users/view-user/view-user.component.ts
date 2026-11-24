@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 /** Custom Services */
 import { UsersService } from '../services/users.service';
@@ -12,6 +12,17 @@ import { AlertService } from 'app/core/alert/alert.service';
 /** Custom Components */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
 import { UpdatePasswordDialogComponent } from 'app/shared/update-password-dialog/update-password-dialog.component';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatButton } from '@angular/material/button';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { MatCard, MatCardContent, MatCardActions } from '@angular/material/card';
+import { MatLabel, MatFormField } from '@angular/material/form-field';
+import { NgClass } from '@angular/common';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { MatInput } from '@angular/material/input';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/autocomplete';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * View user component.
@@ -20,7 +31,7 @@ import { UpdatePasswordDialogComponent } from 'app/shared/update-password-dialog
     selector: 'mifosx-view-user',
     templateUrl: './view-user.component.html',
     styleUrls: ['./view-user.component.scss'],
-    standalone: false
+    imports: [FlexModule, MatButton, FaIconComponent, MatCard, MatCardContent, ReactiveFormsModule, MatLabel, MatFormField, NgClass, ExtendedModule, MatInput, MatSelect, MatOption, MatCardActions, TranslateModule]
 })
 export class ViewUserComponent implements OnInit {
   /** User Data. */

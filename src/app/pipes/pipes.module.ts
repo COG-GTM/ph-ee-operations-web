@@ -8,11 +8,11 @@ import { FormatNumberPipe } from './format-number.pipe';
 import { DatetimeFormatPipe } from './datetime-format.pipe';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: [StatusLookupPipe, FindPipe, DateFormatPipe, ExternalIdentifierPipe, FormatNumberPipe, DatetimeFormatPipe],
-  providers: [StatusLookupPipe, FindPipe, DateFormatPipe, ExternalIdentifierPipe, FormatNumberPipe, DecimalPipe, DatetimeFormatPipe],
-  exports: [StatusLookupPipe, FindPipe, DateFormatPipe, ExternalIdentifierPipe, FormatNumberPipe, DatetimeFormatPipe]
+    imports: [
+        CommonModule,
+        StatusLookupPipe, FindPipe, DateFormatPipe, ExternalIdentifierPipe, FormatNumberPipe, DatetimeFormatPipe
+    ],
+    providers: [StatusLookupPipe, FindPipe, DateFormatPipe, ExternalIdentifierPipe, FormatNumberPipe, DecimalPipe, DatetimeFormatPipe],
+    exports: [StatusLookupPipe, FindPipe, DateFormatPipe, ExternalIdentifierPipe, FormatNumberPipe, DatetimeFormatPipe]
 })
 export class PipesModule { }

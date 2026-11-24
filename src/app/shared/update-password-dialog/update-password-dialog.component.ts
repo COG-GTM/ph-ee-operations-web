@@ -1,16 +1,21 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { UntypedFormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
+import { UntypedFormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors, ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import { PasswordsUtility } from 'app/core/utils/passwords-utility';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatLabel, MatFormField, MatError } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatButton } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @Component({
     selector: 'mifosx-update-password-dialog',
     templateUrl: './update-password-dialog.component.html',
     styleUrls: ['./update-password-dialog.component.scss'],
-    standalone: false
+    imports: [MatDialogTitle, ReactiveFormsModule, FlexModule, MatLabel, MatFormField, MatInput, MatError, MatDialogActions, MatButton, MatDialogClose, TranslateModule]
 })
 export class UpdatePasswordDialogComponent implements OnInit {
 

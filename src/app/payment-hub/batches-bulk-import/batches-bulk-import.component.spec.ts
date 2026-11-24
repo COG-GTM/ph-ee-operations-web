@@ -8,8 +8,8 @@ describe('BatchesBulkImportComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [BatchesBulkImportComponent]
-    });
+    imports: [BatchesBulkImportComponent]
+});
     fixture = TestBed.createComponent(BatchesBulkImportComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

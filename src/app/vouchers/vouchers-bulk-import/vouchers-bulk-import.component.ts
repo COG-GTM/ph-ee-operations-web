@@ -1,10 +1,10 @@
 /** Angular Imports */
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { MatSort } from '@angular/material/sort';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { MatDialog } from "@angular/material/dialog";
 
 /** Custom Services */
@@ -23,13 +23,23 @@ import { VoucherData, VoucherInstruction } from '../models/vouchers-model';
 
 /** External Imports */
 import { NgxCsvParser } from 'ngx-csv-parser';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatButton } from '@angular/material/button';
+import { MatCard } from '@angular/material/card';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { IdentifierComponent } from '../../shared/identifier/identifier.component';
+import { DecimalPipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 /** Vouchers Bulk Import Component */
 @Component({
     selector: 'mifosx-vouchers-bulk-import',
     templateUrl: './vouchers-bulk-import.component.html',
     styleUrls: ['./vouchers-bulk-import.component.scss'],
-    standalone: false
+    imports: [FlexModule, FaIconComponent, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatButton, MatCard, MatProgressBar, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, IdentifierComponent, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, DecimalPipe, TranslateModule]
 })
 export class VouchersBulkImportComponent implements OnInit {
 

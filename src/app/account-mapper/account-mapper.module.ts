@@ -17,17 +17,15 @@ import { AccountMapperRoutingModule } from './account-mapper-routing.module';
  * Account Mapper Module
  */
 @NgModule({
-  declarations: [
-    AccountMapperComponent,
-    FilterSelectorComponent,
-    CreateBeneficiariesComponent,
-    BeneficiariesComponent
-  ],
-  imports: [
-    AccountMapperRoutingModule,
-    CommonModule,
-    SharedModule,
-    PipesModule
-  ]
+    imports: [
+        AccountMapperRoutingModule,
+        CommonModule,
+        SharedModule,
+        PipesModule,
+        AccountMapperComponent,
+        FilterSelectorComponent,
+        CreateBeneficiariesComponent,
+        BeneficiariesComponent
+    ]
 })
 export class AccountMapperModule { }

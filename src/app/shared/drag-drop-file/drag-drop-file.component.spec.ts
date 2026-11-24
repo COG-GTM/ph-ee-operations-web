@@ -8,8 +8,8 @@ describe('DragDropFileComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DragDropFileComponent]
-    });
+    imports: [DragDropFileComponent]
+});
     fixture = TestBed.createComponent(DragDropFileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -8,8 +8,8 @@ describe('RetryResolveDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RetryResolveDialogComponent ]
-    })
+    imports: [RetryResolveDialogComponent]
+})
     .compileComponents();
   }));
 

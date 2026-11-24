@@ -13,10 +13,10 @@ import { FileDragNDropDirective } from './file-drag-ndrop/file-drag-ndrop.direct
  *  All custom directives should be declared and exported here.
  */
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: [HasPermissionDirective, HasRoleDirective, FileDragNDropDirective],
-  exports: [HasPermissionDirective, HasRoleDirective, FileDragNDropDirective]
+    imports: [
+        CommonModule,
+        HasPermissionDirective, HasRoleDirective, FileDragNDropDirective
+    ],
+    exports: [HasPermissionDirective, HasRoleDirective, FileDragNDropDirective]
 })
 export class DirectivesModule { }

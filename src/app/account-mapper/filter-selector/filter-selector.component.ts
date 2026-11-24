@@ -6,6 +6,8 @@ import { AuthenticationService } from 'app/core/authentication/authentication.se
 
 /** Custom Models */
 import { Section } from 'app/payment-hub/filter-selector/section-model';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { ListItemComponent } from '../../shared/list-item/list-item.component';
 
 
 /**
@@ -15,7 +17,7 @@ import { Section } from 'app/payment-hub/filter-selector/section-model';
     selector: 'mifosx-filter-selector',
     templateUrl: './filter-selector.component.html',
     styleUrls: ['./filter-selector.component.scss'],
-    standalone: false
+    imports: [FlexModule, ListItemComponent]
 })
 export class FilterSelectorComponent {
   sections: Section[];

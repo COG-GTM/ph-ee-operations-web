@@ -8,8 +8,8 @@ describe('FilterSelectorComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FilterSelectorComponent]
-    });
+    imports: [FilterSelectorComponent]
+});
     fixture = TestBed.createComponent(FilterSelectorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

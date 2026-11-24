@@ -11,19 +11,16 @@ import { UpdateG2pPaymentComponent } from './update-g2p-payment/update-g2p-payme
 
 
 @NgModule({
-  declarations: [
-    G2pPaymentComponent,
-    G2pSectionFilterComponent,
-    ConfigurationComponent,
-    CreateG2pPaymentComponent,
-    UpdateG2pPaymentComponent
-
-  ],
-  imports: [
-    CommonModule,
-    ConfigurationRoutingModule,
-    SharedModule,
-    PipesModule
-  ]
+    imports: [
+        CommonModule,
+        ConfigurationRoutingModule,
+        SharedModule,
+        PipesModule,
+        G2pPaymentComponent,
+        G2pSectionFilterComponent,
+        ConfigurationComponent,
+        CreateG2pPaymentComponent,
+        UpdateG2pPaymentComponent
+    ]
 })
 export class ConfigurationModule { }

@@ -1,12 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { AlertService } from 'app/core/alert/alert.service';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { ExternalIdentifierPipe } from '../../pipes/external-identifier.pipe';
 
 @Component({
     selector: 'mifosx-identifier',
     templateUrl: './identifier.component.html',
     styleUrls: ['./identifier.component.scss'],
-    standalone: false
+    imports: [FaIconComponent, ExternalIdentifierPipe]
 })
 export class IdentifierComponent  implements OnInit {
   @Input() identifier: string;

@@ -12,15 +12,13 @@ import { SharedModule } from 'app/shared/shared.module';
  * Contains all visualizations components and modules.
  */
 @NgModule({
-  declarations: [
-    VisualizationsComponent,
-    VisualizationsSelectorComponent,
-  ],
-  imports: [
-    VisualizationsRoutingModule,
-    CommonModule,
-    DirectivesModule,
-    SharedModule
-  ]
+    imports: [
+        VisualizationsRoutingModule,
+        CommonModule,
+        DirectivesModule,
+        SharedModule,
+        VisualizationsComponent,
+        VisualizationsSelectorComponent
+    ]
 })
 export class VisualizationsModule { }

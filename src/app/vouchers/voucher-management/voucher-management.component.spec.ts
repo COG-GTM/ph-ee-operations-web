@@ -8,8 +8,8 @@ describe('VoucherManagementComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [VoucherManagementComponent]
-    });
+    imports: [VoucherManagementComponent]
+});
     fixture = TestBed.createComponent(VoucherManagementComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

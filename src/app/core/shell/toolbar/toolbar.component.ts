@@ -3,7 +3,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { style, animate, transition, trigger } from '@angular/animations';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
@@ -11,6 +11,17 @@ import { map } from 'rxjs/operators';
 
 /** Custom Services */
 import { AuthenticationService } from '../../authentication/authentication.service';
+import { LanguageSelectorComponent } from '../../../shared/language-selector/language-selector.component';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { TenantSelectorComponent } from '../../../shared/tenant-selector/tenant-selector.component';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatCard } from '@angular/material/card';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatFabButton } from '@angular/material/button';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Toolbar component.
@@ -30,7 +41,7 @@ import { AuthenticationService } from '../../authentication/authentication.servi
             ])
         ])
     ],
-    standalone: false
+    imports: [LanguageSelectorComponent, ExtendedModule, TenantSelectorComponent, FlexModule, MatCard, MatTooltip, MatFabButton, FaIconComponent, MatMenuTrigger, MatMenu, MatMenuItem, RouterLink, MatIcon, TranslateModule]
 })
 export class ToolbarComponent implements OnInit {
 
