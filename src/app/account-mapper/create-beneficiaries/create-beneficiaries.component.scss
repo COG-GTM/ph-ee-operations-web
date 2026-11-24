@@ -1,7 +1,7 @@
 @import "theme/theme";
 .container {
   max-width: 90%;
- .mat-card{
+ .mat-mdc-card{
   padding: 2rem 5rem 0 5rem;
   background-color: $light-grey;
   box-shadow: none;
@@ -60,15 +60,16 @@
   cursor: not-allowed;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
 ::ng-deep .custom-view-user.mat-form-field-appearance-outline .mat-form-field-outline {
   color: black;
   background-color: $white;
   border-radius: 5px;
 }
-::ng-deep .custom-view-user.mat-form-field  input:disabled{
+::ng-deep .custom-view-user.mat-mdc-form-field  input:disabled{
   color: black;
 }
-::ng-deep .custom-view-user.mat-form-field  select:disabled{
+::ng-deep .custom-view-user.mat-mdc-form-field  select:disabled{
   color: black;
 }
 

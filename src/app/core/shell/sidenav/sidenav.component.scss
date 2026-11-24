@@ -7,7 +7,7 @@
   height: 100vh;
 }
 
-.mat-fab {
+.mat-mdc-fab {
   background-color: $white;
   color: $dark-grey;
   width: 40px;
@@ -69,10 +69,10 @@
           border-radius: 5px;
         }
       }
-      .mat-list-item {
+      .mat-mdc-list-item {
         color: inherit;
 
-        .mat-list-icon {
+        .mat-mdc-list-item-icon {
           height: 1.8rem;
           width: 1.8rem;
           font-size: 1.3rem;
@@ -112,10 +112,12 @@
   }
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version.*/
 ::ng-deep .mat-list-item-content {
   justify-content: center;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version.*/
 ::ng-deep .mat-button-wrapper {
   padding: 0 !important;
 }

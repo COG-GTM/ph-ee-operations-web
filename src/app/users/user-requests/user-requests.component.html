@@ -1,6 +1,6 @@
 <span>{{ "labels.texts.Accept and Reject user requests" | translate }}</span>
 <div class="container">
-  <mat-card class="no-padding radius8">
+  <mat-card appearance="outlined" class="no-padding radius8">
     <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
     <table mat-table [dataSource]="dataSource" matSort *ngIf="!isLoading">
       <ng-container matColumnDef="username">

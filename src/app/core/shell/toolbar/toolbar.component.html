@@ -3,10 +3,10 @@
   <mifosx-tenant-selector fxHide.lt-md></mifosx-tenant-selector>
   <div class="right-toolbar">
   <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px" fxLayout.gt-lg="row wrap" >
-    <mat-card  matTooltip="{{displayEmail()}}" >{{displayUser()}}</mat-card>
-    <mat-card>{{displayUserType()}}</mat-card>
+    <mat-card  appearance="outlined"  matTooltip="{{displayEmail()}}" >{{displayUser()}}</mat-card>
+    <mat-card appearance="outlined">{{displayUserType()}}</mat-card>
     <ng-container *ngIf="displayInstitueId() !== undefined">
-      <mat-card matTooltip="{{displayInstitueId()}}">{{displayInstituteName()}}</mat-card>
+      <mat-card appearance="outlined" matTooltip="{{displayInstitueId()}}">{{displayInstituteName()}}</mat-card>
     </ng-container>
   </div>
       <button mat-fab class="user-icon" >

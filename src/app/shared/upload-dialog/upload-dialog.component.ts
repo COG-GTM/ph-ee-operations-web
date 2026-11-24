@@ -1,6 +1,6 @@
 /** Angular Imports */
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
-import { MatLegacyDialogRef as MatDialogRef,MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
+import { MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 /** Custom Services */
 import { AlertService } from 'app/core/alert/alert.service';
