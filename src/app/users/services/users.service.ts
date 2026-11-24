@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 /** rxjs Imports */
@@ -22,17 +22,14 @@ import { G2PPaymentConfigService } from 'app/configuration/services/g2p-payment-
   providedIn: 'root',
 })
 export class UsersService {
+  private http = inject(HttpClient);
+  private keycloakAdminService = inject(KeycloakAdminService);
+  private jbpmService = inject(JbpmService);
+
   private processId = 'PaymentHubEE.UserManagementProcess';
   private institueAddress = 'com.myspace.paymenthubee.Institute';
   private govtEntities: any= JSON.parse(sessionStorage.getItem('pheeGovtEntities'));
   private dfsps: any= JSON.parse(sessionStorage.getItem('pheeDfsps'));
-  /**
-   * @param {HttpClient} http Http Client to send requests.
-   * @param {JbpmService} jbpmService Jbpm Service.
-   */
-  constructor(private http: HttpClient, 
-              private keycloakAdminService: KeycloakAdminService,
-              private jbpmService: JbpmService) { }
   /**
    * @returns {Observable<any>} User types
    */

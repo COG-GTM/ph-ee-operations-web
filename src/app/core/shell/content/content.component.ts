@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ExternalIdentifierPipe } from 'app/pipes/external-identifier.pipe';
 import { BreadcrumbComponent, BreadcrumbItemDirective } from 'xng-breadcrumb';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
@@ -16,8 +16,8 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [BreadcrumbComponent, BreadcrumbItemDirective, FaIconComponent, RouterOutlet, TranslateModule]
 })
 export class ContentComponent implements OnInit {
+  private externalIdentifierPipe = inject(ExternalIdentifierPipe);
 
-  constructor(private externalIdentifierPipe: ExternalIdentifierPipe) { }
 
   ngOnInit() {
   }

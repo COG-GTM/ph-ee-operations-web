@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot } from '@angular/router';
 
 /** rxjs Imports */
@@ -14,11 +14,8 @@ import { KeycloakAdminService } from './services/users-keycloak.service';
  */
 @Injectable()
 export class UserResolver  {
+  private keycloakAdminService = inject(KeycloakAdminService);
 
-  /**
-   * @param {UsersService} usersService Users service.
-   */
-  constructor(private keycloakAdminService: KeycloakAdminService) {}
 
   /**
    * Returns the user data.

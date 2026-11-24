@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent } from '@angular/material/dialog'
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { CdkScrollable } from '@angular/cdk/scrolling';
@@ -10,11 +10,14 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [MatDialogTitle, FaIconComponent, CdkScrollable, MatDialogContent, TranslateModule]
 })
 export class BatchSummaryComponent {
+  dialogRef = inject<MatDialogRef<BatchSummaryComponent>>(MatDialogRef);
+  data = inject(MAT_DIALOG_DATA);
+
   batch: any;
 
-  constructor(
-    public dialogRef: MatDialogRef<BatchSummaryComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor() {
+      const data = this.data;
+
       this.batch = data.batch;
   }
 }

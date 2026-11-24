@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, inject } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatNoDataRow, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
@@ -23,6 +23,9 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [MatCard, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatFormField, MatLabel, MatInput, MatIcon, FaIconComponent, MatCellDef, MatCell, MatNoDataRow, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, RouterLink, MatPaginator, TranslateModule]
 })
 export class UsersComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private cdr = inject(ChangeDetectorRef);
+
   /** Users data. */
   usersData: any;
   /** Columns to be displayed in users table. */
@@ -40,7 +43,7 @@ export class UsersComponent implements OnInit {
    * @param {ActivatedRoute} route Activated Route.
    */
 
-  constructor(private route: ActivatedRoute, private cdr: ChangeDetectorRef) {
+  constructor() {
     this.route.data.subscribe((data: { users: any }) => {
       this.usersData = data.users;
     });

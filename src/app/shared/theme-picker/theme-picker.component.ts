@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, inject } from '@angular/core';
 
 /** Custom Model */
 import { Theme } from './theme.model';
@@ -25,6 +25,8 @@ import { MatGridList, MatGridTile } from '@angular/material/grid-list';
     imports: [MatIconButton, MatTooltip, MatMenuTrigger, FaIconComponent, MatMenu, MatGridList, MatGridTile, MatMenuItem]
 })
 export class ThemePickerComponent implements OnInit {
+  themeStorageService = inject(ThemeStorageService);
+
 
   /** Default theme for the application. */
   currentTheme: Theme = {
@@ -68,11 +70,6 @@ export class ThemePickerComponent implements OnInit {
       isDark: true
     }
   ];
-
-  /**
-   * @param {ThemeStorageService} themeStorageService Theme Storage Service.
-   */
-  constructor(public themeStorageService: ThemeStorageService) {  }
 
   /**
    * Initializes the theme for the application.

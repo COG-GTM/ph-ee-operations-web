@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 
 /** rxjs Imports */
@@ -15,11 +15,8 @@ import { DfspEntry } from '../model/dfsp.model';
  */
 @Injectable()
 export class DfspResolver  {
+    private transactionsService = inject(TransactionsService);
 
-    /**
-     * @param {TransactionsService} transactionsService Transactions service.
-     */
-    constructor(private transactionsService: TransactionsService) { }
 
     /**
      * Returns the currencies data.

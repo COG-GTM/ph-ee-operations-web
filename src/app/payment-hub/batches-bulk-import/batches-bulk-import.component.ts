@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 import { AlertService } from 'app/core/alert/alert.service';
 import { NgxCsvParser } from 'ngx-csv-parser';
@@ -33,6 +33,13 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [FlexModule, MatButton, FaIconComponent, DragDropFileComponent, MatProgressBar, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, DecimalPipe, TranslateModule]
 })
 export class BatchesBulkImportComponent implements OnInit {
+  private alertService = inject(AlertService);
+  private csvParse = inject(NgxCsvParser);
+  private formBuilder = inject(UntypedFormBuilder);
+  private batchesService = inject(BatchesService);
+  private settingsService = inject(SettingsService);
+  private signatureService = inject(SignatureService);
+
   createBatchForm: UntypedFormGroup;
 
   files: File[] = [];
@@ -46,13 +53,6 @@ export class BatchesBulkImportComponent implements OnInit {
   isLoading = false;
 
   totalAmount = 0;
-
-  constructor(private alertService: AlertService,
-    private csvParse: NgxCsvParser,
-    private formBuilder: UntypedFormBuilder,
-    private batchesService: BatchesService,
-    private settingsService: SettingsService,
-    private signatureService: SignatureService) { }
 
   ngOnInit(): void {
     this.createBatchForm = this.formBuilder.group({

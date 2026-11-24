@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy, inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 /** rxjs Imports */
@@ -27,6 +27,10 @@ import { FooterComponent } from '../../shared/footer/footer.component';
     imports: [MatSidenavContainer, MatSidenav, NgClass, ExtendedModule, SidenavComponent, MatSidenavContent, MatProgressBar, ToolbarComponent, ContentComponent, FooterComponent, AsyncPipe]
 })
 export class ShellComponent implements OnInit, OnDestroy {
+  private breakpointObserver = inject(BreakpointObserver);
+  private progressBarService = inject(ProgressBarService);
+  private cdr = inject(ChangeDetectorRef);
+
 
   /** Subscription to breakpoint observer for handset. */
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -39,15 +43,6 @@ export class ShellComponent implements OnInit, OnDestroy {
   progressBarMode: string;
   /** Subscription to progress bar. */
   progressBar$: Subscription;
-
-  /**
-   * @param {BreakpointObserver} breakpointObserver Breakpoint Observer to detect screen size.
-   * @param {ProgressBarService} progressBarService Progress Bar Service.
-   * @param {ChangeDetectorRef} cdr Change Detector Ref.
-   */
-  constructor(private breakpointObserver: BreakpointObserver,
-              private progressBarService: ProgressBarService,
-              private cdr: ChangeDetectorRef) { }
 
   /**
    * Subscribes to progress bar to update its mode.

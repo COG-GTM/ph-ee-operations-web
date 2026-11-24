@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild, inject } from '@angular/core';
 import { UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
@@ -26,6 +26,9 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [FlexModule, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatButton, NgClass, ExtendedModule, FaIconComponent, MatLabel, MatFormField, MatInput, ReactiveFormsModule, MatCard, MatProgressBar, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, RouterLink, MatNoDataRow, MatPaginator, TranslateModule]
 })
 export class G2pPaymentComponent {
+  private route = inject(ActivatedRoute);
+  private cdr = inject(ChangeDetectorRef);
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) set matSort(sort: MatSort) {
     this.dataSource.sort = sort;
@@ -77,7 +80,7 @@ export class G2pPaymentComponent {
   /**
    * @param route ActivatedRoute
    */
-  constructor(private route: ActivatedRoute, private cdr: ChangeDetectorRef) {
+  constructor() {
     this.route.data.subscribe((data: any) => {
       this.programData = data.g2pPayments;
     });

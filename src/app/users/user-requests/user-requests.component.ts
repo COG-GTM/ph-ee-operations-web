@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, inject } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatNoDataRow } from '@angular/material/table';
@@ -31,6 +31,10 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [MatCard, MatProgressBar, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatFormField, MatLabel, MatInput, MatIcon, FaIconComponent, MatCellDef, MatCell, FlexModule, MatButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatNoDataRow, MatPaginator, TranslateModule]
 })
 export class UserRequestsComponent implements OnInit {
+  private cdr = inject(ChangeDetectorRef);
+  private alertService = inject(AlertService);
+  private usersService = inject(UsersService);
+
   /** Loading indicator */
   isLoading = false;
 
@@ -60,13 +64,6 @@ export class UserRequestsComponent implements OnInit {
     status: false,
     actions: false,
   };
-
-  /**
-   * @param cdr ChangeDetectorRef
-   * @param alertService AlertService
-   * @param usersService UsersService
-   */
-  constructor(private cdr: ChangeDetectorRef, private alertService: AlertService, private usersService: UsersService) { }
 
   /**
    * @description On init

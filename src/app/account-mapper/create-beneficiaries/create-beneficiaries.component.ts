@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, inject } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
 
 /** Custom Services */
@@ -27,23 +27,15 @@ import { TranslateModule } from "@ngx-translate/core";
     imports: [MatCard, ReactiveFormsModule, MatCardContent, FlexModule, MatLabel, MatFormField, MatInput, MatSelect, MatOption, MatError, MatCardActions, MatButton, RouterLink, TranslateModule]
 })
 export class CreateBeneficiariesComponent implements OnInit {
+  private fb = inject(FormBuilder);
+  private g2pPaymentService = inject(G2PPaymentConfigService);
+  private accountMapperService = inject(AccountMapperService);
+  private router = inject(Router);
+
   programForm: FormGroup;
   govtEntities: any[] = [];
   programs: any[] = [];
   dfsps: any[] = [];
-
-  /**
-   * @param {FormBuilder} fb Form builder.
-   * @param {G2PPaymentConfigService} g2pPaymentService G2P Payment service.
-   * @param {AccountMapperService} accountMapperService Account mapper service.
-   * @param {Router} router Router.
-   */
-  constructor(
-    private fb: FormBuilder,
-    private g2pPaymentService: G2PPaymentConfigService,
-    private accountMapperService: AccountMapperService,
-    private router: Router
-  ) { }
 
   ngOnInit(): void {
     this.createProgramForm();

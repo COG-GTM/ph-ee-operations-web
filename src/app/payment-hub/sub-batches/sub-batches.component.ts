@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { TransactionsDataSource } from '../transactions/dataSource/transactions.datasource';
 import { Dates } from 'app/core/utils/dates';
 import { Batch } from '../batches/model/batch.model';
@@ -36,6 +36,12 @@ import { DatetimeFormatPipe } from '../../pipes/datetime-format.pipe';
     imports: [FlexModule, MatButton, MatProgressSpinner, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, NgClass, ExtendedModule, FaIconComponent, MatLabel, MatFormField, MatInput, MatDatepickerInput, ReactiveFormsModule, MatDatepickerToggle, MatSuffix, MatDatepicker, MatSelect, MatOption, MatCard, MatProgressBar, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, IdentifierComponent, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatNoDataRow, MatPaginator, DecimalPipe, TranslateModule, DatetimeFormatPipe]
 })
 export class SubBatchesComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private dates = inject(Dates);
+  private subBatchesService = inject(SubBatchesService);
+  private dialog = inject(MatDialog);
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('panel') panel: MatExpansionPanel;
@@ -96,7 +102,7 @@ export class SubBatchesComponent implements OnInit {
   isRefreshing = false;
   batchId: string | null = null;
 
-  constructor(private route: ActivatedRoute, private router: Router, private dates: Dates, private subBatchesService: SubBatchesService, private dialog: MatDialog) {
+  constructor() {
     this.route.params.subscribe((params) => this.batchId = params['batchId']);
   }
 

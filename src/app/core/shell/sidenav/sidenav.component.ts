@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
 /** Custom Services */
@@ -26,6 +26,9 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [NgClass, ExtendedModule, FlexModule, FaIconComponent, MatNavList, MatListItem, MatTooltip, RouterLink, MatIcon, MatLine, HasRoleDirective, NgStyle, MatFabButton, TranslateModule]
 })
 export class SidenavComponent implements OnInit {
+  private router = inject(Router);
+  private authenticationService = inject(AuthenticationService);
+
 
   //User Management Expansion
   isUserManagementExpanded:boolean = false;
@@ -37,13 +40,6 @@ export class SidenavComponent implements OnInit {
   @Output() sideNavControl: EventEmitter<boolean> = new EventEmitter;
   /** Username of authenticated user. */
   username: string;
-
-  /**
-   * @param {Router} router Router for navigation.
-   * @param {AuthenticationService} authenticationService Authentication Service.
-   */
-  constructor(private router: Router,
-    private authenticationService: AuthenticationService) { }
 
   /**
    * Sets the username of the authenticated user.

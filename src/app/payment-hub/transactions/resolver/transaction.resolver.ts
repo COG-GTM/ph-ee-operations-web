@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot } from '@angular/router';
 
 /** rxjs Imports */
@@ -13,11 +13,8 @@ import { TransactionsService } from '../service/transactions.service';
  */
 @Injectable()
 export class TransactionResolver  {
+  private transactionsService = inject(TransactionsService);
 
-  /**
-   * @param {TransactionsService} transactionsService Transactions service.
-   */
-  constructor(private transactionsService: TransactionsService) { }
 
   /**
    * Returns the transaction data.

@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot } from '@angular/router';
 
 /** rxjs Imports */
@@ -13,11 +13,8 @@ import { SystemService } from '../../system.service';
  */
 @Injectable()
 export class AuditTrailResolver  {
+  private systemService = inject(SystemService);
 
-  /**
-   * @param {SystemService} systemService System service.
-   */
-  constructor(private systemService: SystemService) {}
 
   /**
    * Returns the Audit Trail data.

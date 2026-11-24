@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UntypedFormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors, ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
@@ -18,18 +18,14 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [MatDialogTitle, ReactiveFormsModule, FlexModule, MatLabel, MatFormField, MatInput, MatError, MatDialogActions, MatButton, MatDialogClose, TranslateModule]
 })
 export class UpdatePasswordDialogComponent implements OnInit {
+  dialogRef = inject<MatDialogRef<UpdatePasswordDialogComponent>>(MatDialogRef);
+  data = inject(MAT_DIALOG_DATA);
+  private formBuilder = inject(UntypedFormBuilder);
+  private passwordsUtility = inject(PasswordsUtility);
+
 
   /** Change Password Form */
   changePasswordForm: any;
-
-  /**
-   * @param {MatDialogRef} dialogRef Component reference to dialog.
-   * @param {any} data Provides any data.
-   */
-  constructor(public dialogRef: MatDialogRef<UpdatePasswordDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any,
-              private formBuilder: UntypedFormBuilder,
-              private passwordsUtility: PasswordsUtility) { }
 
   ngOnInit() {
     this.createChangePasswordForm();

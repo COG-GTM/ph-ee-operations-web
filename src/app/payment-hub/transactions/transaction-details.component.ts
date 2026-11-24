@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
@@ -51,6 +51,12 @@ import { MatSort, MatSortHeader } from '@angular/material/sort';
     imports: [FlexModule, MatButton, MatGridList, MatGridTile, MatCard, MatCardTitle, MatCardContent, NgClass, ExtendedModule, FaIconComponent, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow]
 })
 export class TransactionDetailsComponent implements OnInit {
+  private transactionsService = inject(TransactionsService);
+  private alertService = inject(AlertService);
+  private authService = inject(AuthenticationService);
+  private route = inject(ActivatedRoute);
+  dialog = inject(MatDialog);
+
 
   // TODO: Update once language and date settings are setup
 
@@ -75,11 +81,7 @@ export class TransactionDetailsComponent implements OnInit {
    * @param {ActivatedRoute} route Activated Route.
    * @param {MatDialog} dialog Dialog reference.
    */
-  constructor(private transactionsService: TransactionsService,
-    private alertService: AlertService,
-    private authService: AuthenticationService,
-    private route: ActivatedRoute,
-    public dialog: MatDialog) {
+  constructor() {
     this.route.data.subscribe((data: {
       dfspEntries: DfspEntry[]
     }) => {

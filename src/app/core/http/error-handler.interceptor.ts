@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 
 /** rxjs Imports */
@@ -21,11 +21,8 @@ const log = new Logger('ErrorHandlerInterceptor');
  */
 @Injectable()
 export class ErrorHandlerInterceptor implements HttpInterceptor {
+  private alertService = inject(AlertService);
 
-  /**
-   * @param {AlertService} alertService Alert Service.
-   */
-  constructor(private alertService: AlertService) { }
 
   /**
    * Intercepts a Http request and adds a default error handler.

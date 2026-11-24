@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 
 /** rxjs Imports */
@@ -28,6 +28,9 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     imports: [MatDivider, ReactiveFormsModule, FlexModule, MatFormField, MatPrefix, FaIconComponent, MatLabel, MatInput, MatButton, MatIconButton, MatSuffix, MatError, MatProgressSpinner]
 })
 export class ResetPasswordComponent implements OnInit {
+  private formBuilder = inject(UntypedFormBuilder);
+  private authenticationService = inject(AuthenticationService);
+
 
   /** Reset password form group. */
   resetPasswordForm: UntypedFormGroup;
@@ -35,13 +38,6 @@ export class ResetPasswordComponent implements OnInit {
   passwordInputType: string;
   /** True if loading. */
   loading = false;
-
-  /**
-   * @param {FormBuilder} formBuilder Form Builder.
-   * @param {AuthenticationService} authenticationService Authentication Service.
-   */
-  constructor(private formBuilder: UntypedFormBuilder,
-              private authenticationService: AuthenticationService) {  }
 
   /**
    * Creates reset password form.

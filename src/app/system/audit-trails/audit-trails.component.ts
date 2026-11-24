@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, inject } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -35,6 +35,10 @@ import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, Ma
     imports: [FlexModule, MatButton, FaIconComponent, MatFormField, MatLabel, MatInput, ReactiveFormsModule, MatSelect, MatOption, MatAutocompleteTrigger, MatDatepickerInput, MatDatepickerToggle, MatSuffix, MatDatepicker, MatAutocomplete, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, RouterLink, MatPaginator, AsyncPipe, DatePipe]
 })
 export class AuditTrailsComponent implements OnInit, AfterViewInit {
+  private route = inject(ActivatedRoute);
+  private systemService = inject(SystemService);
+  private datePipe = inject(DatePipe);
+
 
   /** Minimum date allowed. */
   minDate = new Date(2000, 0, 1);
@@ -138,9 +142,7 @@ export class AuditTrailsComponent implements OnInit, AfterViewInit {
    * @param {ActivatedRoute} route Activated Route.
    * @param {SystemService} systemService System Service.
    */
-  constructor(private route: ActivatedRoute,
-              private systemService: SystemService,
-              private datePipe: DatePipe) {
+  constructor() {
     this.route.data.subscribe((data: { auditTrailSearchTemplate: any }) => {
       this.auditTrailSearchTemplateData = data.auditTrailSearchTemplate;
     });

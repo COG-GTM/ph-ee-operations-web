@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 /** Environment */
@@ -14,12 +14,12 @@ import { environment } from 'environments/environment';
     styleUrls: ['./visualizations.component.scss']
 })
 export class VisualizationsComponent {
+  private sanitizer = inject(DomSanitizer);
+
   grafanaUrl: SafeResourceUrl;
 
   /** Grafana filter */
   filter: string= '?orgId=1&refresh=5s&theme=light&kiosk=tv&fullscreen=true&refresh=5s&from=now-5m&to=now';
-
-  constructor(private sanitizer: DomSanitizer) { }
 
   /** Initialize the Grafana URL with the filter by using sanitizer */
   ngOnInit(): void {

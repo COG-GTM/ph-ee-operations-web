@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 import { UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
@@ -43,6 +43,11 @@ import { DatetimeFormatPipe } from '../../pipes/datetime-format.pipe';
     imports: [FlexModule, MatButton, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, NgClass, ExtendedModule, FaIconComponent, MatLabel, MatFormField, MatInput, MatDatepickerInput, ReactiveFormsModule, MatDatepickerToggle, MatSuffix, MatDatepicker, MatSelect, MatOption, MatCard, MatProgressBar, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatTooltip, IdentifierComponent, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, TranslateModule, FormatNumberPipe, DatetimeFormatPipe]
 })
 export class TransfersComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private dates = inject(Dates);
+  private dialog = inject(MatDialog);
+  private transfersService = inject(TransfersService);
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) set matSort(sort: MatSort) {
@@ -88,13 +93,6 @@ export class TransfersComponent implements OnInit {
   subBatchId: string;
   transferData: any;
   subBatchData: SubBatchDetail;
-
-  constructor(
-    private route: ActivatedRoute,
-    private dates: Dates,
-    private dialog: MatDialog,
-    private transfersService: TransfersService
-  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {

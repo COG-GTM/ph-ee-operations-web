@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 
 /** rxjs Imports */
@@ -14,11 +14,8 @@ import { ProgressBarService } from './progress-bar.service';
  */
 @Injectable()
 export class ProgressInterceptor implements HttpInterceptor {
+  private progressBarService = inject(ProgressBarService);
 
-  /**
-   * @param {ProgressBarService} progressBarService Progress Bar Service.
-   */
-  constructor(private progressBarService: ProgressBarService) { }
 
   /**
    * Intercepts a Http request to start loading the progress bar for a pending request

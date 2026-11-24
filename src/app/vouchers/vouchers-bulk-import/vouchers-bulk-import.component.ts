@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -42,6 +42,13 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [FlexModule, FaIconComponent, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatButton, MatCard, MatProgressBar, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, IdentifierComponent, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, DecimalPipe, TranslateModule]
 })
 export class VouchersBulkImportComponent implements OnInit {
+  private alertService = inject(AlertService);
+  private csvParse = inject(NgxCsvParser);
+  private vouchersService = inject(VouchersService);
+  private formBuilder = inject(UntypedFormBuilder);
+  private dialog = inject(MatDialog);
+  private router = inject(Router);
+
 
   /** Paginator for table. */
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -69,15 +76,6 @@ export class VouchersBulkImportComponent implements OnInit {
   currentPage = 1;
   isLoading = false;
   isFileUploaded = false;
-
-  
-  constructor(private alertService: AlertService,
-    private csvParse: NgxCsvParser,
-    private vouchersService: VouchersService,
-    private formBuilder: UntypedFormBuilder,
-    private dialog: MatDialog,
-    private router: Router,
-  ) { }
 
   ngOnInit(): void {
     this.createVoucherForm = this.formBuilder.group({

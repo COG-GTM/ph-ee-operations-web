@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 
 /** rxjs Imports */
@@ -29,6 +29,9 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [ReactiveFormsModule, FlexModule, MatLabel, MatFormField, MatSelect, MatOption, MatError, MatInput, MatButton, MatIconButton, MatSuffix, FaIconComponent, MatCheckbox, MatProgressSpinner, TranslateModule]
 })
 export class LoginFormComponent implements OnInit {
+  private formBuilder = inject(UntypedFormBuilder);
+  private authenticationService = inject(AuthenticationService);
+
 
   /** Login form group. */
   loginForm: UntypedFormGroup;
@@ -39,13 +42,6 @@ export class LoginFormComponent implements OnInit {
 
   tenantIdDefault: string = environment.tenant;
   tenantIdsDefault: string[] = environment.tenants.split(',');
-
-  /**
-   * @param {FormBuilder} formBuilder Form Builder.
-   * @param {AuthenticationService} authenticationService Authentication Service.
-   */
-  constructor(private formBuilder: UntypedFormBuilder,
-    private authenticationService: AuthenticationService) { }
 
   /**
    * Creates login form.

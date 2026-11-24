@@ -1,6 +1,6 @@
 /** Angular Imports */
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 //Rxjs Imports
 import { Observable} from 'rxjs';
@@ -19,12 +19,8 @@ import { Role } from '../models/user.model';
   providedIn: 'root',
 })
 export class KeycloakAdminService {
+  private http = inject(HttpClient);
 
-  /**
-   * Constructor
-   * @param {HttpClient} http Http
-   */
-  constructor(private http: HttpClient) { }
 
   /**
    * @description Get url

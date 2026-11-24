@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatNoDataRow } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -36,6 +36,11 @@ import { DatetimeFormatPipe } from '../../pipes/datetime-format.pipe';
     imports: [FlexModule, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatButton, NgClass, ExtendedModule, FaIconComponent, MatLabel, MatFormField, MatInput, MatDatepickerInput, ReactiveFormsModule, MatDatepickerToggle, MatSuffix, MatDatepicker, MatSelect, MatOption, MatCard, MatProgressBar, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, IdentifierComponent, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatNoDataRow, MatPaginator, DecimalPipe, TranslateModule, DatetimeFormatPipe]
 })
 export class BatchesComponent implements OnInit {
+  private dates = inject(Dates);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private batchesService = inject(BatchesService);
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -90,11 +95,6 @@ export class BatchesComponent implements OnInit {
   currentPage = 0;
   pageSize = 50;
   isLoading = false;
-
-  constructor(private dates: Dates,
-    private route: ActivatedRoute,
-    private router: Router,
-    private batchesService: BatchesService) { }
 
   ngOnInit(): void {
     this.getBatches();

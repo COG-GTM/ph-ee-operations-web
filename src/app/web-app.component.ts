@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute, RouterOutlet } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -37,27 +37,17 @@ const log = new Logger('PHEE');
     imports: [RouterOutlet]
 })
 export class WebAppComponent implements OnInit {
+  private router = inject(Router);
+  private activatedRoute = inject(ActivatedRoute);
+  private titleService = inject(Title);
+  private translateService = inject(TranslateService);
+  private settingsService = inject(SettingsService);
+  private themeStorageService = inject(ThemeStorageService);
+  snackBar = inject(MatSnackBar);
+  private alertService = inject(AlertService);
+
 
   i18nService: I18nService;
-
-  /**
-   * @param {Router} router Router for navigation.
-   * @param {ActivatedRoute} activatedRoute Activated Route.
-   * @param {Title} titleService Title Service.
-   * @param {TranslateService} translateService Translate Service.
-   * @param {I18nService} i18nService I18n Service.
-   * @param {ThemeStorageService} themeStorageService Theme Storage Service.
-   * @param {MatSnackBar} snackBar Material Snackbar for notifications.
-   * @param {AlertService} alertService Alert Service.
-   */
-  constructor(private router: Router,
-              private activatedRoute: ActivatedRoute,
-              private titleService: Title,
-              private translateService: TranslateService,
-              private settingsService: SettingsService,
-              private themeStorageService: ThemeStorageService,
-              public snackBar: MatSnackBar,
-              private alertService: AlertService) { }
 
   /**
    * Initial Setup:

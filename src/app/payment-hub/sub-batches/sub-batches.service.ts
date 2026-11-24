@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
@@ -7,10 +7,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SubBatchesService {
+  private http = inject(HttpClient);
+
 
   apiPrefix: string = environment.backend.operations;
-
-  constructor(private http: HttpClient) { }
 
   /**
    * @returns {Observable<any>} Users data

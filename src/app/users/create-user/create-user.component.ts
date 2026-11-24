@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -33,6 +33,13 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [MatCard, ReactiveFormsModule, MatCardContent, FlexModule, MatLabel, MatFormField, MatSelect, MatOption, MatError, MatInput, MatCardActions, MatButton, RouterLink, TranslateModule]
 })
 export class CreateUserComponent implements OnInit {
+  private formBuilder = inject(UntypedFormBuilder);
+  private usersService = inject(UsersService);
+  private alertService = inject(AlertService);
+  private dialog = inject(MatDialog);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+
 
   /** User form. */
   userForm: UntypedFormGroup;
@@ -62,12 +69,7 @@ export class CreateUserComponent implements OnInit {
    * @param {ActivatedRoute} route Activated Route.
    * @param {Router} router Router for navigation.
    */
-  constructor(private formBuilder: UntypedFormBuilder,
-              private usersService: UsersService,
-              private alertService: AlertService,
-              private dialog: MatDialog,
-              private route: ActivatedRoute,
-              private router: Router) {
+  constructor() {
     this.route.data.subscribe((data: {
         usersTemplate: any
       }) => {

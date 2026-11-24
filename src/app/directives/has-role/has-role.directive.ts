@@ -1,9 +1,13 @@
-import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, Input, TemplateRef, ViewContainerRef, inject } from '@angular/core';
 import { AuthenticationService } from 'app/core/authentication/authentication.service';
 import { environment } from 'environments/environment';
 
 @Directive({ selector: '[userHasRole]' })
 export class HasRoleDirective {
+  private templateRef = inject<TemplateRef<any>>(TemplateRef);
+  private viewContainer = inject(ViewContainerRef);
+  private authenticationService = inject(AuthenticationService);
+
 
   public static ADMIN_MAKER = 'Admin Maker';
   public static ADMIN_CHECKER = 'Admin Checker';
@@ -18,9 +22,7 @@ export class HasRoleDirective {
    * @param {ViewContainerRef} viewContainer View Container Reference
    * @param {AuthenticationService} authenticationService AuthenticationService
    */
-  constructor(private templateRef: TemplateRef<any>,
-              private viewContainer: ViewContainerRef,
-              private authenticationService: AuthenticationService) {
+  constructor() {
     const userDetails = this.authenticationService.userDetails;
     if (environment.auth.enabled === 'false') {
       this.userRoles = [HasRoleDirective.NORMAL_USER];

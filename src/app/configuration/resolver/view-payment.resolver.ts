@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot } from '@angular/router';
 
 /** rxjs Imports */
@@ -13,11 +13,8 @@ import { G2PPaymentConfigService } from '../services/g2p-payment-config.service'
  */
 @Injectable()
 export class ViewPaymentConfigResolver  {
+  private g2pPaymentConfigService = inject(G2PPaymentConfigService);
 
-  /**
-   * @param {G2PPaymentConfigService} g2pPaymentConfigService Users service.
-   */
-  constructor(private g2pPaymentConfigService: G2PPaymentConfigService) {}
 
   /**
    * Returns the G2p Payment Config data by ID.

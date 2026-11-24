@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, inject } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { style, animate, transition, trigger } from '@angular/animations';
@@ -44,6 +44,10 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [LanguageSelectorComponent, ExtendedModule, TenantSelectorComponent, FlexModule, MatCard, MatTooltip, MatFabButton, FaIconComponent, MatMenuTrigger, MatMenu, MatMenuItem, RouterLink, MatIcon, TranslateModule]
 })
 export class ToolbarComponent implements OnInit {
+  private breakpointObserver = inject(BreakpointObserver);
+  private router = inject(Router);
+  private authenticationService = inject(AuthenticationService);
+
 
   credentials: any;
 
@@ -62,15 +66,6 @@ export class ToolbarComponent implements OnInit {
   @Input() sidenav: MatSidenav;
   /** Sidenav collapse event. */
   @Output() collapse = new EventEmitter<boolean>();
-
-  /**
-   * @param {BreakpointObserver} breakpointObserver Breakpoint observer to detect screen size.
-   * @param {Router} router Router for navigation.
-   * @param {AuthenticationService} authenticationService Authentication service.
-   */
-  constructor(private breakpointObserver: BreakpointObserver,
-    private router: Router,
-    private authenticationService: AuthenticationService) { }
 
   /**
    * Subscribes to breakpoint for handset.

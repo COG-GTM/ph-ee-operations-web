@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, EventEmitter, Inject, Output } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 /** Custom Services */
@@ -26,6 +26,10 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [FlexModule, FaIconComponent, MatButton, DragDropFileComponent, TranslateModule]
 })
 export class UploadDialogComponent {
+   private alertService = inject(AlertService);
+   dialogRef = inject<MatDialogRef<UploadDialogComponent>>(MatDialogRef);
+   data = inject(MAT_DIALOG_DATA);
+
 
    /** Indicates whether the file processing is in progress */
    isLoading = false;
@@ -38,12 +42,6 @@ export class UploadDialogComponent {
  
    /** Event emitter to notify parent component of the imported data */
    @Output() importedData = new EventEmitter<any>();
- 
-   constructor(
-     private alertService: AlertService,
-     public dialogRef: MatDialogRef<UploadDialogComponent>,
-     @Inject(MAT_DIALOG_DATA) public data: any
-   ) {}
  
    /**
     * Handles file selection, processes the file and closes the dialog.

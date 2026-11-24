@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 /** Custom Models */
 import { Section } from 'app/payment-hub/filter-selector/section-model';
@@ -18,9 +18,9 @@ import { ListItemComponent } from '../../shared/list-item/list-item.component';
     imports: [FlexModule, ListItemComponent]
 })
 export class G2pSectionFilterComponent {
-  sections: Section[];
+  private router = inject(Router);
 
-  constructor(private router: Router) { }
+  sections: Section[];
 
   ngOnInit(): void {
 

@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
@@ -18,6 +18,8 @@ import { DatePipe } from '@angular/common';
     imports: [FlexModule, MatCard, MatCardContent, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, DatePipe]
 })
 export class ViewAuditComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+
 
   /** Audit Trail Data. */
   auditTrailData: any;
@@ -35,7 +37,7 @@ export class ViewAuditComponent implements OnInit {
    * Retrieves the audit trail data from `resolve`.
    * @param {ActivatedRoute} route Activated Route.
    */
-  constructor(private route: ActivatedRoute) {
+  constructor() {
     this.route.data.subscribe((data: { auditTrail: any }) => {
       this.auditTrailData = data.auditTrail;
     });

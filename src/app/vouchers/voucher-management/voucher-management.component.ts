@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
@@ -36,6 +36,9 @@ import { DateFormatPipe } from '../../pipes/date-format.pipe';
     imports: [FlexModule, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatButton, NgClass, ExtendedModule, FaIconComponent, MatLabel, MatFormField, MatInput, MatDatepickerInput, ReactiveFormsModule, MatDatepickerToggle, MatSuffix, MatDatepicker, MatSelect, MatOption, MatCard, MatProgressBar, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, IdentifierComponent, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatNoDataRow, MatPaginator, TranslateModule, DateFormatPipe]
 })
 export class VoucherManagementComponent implements OnInit {
+  private dates = inject(Dates);
+  private vouchersService = inject(VouchersService);
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) set matSort(sort: MatSort) {
     this.dataSource.sort = sort;
@@ -87,8 +90,6 @@ export class VoucherManagementComponent implements OnInit {
   currentPage = 0;
   pageSize = 50;
   isLoading = false;
-
-  constructor(private dates: Dates, private vouchersService: VouchersService) {}
 
   ngOnInit(): void {
     this.getBatches();

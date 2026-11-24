@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 /** Custom Services */
 import { AuthenticationService } from 'app/core/authentication/authentication.service';
@@ -20,13 +20,15 @@ import { ListItemComponent } from '../../shared/list-item/list-item.component';
     imports: [FlexModule, ListItemComponent]
 })
 export class FilterSelectorComponent {
+  private authenticationService = inject(AuthenticationService);
+
   sections: Section[];
   credentials: any;
 
   /**
    * @param {AuthenticationService} authenticationService Authentication service.
    */
-  constructor(private authenticationService: AuthenticationService) {
+  constructor() {
     this.credentials = this.authenticationService.userDetails;
    }
 

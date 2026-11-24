@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 
 /** rxjs Imports */
@@ -14,11 +14,8 @@ import { Currency } from '../model/currency.model';
  */
 @Injectable()
 export class CurrenciesResolver  {
+    private transactionsService = inject(TransactionsService);
 
-    /**
-     * @param {TransactionsService} transactionsService Transactions service.
-     */
-    constructor(private transactionsService: TransactionsService) { }
 
     /**
      * Returns the currencies data.

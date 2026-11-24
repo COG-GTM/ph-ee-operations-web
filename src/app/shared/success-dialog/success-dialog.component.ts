@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {MAT_DIALOG_DATA  } from '@angular/material/dialog'
 import { MatDialogRef } from '@angular/material/dialog';
 import { FlexModule } from '@angular/flex-layout/flex';
@@ -11,8 +11,9 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [FlexModule, FaIconComponent, TranslateModule]
 })
 export class SuccessDialogComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<SuccessDialogComponent>) {
-   }
+  data = inject(MAT_DIALOG_DATA);
+  dialogRef = inject<MatDialogRef<SuccessDialogComponent>>(MatDialogRef);
+
 
    ngOnInit() {
     setTimeout(() => {

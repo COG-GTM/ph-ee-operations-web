@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 
 /** rxjs Imports */
@@ -24,6 +24,8 @@ const authorizationHeader = 'Authorization';
  */
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
+  private settingsService = inject(SettingsService);
+
   private refreshTokenInProgress = false;
   private accessExpired = false;
   private refreshTokenSubject: Subject<any> = new BehaviorSubject<any>(null);
@@ -41,7 +43,6 @@ export class AuthenticationInterceptor implements HttpInterceptor {
   getUserType(): string {
     return JSON.parse(this.getStoreageItem(this.oAuthUserDetailsStorageKey)).userType;
 }
-  constructor(private settingsService: SettingsService) {}
 
   /**
    * Intercepts a Http request and sets the request headers.

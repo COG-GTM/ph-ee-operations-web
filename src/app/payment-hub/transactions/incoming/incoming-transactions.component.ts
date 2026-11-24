@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
@@ -43,6 +43,10 @@ import { ExtendedModule } from '@angular/flex-layout/extended';
     imports: [FlexModule, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, FaIconComponent, MatFormField, MatLabel, MatInput, MatDatepickerInput, ReactiveFormsModule, MatDatepickerToggle, MatSuffix, MatDatepicker, MatButton, MatAutocomplete, MatOption, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatTooltip, NgClass, ExtendedModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, RouterLink, MatPaginator, AsyncPipe]
 })
 export class IncomingTransactionsComponent implements OnInit, AfterViewInit {
+  private transactionsService = inject(TransactionsService);
+  private route = inject(ActivatedRoute);
+  dialog = inject(MatDialog);
+
 
   /** Minimum transaction date allowed. */
   minDate = new Date(2000, 0, 1);
@@ -127,9 +131,7 @@ export class IncomingTransactionsComponent implements OnInit, AfterViewInit {
    * @param {ActivatedRoute} route Activated Route.
    * @param {MatDialog} dialog Dialog reference.
    */
-  constructor(private transactionsService: TransactionsService,
-    private route: ActivatedRoute,
-    public dialog: MatDialog) {
+  constructor() {
     this.route.data.subscribe((data: {
       currencies: any
       dfspEntries: DfspEntry[]

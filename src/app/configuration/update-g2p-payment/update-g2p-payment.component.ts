@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -30,6 +30,13 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [FlexModule, MatButton, FaIconComponent, MatCard, ReactiveFormsModule, MatCardContent, MatLabel, MatFormField, MatInput, MatSelect, MatOption, MatCardActions, RouterLink, TranslateModule]
 })
 export class UpdateG2pPaymentComponent {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private dialog = inject(MatDialog);
+  private fb = inject(FormBuilder);
+  private alertService = inject(AlertService);
+  private g2PPaymentConfigService = inject(G2PPaymentConfigService);
+
   programForm: FormGroup;
   isEditing: boolean;
   initialFormValues: any;
@@ -45,14 +52,7 @@ export class UpdateG2pPaymentComponent {
    * @param alertService AlertService
    * @param g2PPaymentConfigService G2PPaymentConfigService
    */
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private dialog: MatDialog,
-    private fb: FormBuilder,
-    private alertService: AlertService,
-    private g2PPaymentConfigService: G2PPaymentConfigService
-  ) {
+  constructor() {
     this.route.data.subscribe((data: any) => {
       this.programData = data.program;
       this.configTemplate = data.template;

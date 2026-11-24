@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, inject } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
 import { G2PPaymentConfigService } from "../services/g2p-payment-config.service";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
@@ -18,6 +18,11 @@ import { TranslateModule } from "@ngx-translate/core";
     imports: [MatCard, ReactiveFormsModule, MatCardContent, FlexModule, MatLabel, MatFormField, MatSelect, MatOption, MatError, MatInput, MatCardActions, MatButton, RouterLink, TranslateModule]
 })
 export class CreateG2pPaymentComponent implements OnInit {
+  private fb = inject(FormBuilder);
+  private g2pPaymentService = inject(G2PPaymentConfigService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+
 
   programForm: FormGroup;
   govtEntities: any[] = [];
@@ -30,11 +35,7 @@ export class CreateG2pPaymentComponent implements OnInit {
    * @param router Router
    * @param route ActivatedRoute
    */
-  constructor(
-    private fb: FormBuilder,
-    private g2pPaymentService: G2PPaymentConfigService,
-    private router: Router,
-    private route: ActivatedRoute) {
+  constructor() {
     this.route.data.subscribe((data) => {
       this.govtEntities = data.template.govtEntities;
       this.programs = data.template.programs;

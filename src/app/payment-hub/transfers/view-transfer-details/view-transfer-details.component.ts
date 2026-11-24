@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import { Dates } from 'app/core/utils/dates';
 import { Transfer } from '../model/transfer.model';
@@ -17,12 +17,16 @@ import { FormatNumberPipe } from '../../../pipes/format-number.pipe';
     imports: [MatDialogTitle, CdkScrollable, MatDialogContent, IdentifierComponent, NgClass, ExtendedModule, MatDialogActions, MatButton, MatDialogClose, TranslateModule, FormatNumberPipe]
 })
 export class ViewTransferDetailsComponent {
+  private dates = inject(Dates);
+  dialogRef = inject<MatDialogRef<ViewTransferDetailsComponent>>(MatDialogRef);
+  data = inject(MAT_DIALOG_DATA);
+
 
   transfer: any;
 
-  constructor(private dates: Dates,
-    public dialogRef: MatDialogRef<ViewTransferDetailsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor() {
+      const data = this.data;
+
       this.transfer = data.transfer;
   }
 

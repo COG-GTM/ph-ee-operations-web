@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
@@ -24,6 +24,8 @@ import { MatTooltip } from '@angular/material/tooltip';
     imports: [FlexModule, RouterLink, MatButton, FaIconComponent, MatFormField, MatLabel, MatInput, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatTooltip, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator]
 })
 export class RolesAndPermissionsComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+
 
   /** Role data. */
   roleData: any;
@@ -41,7 +43,7 @@ export class RolesAndPermissionsComponent implements OnInit {
    * Retrieves the roles data from `resolve`.
    * @param {ActivatedRoute} route Activated Route.
    */
-  constructor(private route: ActivatedRoute) {
+  constructor() {
     this.route.data.subscribe(( data: { roles: any }) => {
       this.roleData = data.roles;
     });

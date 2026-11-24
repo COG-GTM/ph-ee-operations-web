@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
 
 /** Custom Services */
@@ -22,16 +22,12 @@ import { MatOption } from '@angular/material/autocomplete';
     imports: [MatFormField, MatLabel, MatSelect, ReactiveFormsModule, MatOption, TranslateModule]
 })
 export class LanguageSelectorComponent implements OnInit {
+  private translateService = inject(TranslateService);
+  private settingsService = inject(SettingsService);
+
 
   /** Language selector form control. */
   languageSelector = new UntypedFormControl();
-
-  /**
-   * Sets the language of the application in the selector on initial setup.
-   * @param {TranslateService} translateService Translate Service.
-   */
-  constructor(private translateService: TranslateService,
-    private settingsService: SettingsService) { }
 
   ngOnInit() {
     this.languageSelector = new UntypedFormControl(this.currentLanguage);

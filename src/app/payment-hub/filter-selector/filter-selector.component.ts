@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { Section } from './section-model';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
@@ -12,11 +12,11 @@ import { ListItemComponent } from '../../shared/list-item/list-item.component';
     imports: [FlexModule, ListItemComponent]
 })
 export class FilterSelectorComponent implements OnInit {
+  private router = inject(Router);
+
 
   @Input() currentSection: string;
   sections: Section[];
-
-  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.sections = [

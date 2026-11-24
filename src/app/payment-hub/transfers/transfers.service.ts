@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 import { SettingsService } from 'app/settings/settings.service';
@@ -8,14 +8,11 @@ import { SettingsService } from 'app/settings/settings.service';
   providedIn: 'root'
 })
 export class TransfersService {
+  private http = inject(HttpClient);
+  private settingsService = inject(SettingsService);
+
 
   apiPrefix: string = environment.backend.operations;
-
-  /**
-   * @param {HttpClient} http Http Client to send requests.
-   * @param {SettingsService} settingsService Settings Service.
-   */
-  constructor(private http: HttpClient, private settingsService: SettingsService) { }
 
   getTransfers(page: number, size: number): Observable<any> {
     const httpParams = new HttpParams()

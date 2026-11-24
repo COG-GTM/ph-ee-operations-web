@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 /** rxjs Imports */
@@ -29,6 +29,9 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [FlexModule, LanguageSelectorComponent, MatIcon, FaIconComponent, LoginFormComponent, ResetPasswordComponent, FooterComponent, TranslateModule]
 })
 export class LoginComponent implements OnInit, OnDestroy {
+  private alertService = inject(AlertService);
+  private router = inject(Router);
+
 
   /** True if password requires a reset. */
   resetPassword = false;
@@ -36,13 +39,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   twoFactorAuthenticationRequired = false;
   /** Subscription to alerts. */
   alert$: Subscription;
-
-  /**
-   * @param {AlertService} alertService Alert Service.
-   * @param {Router} router Router for navigation.
-   */
-  constructor(private alertService: AlertService,
-              private router: Router) { }
 
   /**
    * Subscribes to alert event of alert service.

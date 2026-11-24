@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { AlertService } from 'app/core/alert/alert.service';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
@@ -11,6 +11,9 @@ import { ExternalIdentifierPipe } from '../../pipes/external-identifier.pipe';
     imports: [FaIconComponent, ExternalIdentifierPipe]
 })
 export class IdentifierComponent  implements OnInit {
+  private clipboard = inject(Clipboard);
+  private alertService = inject(AlertService);
+
   @Input() identifier: string;
   @Input() completed = false;
   @Input() display = 'right';
@@ -19,9 +22,6 @@ export class IdentifierComponent  implements OnInit {
   displayL = false;
   displayR = true;
   emptyValue = false;
-
-  constructor(private clipboard: Clipboard,
-    private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.emptyValue = (!this.identifier || this.identifier === '');

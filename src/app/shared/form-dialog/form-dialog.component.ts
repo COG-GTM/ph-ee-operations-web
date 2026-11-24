@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import { UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 
@@ -19,6 +19,10 @@ const layoutGap = 2;
     imports: [MatDialogTitle, CdkScrollable, MatDialogContent, FlexModule, ReactiveFormsModule, FormfieldComponent, MatDialogActions, MatButton, MatDialogClose]
 })
 export class FormDialogComponent implements OnInit {
+  dialogRef = inject<MatDialogRef<FormDialogComponent>>(MatDialogRef);
+  data = inject(MAT_DIALOG_DATA);
+  private formGroupService = inject(FormGroupService);
+
 
   layout: {
     columns: number,
@@ -39,9 +43,9 @@ export class FormDialogComponent implements OnInit {
   formfields: FormfieldBase[];
   pristine: boolean;
 
-  constructor(public dialogRef: MatDialogRef<FormDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any,
-              private formGroupService: FormGroupService) {
+  constructor() {
+    const data = this.data;
+
     this.dialogRef.disableClose = data.disableClose !== undefined ? data.disableClose : true;
     this.formfields = data.formfields.sort((formfieldA: FormfieldBase, formfieldB: FormfieldBase) => formfieldA.order - formfieldB.order);
     this.pristine = data.pristine !== undefined ? data.pristine : true;
