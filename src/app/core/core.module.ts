@@ -1,6 +1,6 @@
 /** Angular Imports */
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
 
 /** Translation Imports */
@@ -40,52 +40,47 @@ import { ContentComponent } from './shell/content/content.component';
  *
  * Main app shell components and singleton services should be here.
  */
-@NgModule({
-  imports: [
-    SharedModule,
-    HttpClientModule,
-    TranslateModule,
-    RouterModule,
-    DirectivesModule
-  ],
-  declarations: [
-    ShellComponent,
-    SidenavComponent,
-    ToolbarComponent,
-    ContentComponent
-  ],
-  exports: [
-    SharedModule // TO BE REMOVED: Once all components have replaced the core module import by shared module.
-  ],
-  providers: [
-    AuthenticationService,
-    AuthenticationGuard,
-    AuthenticationInterceptor,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthenticationInterceptor,
-      multi: true
-    },
-    I18nService,
-    HttpCacheService,
-    ErrorHandlerInterceptor,
-    CacheInterceptor,
-    {
-      provide: HttpClient,
-      useClass: HttpService
-    },
-    ProgressBarService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ProgressInterceptor,
-      multi: true
-    },
-    {
-      provide: RouteReuseStrategy,
-      useClass: RouteReusableStrategy
-    }
-  ]
-})
+@NgModule({ declarations: [
+        ShellComponent,
+        SidenavComponent,
+        ToolbarComponent,
+        ContentComponent
+    ],
+    exports: [
+        SharedModule // TO BE REMOVED: Once all components have replaced the core module import by shared module.
+    ], imports: [SharedModule,
+        TranslateModule,
+        RouterModule,
+        DirectivesModule], providers: [
+        // Must precede the HttpClient -> HttpService override below.
+        provideHttpClient(withInterceptorsFromDi()),
+        AuthenticationService,
+        AuthenticationGuard,
+        AuthenticationInterceptor,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthenticationInterceptor,
+            multi: true
+        },
+        I18nService,
+        HttpCacheService,
+        ErrorHandlerInterceptor,
+        CacheInterceptor,
+        {
+            provide: HttpClient,
+            useClass: HttpService
+        },
+        ProgressBarService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ProgressInterceptor,
+            multi: true
+        },
+        {
+            provide: RouteReuseStrategy,
+            useClass: RouteReusableStrategy
+        }
+    ] })
 export class CoreModule {
 
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
