@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'mifosx-system',
-  templateUrl: './system.component.html',
-  styleUrls: ['./system.component.scss']
+    selector: 'mifosx-system',
+    templateUrl: './system.component.html',
+    styleUrls: ['./system.component.scss'],
+    standalone: false
 })
 export class SystemComponent implements OnInit {
 

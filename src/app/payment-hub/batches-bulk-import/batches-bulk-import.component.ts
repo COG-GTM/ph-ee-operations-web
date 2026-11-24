@@ -16,9 +16,10 @@ import * as uuid from 'uuid';
 import { SignatureService } from '../services/signature.service';
 
 @Component({
-  selector: 'mifosx-batches-bulk-import',
-  templateUrl: './batches-bulk-import.component.html',
-  styleUrls: ['./batches-bulk-import.component.scss']
+    selector: 'mifosx-batches-bulk-import',
+    templateUrl: './batches-bulk-import.component.html',
+    styleUrls: ['./batches-bulk-import.component.scss'],
+    standalone: false
 })
 export class BatchesBulkImportComponent implements OnInit {
   createBatchForm: UntypedFormGroup;

@@ -16,20 +16,21 @@ import { AuthenticationService } from '../../authentication/authentication.servi
  * Toolbar component.
  */
 @Component({
-  selector: 'mifosx-toolbar',
-  templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.scss'],
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate(500, style({ opacity: 1 }))
-      ]),
-      transition(':leave', [
-        animate(500, style({ opacity: 0 }))
-      ])
-    ])
-  ]
+    selector: 'mifosx-toolbar',
+    templateUrl: './toolbar.component.html',
+    styleUrls: ['./toolbar.component.scss'],
+    animations: [
+        trigger('fadeInOut', [
+            transition(':enter', [
+                style({ opacity: 0 }),
+                animate(500, style({ opacity: 1 }))
+            ]),
+            transition(':leave', [
+                animate(500, style({ opacity: 0 }))
+            ])
+        ])
+    ],
+    standalone: false
 })
 export class ToolbarComponent implements OnInit {
 

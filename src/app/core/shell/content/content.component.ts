@@ -6,9 +6,10 @@ import { ExternalIdentifierPipe } from 'app/pipes/external-identifier.pipe';
  * Content component.
  */
 @Component({
-  selector: 'mifosx-content',
-  templateUrl: './content.component.html',
-  styleUrls: ['./content.component.scss']
+    selector: 'mifosx-content',
+    templateUrl: './content.component.html',
+    styleUrls: ['./content.component.scss'],
+    standalone: false
 })
 export class ContentComponent implements OnInit {
 

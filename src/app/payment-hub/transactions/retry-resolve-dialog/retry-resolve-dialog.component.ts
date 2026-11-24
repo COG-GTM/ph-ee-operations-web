@@ -4,9 +4,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 @Component({
-  selector: 'mifosx-retry-resolve-dialog',
-  templateUrl: './retry-resolve-dialog.component.html',
-  styleUrls: ['./retry-resolve-dialog.component.scss']
+    selector: 'mifosx-retry-resolve-dialog',
+    templateUrl: './retry-resolve-dialog.component.html',
+    styleUrls: ['./retry-resolve-dialog.component.scss'],
+    standalone: false
 })
 export class RetryResolveDialogComponent implements OnInit {
 

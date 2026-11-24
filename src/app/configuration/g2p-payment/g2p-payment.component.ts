@@ -10,9 +10,10 @@ import { G2PPaymentConfigService } from '../services/g2p-payment-config.service'
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'mifosx-g2p-payment',
-  templateUrl: './g2p-payment.component.html',
-  styleUrls: ['./g2p-payment.component.scss'],
+    selector: 'mifosx-g2p-payment',
+    templateUrl: './g2p-payment.component.html',
+    styleUrls: ['./g2p-payment.component.scss'],
+    standalone: false
 })
 export class G2pPaymentComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator;

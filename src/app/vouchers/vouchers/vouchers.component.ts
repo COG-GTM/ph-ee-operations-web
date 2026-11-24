@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'mifosx-vouchers',
-  templateUrl: './vouchers.component.html',
-  styleUrls: ['./vouchers.component.scss']
+    selector: 'mifosx-vouchers',
+    templateUrl: './vouchers.component.html',
+    styleUrls: ['./vouchers.component.scss'],
+    standalone: false
 })
 export class VouchersComponent {
 

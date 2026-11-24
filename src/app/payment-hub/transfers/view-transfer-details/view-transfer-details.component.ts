@@ -4,9 +4,10 @@ import { Dates } from 'app/core/utils/dates';
 import { Transfer } from '../model/transfer.model';
 
 @Component({
-  selector: 'mifosx-view-transfer-details',
-  templateUrl: './view-transfer-details.component.html',
-  styleUrls: ['./view-transfer-details.component.scss']
+    selector: 'mifosx-view-transfer-details',
+    templateUrl: './view-transfer-details.component.html',
+    styleUrls: ['./view-transfer-details.component.scss'],
+    standalone: false
 })
 export class ViewTransferDetailsComponent {
 

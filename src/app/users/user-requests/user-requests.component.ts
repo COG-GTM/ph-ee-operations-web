@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 /** rxjs Imports */
-import { catchError, finalize } from 'rxjs';
+import { EMPTY, catchError, finalize } from 'rxjs';
 
 /** Custom Services */
 import { AlertService } from 'app/core/alert/alert.service';
@@ -16,9 +16,10 @@ import { UsersService } from '../services/users.service';
  * User Requests Component
  */
 @Component({
-  selector: 'mifosx-user-requests',
-  templateUrl: './user-requests.component.html',
-  styleUrls: ['./user-requests.component.scss'],
+    selector: 'mifosx-user-requests',
+    templateUrl: './user-requests.component.html',
+    styleUrls: ['./user-requests.component.scss'],
+    standalone: false
 })
 export class UserRequestsComponent implements OnInit {
   /** Loading indicator */
@@ -110,7 +111,7 @@ export class UserRequestsComponent implements OnInit {
         catchError((error) => {
           console.error('Error fetching tasks:', error);
           this.alertService.alert({ type: 'error', message: 'Error fetching tasks' });
-          return [];
+          return EMPTY;
         })
       )
       .subscribe((userRequests) => {
@@ -132,7 +133,7 @@ export class UserRequestsComponent implements OnInit {
         catchError((error) => {
           console.error('Error processing user request:', error);
           this.alertService.alert({ type: 'error', message: 'Error processing user request' });
-          return [];
+          return EMPTY;
         })
       )
       .subscribe();
@@ -150,7 +151,7 @@ export class UserRequestsComponent implements OnInit {
         catchError((error) => {
           console.error('Error rejecting user request:', error);
           this.alertService.alert({ type: 'error', message: 'Error rejecting user request' });
-          return [];
+          return EMPTY;
         })
       )
       .subscribe();

@@ -3,7 +3,8 @@ import { AuthenticationService } from 'app/core/authentication/authentication.se
 import { environment } from 'environments/environment';
 
 @Directive({
-  selector: '[userHasRole]'
+    selector: '[userHasRole]',
+    standalone: false
 })
 export class HasRoleDirective {
 

@@ -10,9 +10,10 @@ import { filter } from 'rxjs';
  * G2P Section Filter Component
  */
 @Component({
-  selector: 'mifosx-g2p-section-filter',
-  templateUrl: './g2p-section-filter.component.html',
-  styleUrls: ['./g2p-section-filter.component.scss']
+    selector: 'mifosx-g2p-section-filter',
+    templateUrl: './g2p-section-filter.component.html',
+    styleUrls: ['./g2p-section-filter.component.scss'],
+    standalone: false
 })
 export class G2pSectionFilterComponent {
   sections: Section[];

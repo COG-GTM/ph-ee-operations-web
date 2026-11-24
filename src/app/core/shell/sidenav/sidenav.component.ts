@@ -9,9 +9,10 @@ import { AuthenticationService } from '../../authentication/authentication.servi
  * Sidenav component.
  */
 @Component({
-  selector: 'mifosx-sidenav',
-  templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.scss']
+    selector: 'mifosx-sidenav',
+    templateUrl: './sidenav.component.html',
+    styleUrls: ['./sidenav.component.scss'],
+    standalone: false
 })
 export class SidenavComponent implements OnInit {
 

@@ -15,9 +15,10 @@ import * as XLSX from 'xlsx';
 
 /** Upload Dialog Componenent */
 @Component({
-  selector: 'mifosx-upload-dialog',
-  templateUrl: './upload-dialog.component.html',
-  styleUrls: ['./upload-dialog.component.scss']
+    selector: 'mifosx-upload-dialog',
+    templateUrl: './upload-dialog.component.html',
+    styleUrls: ['./upload-dialog.component.scss'],
+    standalone: false
 })
 export class UploadDialogComponent {
 

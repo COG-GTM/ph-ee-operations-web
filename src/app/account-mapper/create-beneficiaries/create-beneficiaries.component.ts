@@ -13,9 +13,10 @@ import { Router } from "@angular/router";
  * Create Beneficiaries Component
  */
 @Component({
-  selector: 'mifosx-create-beneficiaries',
-  templateUrl: './create-beneficiaries.component.html',
-  styleUrls: ['./create-beneficiaries.component.scss']
+    selector: 'mifosx-create-beneficiaries',
+    templateUrl: './create-beneficiaries.component.html',
+    styleUrls: ['./create-beneficiaries.component.scss'],
+    standalone: false
 })
 export class CreateBeneficiariesComponent implements OnInit {
   programForm: FormGroup;

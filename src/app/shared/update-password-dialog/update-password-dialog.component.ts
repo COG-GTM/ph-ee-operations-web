@@ -7,9 +7,10 @@ import { PasswordsUtility } from 'app/core/utils/passwords-utility';
 
 
 @Component({
-  selector: 'mifosx-update-password-dialog',
-  templateUrl: './update-password-dialog.component.html',
-  styleUrls: ['./update-password-dialog.component.scss']
+    selector: 'mifosx-update-password-dialog',
+    templateUrl: './update-password-dialog.component.html',
+    styleUrls: ['./update-password-dialog.component.scss'],
+    standalone: false
 })
 export class UpdatePasswordDialogComponent implements OnInit {
 

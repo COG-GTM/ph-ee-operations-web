@@ -12,9 +12,10 @@ import { of } from 'rxjs';
  * Roles and Permissions component.
  */
 @Component({
-  selector: 'mifosx-roles-and-permissions',
-  templateUrl: './roles-and-permissions.component.html',
-  styleUrls: ['./roles-and-permissions.component.scss']
+    selector: 'mifosx-roles-and-permissions',
+    templateUrl: './roles-and-permissions.component.html',
+    styleUrls: ['./roles-and-permissions.component.scss'],
+    standalone: false
 })
 export class RolesAndPermissionsComponent implements OnInit {
 

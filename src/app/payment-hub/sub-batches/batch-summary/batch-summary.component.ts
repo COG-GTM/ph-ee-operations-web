@@ -1,9 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 @Component({
-  selector: 'mifosx-batch-summary',
-  templateUrl: './batch-summary.component.html',
-  styleUrls: ['./batch-summary.component.scss']
+    selector: 'mifosx-batch-summary',
+    templateUrl: './batch-summary.component.html',
+    styleUrls: ['./batch-summary.component.scss'],
+    standalone: false
 })
 export class BatchSummaryComponent {
   batch: any;

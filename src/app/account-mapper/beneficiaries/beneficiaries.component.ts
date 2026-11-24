@@ -18,9 +18,10 @@ import { Dates } from 'app/core/utils/dates';
  * Beneficiaries Component
  */
 @Component({
-  selector: 'mifosx-beneficiaries',
-  templateUrl: './beneficiaries.component.html',
-  styleUrls: ['./beneficiaries.component.scss'],
+    selector: 'mifosx-beneficiaries',
+    templateUrl: './beneficiaries.component.html',
+    styleUrls: ['./beneficiaries.component.scss'],
+    standalone: false
 })
 export class BeneficiariesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;

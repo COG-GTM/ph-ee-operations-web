@@ -14,9 +14,10 @@ import { BatchSummaryComponent } from './batch-summary/batch-summary.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'mifosx-sub-batches',
-  templateUrl: './sub-batches.component.html',
-  styleUrls: ['./sub-batches.component.scss'],
+    selector: 'mifosx-sub-batches',
+    templateUrl: './sub-batches.component.html',
+    styleUrls: ['./sub-batches.component.scss'],
+    standalone: false
 })
 export class SubBatchesComponent implements OnInit {
 

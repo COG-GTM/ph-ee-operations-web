@@ -26,9 +26,10 @@ import { NgxCsvParser } from 'ngx-csv-parser';
 
 /** Vouchers Bulk Import Component */
 @Component({
-  selector: 'mifosx-vouchers-bulk-import',
-  templateUrl: './vouchers-bulk-import.component.html',
-  styleUrls: ['./vouchers-bulk-import.component.scss']
+    selector: 'mifosx-vouchers-bulk-import',
+    templateUrl: './vouchers-bulk-import.component.html',
+    styleUrls: ['./vouchers-bulk-import.component.scss'],
+    standalone: false
 })
 export class VouchersBulkImportComponent implements OnInit {
 

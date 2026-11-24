@@ -15,9 +15,10 @@ import { VoucherData } from '../models/vouchers-model';
 
 /** Voucher Management Component */
 @Component({
-  selector: 'mifosx-voucher-management',
-  templateUrl: './voucher-management.component.html',
-  styleUrls: ['./voucher-management.component.scss'],
+    selector: 'mifosx-voucher-management',
+    templateUrl: './voucher-management.component.html',
+    styleUrls: ['./voucher-management.component.scss'],
+    standalone: false
 })
 export class VoucherManagementComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;

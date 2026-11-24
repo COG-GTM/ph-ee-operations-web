@@ -20,9 +20,10 @@ import { ViewTransferDetailsComponent } from './view-transfer-details/view-trans
 import { SubBatchSummaryComponent } from './sub-batch-summary/sub-batch-summary.component';
 
 @Component({
-  selector: 'mifosx-transfers',
-  templateUrl: './transfers.component.html',
-  styleUrls: ['./transfers.component.scss'],
+    selector: 'mifosx-transfers',
+    templateUrl: './transfers.component.html',
+    styleUrls: ['./transfers.component.scss'],
+    standalone: false
 })
 export class TransfersComponent implements OnInit {
 

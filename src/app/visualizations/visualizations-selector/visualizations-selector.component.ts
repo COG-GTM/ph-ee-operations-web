@@ -11,9 +11,10 @@ import { Section } from 'app/payment-hub/filter-selector/section-model';
  * Contains the visualizations selector component.
  */
 @Component({
-  selector: 'mifosx-visualizations-selector',
-  templateUrl: './visualizations-selector.component.html',
-  styleUrls: ['./visualizations-selector.component.scss']
+    selector: 'mifosx-visualizations-selector',
+    templateUrl: './visualizations-selector.component.html',
+    styleUrls: ['./visualizations-selector.component.scss'],
+    standalone: false
 })
 export class VisualizationsSelectorComponent {
 

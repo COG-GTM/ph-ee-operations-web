@@ -4,9 +4,10 @@ import { G2PPaymentConfigService } from "../services/g2p-payment-config.service"
 import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
-  selector: 'mifosx-create-g2p-payment',
-  templateUrl: './create-g2p-payment.component.html',
-  styleUrls: ['./create-g2p-payment.component.scss']
+    selector: 'mifosx-create-g2p-payment',
+    templateUrl: './create-g2p-payment.component.html',
+    styleUrls: ['./create-g2p-payment.component.scss'],
+    standalone: false
 })
 export class CreateG2pPaymentComponent implements OnInit {
 

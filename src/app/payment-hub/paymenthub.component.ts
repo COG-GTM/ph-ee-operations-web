@@ -5,9 +5,10 @@ import { Component, OnInit } from '@angular/core';
  * Payment HUB component.
  */
 @Component({
-  selector: 'mifosx-paymenthubee',
-  templateUrl: './paymenthub.component.html',
-  styleUrls: ['./paymenthub.component.scss']
+    selector: 'mifosx-paymenthubee',
+    templateUrl: './paymenthub.component.html',
+    styleUrls: ['./paymenthub.component.scss'],
+    standalone: false
 })
 export class PaymentHubComponent implements OnInit {
 

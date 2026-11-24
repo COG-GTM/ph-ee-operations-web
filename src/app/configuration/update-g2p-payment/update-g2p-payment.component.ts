@@ -15,9 +15,10 @@ import { G2PPaymentConfigService } from '../services/g2p-payment-config.service'
  * Update G2P Payment Component
  */
 @Component({
-  selector: 'mifosx-update-g2p-payment',
-  templateUrl: './update-g2p-payment.component.html',
-  styleUrls: ['./update-g2p-payment.component.scss'],
+    selector: 'mifosx-update-g2p-payment',
+    templateUrl: './update-g2p-payment.component.html',
+    styleUrls: ['./update-g2p-payment.component.scss'],
+    standalone: false
 })
 export class UpdateG2pPaymentComponent {
   programForm: FormGroup;

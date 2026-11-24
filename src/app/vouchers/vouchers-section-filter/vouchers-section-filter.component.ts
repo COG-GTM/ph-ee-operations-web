@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Section } from 'app/payment-hub/filter-selector/section-model';
 
 @Component({
-  selector: 'mifosx-vouchers-section-filter',
-  templateUrl: './vouchers-section-filter.component.html',
-  styleUrls: ['./vouchers-section-filter.component.scss']
+    selector: 'mifosx-vouchers-section-filter',
+    templateUrl: './vouchers-section-filter.component.html',
+    styleUrls: ['./vouchers-section-filter.component.scss'],
+    standalone: false
 })
 export class VouchersSectionFilterComponent implements OnInit {
 

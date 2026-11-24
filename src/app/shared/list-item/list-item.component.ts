@@ -3,9 +3,10 @@ import { Router } from '@angular/router';
 import { Section } from 'app/payment-hub/filter-selector/section-model';
 
 @Component({
-  selector: 'mifosx-list-item',
-  templateUrl: './list-item.component.html',
-  styleUrls: ['./list-item.component.scss']
+    selector: 'mifosx-list-item',
+    templateUrl: './list-item.component.html',
+    styleUrls: ['./list-item.component.scss'],
+    standalone: false
 })
 export class ListItemComponent {
 

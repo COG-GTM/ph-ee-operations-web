@@ -5,9 +5,10 @@ import { Component, OnInit } from '@angular/core';
  * Settings component.
  */
 @Component({
-  selector: 'mifosx-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+    selector: 'mifosx-settings',
+    templateUrl: './settings.component.html',
+    styleUrls: ['./settings.component.scss'],
+    standalone: false
 })
 export class SettingsComponent implements OnInit {
 

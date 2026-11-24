@@ -2,9 +2,10 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { NgxFileDropEntry } from 'ngx-file-drop';
 
 @Component({
-  selector: 'mifosx-drag-drop-file',
-  templateUrl: './drag-drop-file.component.html',
-  styleUrls: ['./drag-drop-file.component.scss']
+    selector: 'mifosx-drag-drop-file',
+    templateUrl: './drag-drop-file.component.html',
+    styleUrls: ['./drag-drop-file.component.scss'],
+    standalone: false
 })
 export class DragDropFileComponent {
 

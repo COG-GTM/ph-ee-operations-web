@@ -38,8 +38,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 
 
-import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule, NGX_MAT_DATE_FORMATS } from '@angular-material-components/datetime-picker';
-import { NgxMatMomentModule, NGX_MAT_MOMENT_FORMATS } from '@angular-material-components/moment-adapter';
 
 
 
@@ -86,9 +84,6 @@ import { NgxMatMomentModule, NGX_MAT_MOMENT_FORMATS } from '@angular-material-co
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
-    NgxMatDatetimePickerModule,
-    NgxMatTimepickerModule,
-    NgxMatMomentModule
     ],
   providers: [
     {

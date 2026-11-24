@@ -20,9 +20,10 @@ import { tap, debounceTime, distinctUntilChanged, startWith, map } from 'rxjs/op
  * Audit Trails Component.
  */
 @Component({
-  selector: 'mifosx-audit-trails',
-  templateUrl: './audit-trails.component.html',
-  styleUrls: ['./audit-trails.component.scss']
+    selector: 'mifosx-audit-trails',
+    templateUrl: './audit-trails.component.html',
+    styleUrls: ['./audit-trails.component.scss'],
+    standalone: false
 })
 export class AuditTrailsComponent implements OnInit, AfterViewInit {
 

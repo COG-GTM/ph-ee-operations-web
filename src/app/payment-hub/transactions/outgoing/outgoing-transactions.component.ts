@@ -26,9 +26,10 @@ import { RetryResolveDialogComponent } from '../retry-resolve-dialog/retry-resol
  * Transactions component.
  */
 @Component({
-  selector: 'mifosx-outgoing-transactions',
-  templateUrl: './outgoing-transactions.component.html',
-  styleUrls: ['./outgoing-transactions.component.scss']
+    selector: 'mifosx-outgoing-transactions',
+    templateUrl: './outgoing-transactions.component.html',
+    styleUrls: ['./outgoing-transactions.component.scss'],
+    standalone: false
 })
 export class OutgoingTransactionsComponent implements OnInit, AfterViewInit {
 

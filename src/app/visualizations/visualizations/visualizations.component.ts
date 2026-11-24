@@ -9,9 +9,10 @@ import { environment } from 'environments/environment';
  * Visualizations Component
  */
 @Component({
-  selector: 'mifosx-visualizations',
-  templateUrl: './visualizations.component.html',
-  styleUrls: ['./visualizations.component.scss']
+    selector: 'mifosx-visualizations',
+    templateUrl: './visualizations.component.html',
+    styleUrls: ['./visualizations.component.scss'],
+    standalone: false
 })
 export class VisualizationsComponent {
   grafanaUrl: SafeResourceUrl;

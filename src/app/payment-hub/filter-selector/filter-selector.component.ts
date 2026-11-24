@@ -4,9 +4,10 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 
 @Component({
-  selector: 'mifosx-filter-selector',
-  templateUrl: './filter-selector.component.html',
-  styleUrls: ['./filter-selector.component.scss']
+    selector: 'mifosx-filter-selector',
+    templateUrl: './filter-selector.component.html',
+    styleUrls: ['./filter-selector.component.scss'],
+    standalone: false
 })
 export class FilterSelectorComponent implements OnInit {
 

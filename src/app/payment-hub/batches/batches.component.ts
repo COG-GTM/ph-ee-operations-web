@@ -15,9 +15,10 @@ import { Batch, BatchData } from './model/batch.model';
 import { BatchesService } from './batches.service';
 
 @Component({
-  selector: 'mifosx-batches',
-  templateUrl: './batches.component.html',
-  styleUrls: ['./batches.component.scss'],
+    selector: 'mifosx-batches',
+    templateUrl: './batches.component.html',
+    styleUrls: ['./batches.component.scss'],
+    standalone: false
 })
 export class BatchesComponent implements OnInit {
 

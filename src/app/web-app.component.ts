@@ -31,9 +31,10 @@ const log = new Logger('PHEE');
  * Main web app component.
  */
 @Component({
-  selector: 'mifosx-web-app',
-  templateUrl: './web-app.component.html',
-  styleUrls: ['./web-app.component.scss']
+    selector: 'mifosx-web-app',
+    templateUrl: './web-app.component.html',
+    styleUrls: ['./web-app.component.scss'],
+    standalone: false
 })
 export class WebAppComponent implements OnInit {
 

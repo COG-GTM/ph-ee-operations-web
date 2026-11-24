@@ -3,9 +3,10 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { AlertService } from 'app/core/alert/alert.service';
 
 @Component({
-  selector: 'mifosx-identifier',
-  templateUrl: './identifier.component.html',
-  styleUrls: ['./identifier.component.scss']
+    selector: 'mifosx-identifier',
+    templateUrl: './identifier.component.html',
+    styleUrls: ['./identifier.component.scss'],
+    standalone: false
 })
 export class IdentifierComponent  implements OnInit {
   @Input() identifier: string;

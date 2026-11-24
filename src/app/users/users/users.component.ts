@@ -11,9 +11,10 @@ import { ActivatedRoute } from '@angular/router';
  * Users component.
  */
 @Component({
-  selector: 'mifosx-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss'],
+    selector: 'mifosx-users',
+    templateUrl: './users.component.html',
+    styleUrls: ['./users.component.scss'],
+    standalone: false
 })
 export class UsersComponent implements OnInit {
   /** Users data. */

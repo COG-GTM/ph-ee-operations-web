@@ -3,9 +3,10 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'mifosx-bpmn-dialog',
-  templateUrl: './bpmn-dialog.component.html',
-  styleUrls: ['./bpmn-dialog.component.scss']
+    selector: 'mifosx-bpmn-dialog',
+    templateUrl: './bpmn-dialog.component.html',
+    styleUrls: ['./bpmn-dialog.component.scss'],
+    standalone: false
 })
 export class BpmnDialogComponent implements OnInit {
 
