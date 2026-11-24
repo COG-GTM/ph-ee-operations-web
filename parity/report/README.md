@@ -31,18 +31,18 @@ The backend is mocked in-browser (see `support/mock.ts`); Google Fonts / Materia
 
 | Page | pixel diff | sizes (baseline / upgraded) | side by side |
 |---|---|---|---|
-| batches | 4.72% | 1366x900 / 1366x900 | ![](batches.side-by-side.png) |
-| beneficiaries | 4.71% | 1366x900 / 1366x900 | ![](beneficiaries.side-by-side.png) |
+| batches | 4.73% | 1366x900 / 1366x900 | ![](batches.side-by-side.png) |
+| beneficiaries | 4.74% | 1366x900 / 1366x900 | ![](beneficiaries.side-by-side.png) |
 | bulk-import | 2.89% | 1366x900 / 1366x900 | ![](bulk-import.side-by-side.png) |
-| dashboard | 1.77% | 1366x900 / 1366x900 | ![](dashboard.side-by-side.png) |
-| g2p-config | 3.20% | 1366x900 / 1366x900 | ![](g2p-config.side-by-side.png) |
-| g2p-create-validation | 4.29% | 1366x900 / 1366x900 | ![](g2p-create-validation.side-by-side.png) |
-| g2p-edit | 3.51% | 1366x900 / 1366x900 | ![](g2p-edit.side-by-side.png) |
+| dashboard | 1.76% | 1366x900 / 1366x900 | ![](dashboard.side-by-side.png) |
+| g2p-config | 3.23% | 1366x900 / 1366x900 | ![](g2p-config.side-by-side.png) |
+| g2p-create-validation | 4.30% | 1366x900 / 1366x900 | ![](g2p-create-validation.side-by-side.png) |
+| g2p-edit | 3.53% | 1366x900 / 1366x900 | ![](g2p-edit.side-by-side.png) |
 | login-validation | 8.79% | 1366x900 / 1366x900 | ![](login-validation.side-by-side.png) |
-| login | 8.68% | 1366x900 / 1366x900 | ![](login.side-by-side.png) |
+| login | 8.69% | 1366x900 / 1366x900 | ![](login.side-by-side.png) |
 | not-found | 0.00% | 1366x900 / 1366x900 | ![](not-found.side-by-side.png) |
 | settings | 1.27% | 1366x900 / 1366x900 | ![](settings.side-by-side.png) |
 | system | 1.52% | 1366x900 / 1366x900 | ![](system.side-by-side.png) |
 | transfers | 4.15% | 1366x900 / 1366x900 | ![](transfers.side-by-side.png) |
-| visualizations | 1.07% | 1366x900 / 1366x900 | ![](visualizations.side-by-side.png) |
-| vouchers | 4.12% | 1366x900 / 1366x900 | ![](vouchers.side-by-side.png) |
+| visualizations | 1.08% | 1366x900 / 1366x900 | ![](visualizations.side-by-side.png) |
+| vouchers | 4.14% | 1366x900 / 1366x900 | ![](vouchers.side-by-side.png) |
