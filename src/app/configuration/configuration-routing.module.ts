@@ -6,10 +6,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { Route } from 'app/core/route/route.service';
 
 /** Custom Components */
-import { ConfigurationComponent } from './configuration/configuration.component';
-import { G2pPaymentComponent } from './g2p-payment/g2p-payment.component';
-import { UpdateG2pPaymentComponent } from './update-g2p-payment/update-g2p-payment.component';
-import { CreateG2pPaymentComponent } from './create-g2p-payment/create-g2p-payment.component';
 
 /** Custom Resolvers */
 import { viewPaymentConfigResolver } from './resolver/view-payment.resolver';
@@ -27,7 +23,7 @@ const routes: Routes = [
       children: [
         {
           path: "configuration",
-          component: ConfigurationComponent,
+          loadComponent: () => import('./configuration/configuration.component').then(m => m.ConfigurationComponent),
           data: { breadcrumb: { skip: true } },
           children: [
             {
@@ -42,7 +38,7 @@ const routes: Routes = [
               children: [
                 {
                   path: "",
-                  component: G2pPaymentComponent,
+                  loadComponent: () => import('./g2p-payment/g2p-payment.component').then(m => m.G2pPaymentComponent),
                   resolve: {
                     g2pPayments: g2pPaymentConfigsResolver
                   },
@@ -53,7 +49,7 @@ const routes: Routes = [
                     program: viewPaymentConfigResolver,
                     template: g2pTemplateResolver
                   },
-                  component: UpdateG2pPaymentComponent,
+                  loadComponent: () => import('./update-g2p-payment/update-g2p-payment.component').then(m => m.UpdateG2pPaymentComponent),
                   data: { breadcrumb: { skip: true } },
                 }
 
@@ -62,7 +58,7 @@ const routes: Routes = [
             },
             {
               path: "create",
-              component: CreateG2pPaymentComponent,
+              loadComponent: () => import('./create-g2p-payment/create-g2p-payment.component').then(m => m.CreateG2pPaymentComponent),
               data: { breadcrumb: "Create"},
               resolve: {
                 template: g2pTemplateResolver

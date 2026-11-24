@@ -6,14 +6,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { Route } from '../core/route/route.service';
 
 /** Custom Components */
-import { SettingsComponent } from './settings.component';
 
 /** Settings Routes */
 const routes: Routes = [
   Route.withShell([
     {
       path: 'settings',
-      component: SettingsComponent,
+      loadComponent: () => import('./settings.component').then(m => m.SettingsComponent),
       data: { title: 'Settings', breadcrumb: 'Settings' }
     }
   ])

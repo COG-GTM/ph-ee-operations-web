@@ -6,10 +6,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { Route } from '../core/route/route.service';
 
 /** Custom Components */
-import { UsersComponent } from './users/users.component';
-import { CreateUserComponent } from './create-user/create-user.component';
-import { ViewUserComponent } from './view-user/view-user.component';
-import { UserRequestsComponent } from './user-requests/user-requests.component';
 
 /** Custom Resolvers */
 import { usersResolver } from './users.resolver';
@@ -25,14 +21,14 @@ const routes: Routes = [
       children: [
         {
           path: '',
-          component: UsersComponent,
+          loadComponent: () => import('./users/users.component').then(m => m.UsersComponent),
           resolve: {
             users: usersResolver
           }
         },
         {
           path: 'create',
-          component: CreateUserComponent,
+          loadComponent: () => import('./create-user/create-user.component').then(m => m.CreateUserComponent),
           data: { title: 'Create User', breadcrumb: 'Create' },
           resolve: {
             usersTemplate: usersTemplateResolver
@@ -40,7 +36,7 @@ const routes: Routes = [
         },
         {
           path: "user-requests",
-          component: UserRequestsComponent,
+          loadComponent: () => import('./user-requests/user-requests.component').then(m => m.UserRequestsComponent),
           data: { title: "User Requests", breadcrumb: "User Requests" },
         },
         {
@@ -52,7 +48,7 @@ const routes: Routes = [
           children: [
             {
               path: '',
-              component: ViewUserComponent
+              loadComponent: () => import('./view-user/view-user.component').then(m => m.ViewUserComponent)
             }
           ]
         }

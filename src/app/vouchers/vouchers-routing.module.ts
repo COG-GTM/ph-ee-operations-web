@@ -6,9 +6,6 @@ import { RouterModule, Routes } from "@angular/router";
 import { Route } from "app/core/route/route.service";
 
 /** Custom Components */
-import { VouchersComponent } from "./vouchers/vouchers.component";
-import { VoucherManagementComponent } from "./voucher-management/voucher-management.component";
-import { VouchersBulkImportComponent } from "./vouchers-bulk-import/vouchers-bulk-import.component";
 
 
 /**
@@ -21,7 +18,7 @@ const routes: Routes = [
       children: [
         {
           path: "vouchers",
-          component: VouchersComponent,
+          loadComponent: () => import('./vouchers/vouchers.component').then(m => m.VouchersComponent),
           data: {
             title: "Voucher Management",
             breadcrumb: "Voucher Management",
@@ -34,12 +31,12 @@ const routes: Routes = [
             },
             {
               path: "voucher-management",
-              component: VoucherManagementComponent,
+              loadComponent: () => import('./voucher-management/voucher-management.component').then(m => m.VoucherManagementComponent),
               data: { breadcrumb: { skip: true } },
             },
             {
               path: "bulk-import",
-              component: VouchersBulkImportComponent,
+              loadComponent: () => import('./vouchers-bulk-import/vouchers-bulk-import.component').then(m => m.VouchersBulkImportComponent),
               data: { breadcrumb: { skip: true } },
             },
           ],

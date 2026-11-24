@@ -6,7 +6,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { Route } from '../core/route/route.service';
 
 /** Custom Components */
-import { DashboardComponent } from './dashboard/dashboard.component';
 
 /** Home and Dashboard Routes */
 const routes: Routes = [
@@ -18,7 +17,7 @@ const routes: Routes = [
     },
     {
       path: 'dashboard',
-      component: DashboardComponent,
+      loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent),
       data: { breadcrumb: {alias: 'Dashboard'} }
     }
   ])

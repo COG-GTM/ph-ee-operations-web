@@ -3,13 +3,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 /** Custom Components */
-import { LoginComponent } from './login.component';
 
 /** Login Routes */
 const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent,
+    loadComponent: () => import('./login.component').then(m => m.LoginComponent),
     data: { title: 'Login' }
   }
 ];
