@@ -15,9 +15,11 @@
   <mat-form-field fxFlex="48%">
     <mat-label>Status</mat-label>
     <mat-select [formControl]="processingResult" (selectionChange)="applyFilter($event.value, 'processingResult')">
-      <mat-option *ngFor="let processingResult of auditTrailSearchTemplateData.processingResults" [value]="processingResult.id">
-        {{ processingResult.processingResult }}
-      </mat-option>
+      @for (processingResult of auditTrailSearchTemplateData.processingResults; track processingResult) {
+        <mat-option [value]="processingResult.id">
+          {{ processingResult.processingResult }}
+        </mat-option>
+      }
     </mat-select>
   </mat-form-field>
 
@@ -74,27 +76,35 @@
 
 <!-- Autocomplete data -->
 <mat-autocomplete autoActiveFirstOption #userNameAutocomplete="matAutocomplete" [displayWith]="displayUserName">
-  <mat-option *ngFor="let user of filteredUserData | async " [value]="{ id: user.id, name: user.username }">
-    {{ user.username }}
-  </mat-option>
+  @for (user of filteredUserData | async ; track user) {
+    <mat-option [value]="{ id: user.id, name: user.username }">
+      {{ user.username }}
+    </mat-option>
+  }
 </mat-autocomplete>
 
 <mat-autocomplete autoActiveFirstOption #actionNameAutocomplete="matAutocomplete" [displayWith]="displayActionName">
-  <mat-option *ngFor="let action of filteredActionData | async" [value]="action">
-    {{ action }}
-  </mat-option>
+  @for (action of filteredActionData | async; track action) {
+    <mat-option [value]="action">
+      {{ action }}
+    </mat-option>
+  }
 </mat-autocomplete>
 
 <mat-autocomplete autoActiveFirstOption #entityNameAutocomplete="matAutocomplete" [displayWith]="displayEntityName">
-  <mat-option *ngFor="let entity of filteredEntityData | async" [value]="entity">
-    {{ entity }}
-  </mat-option>
+  @for (entity of filteredEntityData | async; track entity) {
+    <mat-option [value]="entity">
+      {{ entity }}
+    </mat-option>
+  }
 </mat-autocomplete>
 
 <mat-autocomplete autoActiveFirstOption #checkerAutocomplete="matAutocomplete" [displayWith]="displayUserName">
-  <mat-option *ngFor="let user of filteredCheckerData | async " [value]="{ id: user.id, name: user.username }">
-    {{ user.username }}
-  </mat-option>
+  @for (user of filteredCheckerData | async ; track user) {
+    <mat-option [value]="{ id: user.id, name: user.username }">
+      {{ user.username }}
+    </mat-option>
+  }
 </mat-autocomplete>
 
 <div class="container mat-elevation-z8">
@@ -157,6 +167,6 @@
   </table>
 
   <mat-paginator [length]="dataSource?.records$ | async" [pageSize]="10" [pageSizeOptions]="[10, 25, 50, 100]"
-    showFirstLastButtons></mat-paginator>
+  showFirstLastButtons></mat-paginator>
 
 </div>

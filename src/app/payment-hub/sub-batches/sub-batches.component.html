@@ -1,10 +1,14 @@
 <div class="container" fxLayout="column wrap" fxLayout.lt-md="column">
   <div class="summary" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
-    <button mat-raised-button *ngIf="!isLoading" (click)="refreshBatchStatus()"
-            [disabled]="isRefreshing" class="refresh-button">
-      <mat-spinner *ngIf="isRefreshing" diameter="18" class="inline-spinner"></mat-spinner>
-      {{ isRefreshing ? ('labels.buttons.Refreshing' | translate) : ('labels.buttons.Refresh Status' | translate) }}
-    </button>
+    @if (!isLoading) {
+      <button mat-raised-button (click)="refreshBatchStatus()"
+        [disabled]="isRefreshing" class="refresh-button">
+        @if (isRefreshing) {
+          <mat-spinner diameter="18" class="inline-spinner"></mat-spinner>
+        }
+        {{ isRefreshing ? ('labels.buttons.Refreshing' | translate) : ('labels.buttons.Refresh Status' | translate) }}
+      </button>
+    }
 
   </div>
   <div class="equal-width">
@@ -12,62 +16,63 @@
       <mat-expansion-panel class="filter-header" #panel hideToggle>
         <mat-expansion-panel-header (click)="togglePanel()">
           <mat-panel-title fxLayout="row" fxLayoutGap="1rem" fxLayoutAlign="space-between center">
-            <div *ngIf="!panel.expanded" fxFlex="100%" fxLayout="row wrap" fxLayoutAlign="flex-start center"
-              class="gap0">
+            @if (!panel.expanded) {
+              <div fxFlex="100%" fxLayout="row wrap" fxLayoutAlign="flex-start center"
+                class="gap0">
               <button mat-button (click)="removeFilter('transactionDateFrom')" [ngClass]="{
                   'active-filter-button': selectedFilters.transactionDateFrom,
                   'filter-button': !selectedFilters.transactionDateFrom
                 }">
-                {{ "labels.inputs.From Date" | translate }}
-              </button>
-
+                  {{ "labels.inputs.From Date" | translate }}
+                </button>
               <button mat-button (click)="removeFilter('transactionDateTo')" [ngClass]="{
                   'active-filter-button': selectedFilters.transactionDateTo,
                   'filter-button': !selectedFilters.transactionDateTo
                 }">
-                {{ "labels.inputs.To Date" | translate }}
-              </button>
-              <button mat-button fxLayout="row" fxLayoutAlign="center" (click)="removeFilter('batchReferenceNumber')"
+                  {{ "labels.inputs.To Date" | translate }}
+                </button>
+                <button mat-button fxLayout="row" fxLayoutAlign="center" (click)="removeFilter('batchReferenceNumber')"
                 [ngClass]="{
                   'active-filter-button': selectedFilters.batchReferenceNumber,
                   'filter-button': !selectedFilters.batchReferenceNumber
                 }">
-                {{
-                "labels.inputs.Sub-Batch Reference Number" | translate
-                }}
-              </button>
+                  {{
+                  "labels.inputs.Sub-Batch Reference Number" | translate
+                  }}
+                </button>
               <button mat-button fxLayout="row" fxLayoutAlign="center" (click)="removeFilter('bulkAmount')" [ngClass]="{
                 'active-filter-button': selectedFilters.bulkAmount,
                 'filter-button': !selectedFilters.bulkAmount
               }">
-                {{
-                "labels.inputs.Bulk Amount" | translate
-                }}
-              </button>
-              <button mat-button fxLayout="row" fxLayoutAlign="center" (click)="removeFilter('totalInstructionCount')"
+                  {{
+                  "labels.inputs.Bulk Amount" | translate
+                  }}
+                </button>
+                <button mat-button fxLayout="row" fxLayoutAlign="center" (click)="removeFilter('totalInstructionCount')"
                 [ngClass]="{
               'active-filter-button': selectedFilters.totalInstructionCount,
               'filter-button': !selectedFilters.totalInstructionCount
             }">
-                {{
-                "labels.inputs.Number of Instructions" | translate
-                }}
-              </button>
+                  {{
+                  "labels.inputs.Number of Instructions" | translate
+                  }}
+                </button>
               <button mat-button fxLayout="row" fxLayoutAlign="center" (click)="removeFilter('payeeFsp')" [ngClass]="{
             'active-filter-button': selectedFilters.payeeFsp,
             'filter-button': !selectedFilters.payeeFsp
           }">
-                {{
-                "labels.inputs.Payee FSP" | translate
-                }}
-              </button>
+                  {{
+                  "labels.inputs.Payee FSP" | translate
+                  }}
+                </button>
               <button mat-button fxLayout="row" fxLayoutAlign="center" (click)="removeFilter('subBatchStatus')" [ngClass]="{
                   'active-filter-button': selectedFilters.subBatchStatus,
                   'filter-button': !selectedFilters.subBatchStatus
                 }">
-                {{ "labels.inputs.Status" | translate }}
-              </button>
-            </div>
+                  {{ "labels.inputs.Status" | translate }}
+                </button>
+              </div>
+            }
             <div fxFlex fxLayout="row" fxLayoutGap="1rem" (click)="togglePanel($event)" fxLayoutAlign="end center">
               <fa-icon icon="filter" size="xl"></fa-icon>
               <h3>{{ "labels.inputs.Filters" | translate }}</h3>
@@ -101,7 +106,7 @@
             <div fxLayout="column">
               <mat-label>{{
                 "labels.inputs.Sub-Batch Reference Number" | translate
-                }}</mat-label>
+              }}</mat-label>
               <mat-form-field fxFlex="20%">
                 <input matInput [formControl]="batchReferenceNumber" />
               </mat-form-field>
@@ -110,7 +115,7 @@
             <div fxLayout="column">
               <mat-label>{{
                 "labels.inputs.Bulk Amount" | translate
-                }}</mat-label>
+              }}</mat-label>
               <mat-form-field fxFlex="20%">
                 <input type="number" matInput [formControl]="bulkAmount" />
               </mat-form-field>
@@ -119,7 +124,7 @@
             <div fxLayout="column">
               <mat-label>{{
                 "labels.inputs.Number of Instructions" | translate
-                }}</mat-label>
+              }}</mat-label>
               <mat-form-field fxFlex="20%">
                 <input type="number" matInput [formControl]="totalInstructionCount" />
               </mat-form-field>
@@ -136,9 +141,11 @@
                 <mat-label>{{ "labels.inputs.Status" | translate }}</mat-label>
                 <mat-form-field fxFlex="20%">
                   <mat-select [formControl]="subBatchStatus">
-                    <mat-option *ngFor="let status of subBatchStatuses" [value]="status">
-                      {{ status }}
-                    </mat-option>
+                    @for (status of subBatchStatuses; track status) {
+                      <mat-option [value]="status">
+                        {{ status }}
+                      </mat-option>
+                    }
                   </mat-select>
                 </mat-form-field>
               </div>
@@ -156,87 +163,80 @@
   </div>
   <div class="equal-width">
     <mat-card appearance="outlined" class="radius8 no-padding">
-      <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+      @if (isLoading) {
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      }
       <div class="table-container">
-        <table mat-table [dataSource]="dataSource" matSort *ngIf="!isLoading">
-          <ng-container matColumnDef="batchReferenceNumber">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              {{ "labels.inputs.Sub-Batch Reference Number" | translate }}
-            </th>
-            <td mat-cell *matCellDef="let item">
-              <mifosx-identifier identifier="{{ item.subBatchId }}"></mifosx-identifier>
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="startedAt">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              {{ "labels.inputs.Start Time" | translate }}
-            </th>
-            <td mat-cell *matCellDef="let item">
-              {{ item.startedAt | datetimeFormat }}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="completedAt">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              {{ "labels.inputs.Completed Time" | translate }}
-            </th>
-            <td mat-cell *matCellDef="let item">
-              {{ item.completedAt | datetimeFormat }}
-            </td>
-          </ng-container>
-
-
-
-
-          <ng-container matColumnDef="totalInstructionCount">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              {{ "labels.inputs.Number of Instructions" | translate }}
-            </th>
-            <td mat-cell class="center" *matCellDef="let item">
-              {{ item.totalInstructionCount }}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="amount">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              {{ "labels.inputs.Bulk Amount" | translate }}
-            </th>
-            <td mat-cell *matCellDef="let item">
-              {{ item.totalAmount | number }}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="payeeFsp">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              {{ "labels.inputs.Payee FSP" | translate }}
-            </th>
-            <td mat-cell *matCellDef="let item">{{ item.payeeFsp }}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              {{ "labels.inputs.Status" | translate }}
-            </th>
+        @if (!isLoading) {
+          <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="batchReferenceNumber">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                {{ "labels.inputs.Sub-Batch Reference Number" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let item">
+                <mifosx-identifier identifier="{{ item.subBatchId }}"></mifosx-identifier>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="startedAt">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                {{ "labels.inputs.Start Time" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let item">
+                {{ item.startedAt | datetimeFormat }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="completedAt">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                {{ "labels.inputs.Completed Time" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let item">
+                {{ item.completedAt | datetimeFormat }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="totalInstructionCount">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                {{ "labels.inputs.Number of Instructions" | translate }}
+              </th>
+              <td mat-cell class="center" *matCellDef="let item">
+                {{ item.totalInstructionCount }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="amount">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                {{ "labels.inputs.Bulk Amount" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let item">
+                {{ item.totalAmount | number }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="payeeFsp">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                {{ "labels.inputs.Payee FSP" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let item">{{ item.payeeFsp }}</td>
+            </ng-container>
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                {{ "labels.inputs.Status" | translate }}
+              </th>
             <td mat-cell *matCellDef="let item" [ngClass]="{
                 red: item.status === 'Rejected',
                 green: item.status === 'Completed',
                 orange: item.status === 'Partially Authorized'
               }">
-              {{ item.status }}
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-          <tr mat-row *matRowDef="let item; columns: displayedColumns" (click)="gotoSubBatchesDetails(item.subBatchId)"
+                {{ item.status }}
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let item; columns: displayedColumns" (click)="gotoSubBatchesDetails(item.subBatchId)"
             class="select-row"></tr>
-
-          <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" [attr.colspan]="displayedColumns.length">
-              No data matching data found
-            </td>
-          </tr>
-        </table>
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+                No data matching data found
+              </td>
+            </tr>
+          </table>
+        }
       </div>
       <mat-paginator [pageSizeOptions]="[10, 25, 50, 100, 200]" showFirstLastButtons></mat-paginator>
     </mat-card>

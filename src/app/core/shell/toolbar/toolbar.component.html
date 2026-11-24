@@ -2,17 +2,17 @@
   <mifosx-language-selector fxHide.lt-md></mifosx-language-selector>
   <mifosx-tenant-selector fxHide.lt-md></mifosx-tenant-selector>
   <div class="right-toolbar">
-  <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px" fxLayout.gt-lg="row wrap" >
-    <mat-card  appearance="outlined"  matTooltip="{{displayEmail()}}" >{{displayUser()}}</mat-card>
-    <mat-card appearance="outlined">{{displayUserType()}}</mat-card>
-    <ng-container *ngIf="displayInstitueId() !== undefined">
-      <mat-card appearance="outlined" matTooltip="{{displayInstitueId()}}">{{displayInstituteName()}}</mat-card>
-    </ng-container>
-  </div>
-      <button mat-fab class="user-icon" >
-          <fa-icon icon="user" size="lg"></fa-icon>
-      </button>
-      <fa-icon [matMenuTriggerFor]="applicationMenu" #menuTrigger="matMenuTrigger" [icon]="menuTrigger.menuOpen ? 'chevron-up' : 'chevron-down'" size="lg"></fa-icon>
+    <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px" fxLayout.gt-lg="row wrap" >
+      <mat-card  appearance="outlined"  matTooltip="{{displayEmail()}}" >{{displayUser()}}</mat-card>
+      <mat-card appearance="outlined">{{displayUserType()}}</mat-card>
+      @if (displayInstitueId() !== undefined) {
+        <mat-card appearance="outlined" matTooltip="{{displayInstitueId()}}">{{displayInstituteName()}}</mat-card>
+      }
+    </div>
+    <button mat-fab class="user-icon" >
+      <fa-icon icon="user" size="lg"></fa-icon>
+    </button>
+    <fa-icon [matMenuTriggerFor]="applicationMenu" #menuTrigger="matMenuTrigger" [icon]="menuTrigger.menuOpen ? 'chevron-up' : 'chevron-down'" size="lg"></fa-icon>
   </div>
 </div>
 

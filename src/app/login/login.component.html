@@ -19,8 +19,12 @@
     </div>
 
     <div fxLayout="row" fxFlex="3 0 auto" fxLayoutAlign="center start">
-      <mifosx-login-form *ngIf="!resetPassword && !twoFactorAuthenticationRequired"></mifosx-login-form>
-      <mifosx-reset-password *ngIf="resetPassword"></mifosx-reset-password>
+      @if (!resetPassword && !twoFactorAuthenticationRequired) {
+        <mifosx-login-form></mifosx-login-form>
+      }
+      @if (resetPassword) {
+        <mifosx-reset-password></mifosx-reset-password>
+      }
     </div>
 
     <!-- Footer -->

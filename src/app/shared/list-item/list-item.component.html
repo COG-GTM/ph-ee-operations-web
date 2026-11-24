@@ -1,12 +1,20 @@
-<div (click)="goToRoute()" fxLayout="column" fxLayoutAlign="center start" class="option {{classFormat}}" [ngClass]="isActive()" *ngIf="!section.disabled">
-    <fa-icon class="icon" *ngIf="section.icon" [icon]="section.icon" size="xl"></fa-icon>
+@if (!section.disabled) {
+  <div (click)="goToRoute()" fxLayout="column" fxLayoutAlign="center start" class="option {{classFormat}}" [ngClass]="isActive()">
+    @if (section.icon) {
+      <fa-icon class="icon" [icon]="section.icon" size="xl"></fa-icon>
+    }
     <h4 matLine class="title" [ngClass]="classFormatTitle">
-        {{ 'labels.menus.' + section.label | translate }}
+      {{ 'labels.menus.' + section.label | translate }}
     </h4>
-</div>
-<div fxLayout="column" fxLayoutAlign="center start" class="option-disabled {{classFormat}}" [ngClass]="isActive()" *ngIf="section.disabled">
-    <fa-icon class="icon" *ngIf="section.icon" [icon]="section.icon" size="xl"></fa-icon>
+  </div>
+}
+@if (section.disabled) {
+  <div fxLayout="column" fxLayoutAlign="center start" class="option-disabled {{classFormat}}" [ngClass]="isActive()">
+    @if (section.icon) {
+      <fa-icon class="icon" [icon]="section.icon" size="xl"></fa-icon>
+    }
     <h4 matLine class="title" [ngClass]="classFormatTitle">
-        {{ 'labels.menus.' + section.label | translate }}
+      {{ 'labels.menus.' + section.label | translate }}
     </h4>
-</div>
+  </div>
+}

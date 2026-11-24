@@ -1,24 +1,28 @@
 <form fxLayout="column" [formGroup]="loginForm" (ngSubmit)="login()" id="login-form">
 
-  <div fxLayout="column" *ngIf="tenantIdIsList()">
-    <mat-label>{{'labels.inputs.Tenant' | translate}} *</mat-label>
-    <mat-form-field class="custom-form-field">
-      <mat-select formControlName="tenant" class="login-input">
-        <mat-option *ngFor="let tenant of tenantIdsDefault" [value]="tenant">{{tenant}}</mat-option>
-      </mat-select>
-      <mat-error *ngIf="loginForm.controls.tenant.hasError('required')">
-        {{'labels.texts.Tenant is' | translate}} <strong>{{'labels.texts.required' | translate}}</strong>
-      </mat-error>
-    </mat-form-field>
-  </div>
+  @if (tenantIdIsList()) {
+    <div fxLayout="column">
+      <mat-label>{{'labels.inputs.Tenant' | translate}} *</mat-label>
+      <mat-form-field class="custom-form-field">
+        <mat-select formControlName="tenant" class="login-input">
+          @for (tenant of tenantIdsDefault; track tenant) {
+            <mat-option [value]="tenant">{{tenant}}</mat-option>
+          }
+        </mat-select>
+        @if (loginForm.controls.tenant.hasError('required')) {<mat-error>
+            {{'labels.texts.Tenant is' | translate}} <strong>{{'labels.texts.required' | translate}}</strong>
+          </mat-error>}
+      </mat-form-field>
+    </div>
+  }
 
   <div fxLayout="column">
     <mat-label>{{'labels.inputs.Username' | translate}} *</mat-label>
     <mat-form-field class="custom-form-field">
       <input matInput required type="text" autocomplete="off" class="login-input" formControlName="username">
-      <mat-error *ngIf="loginForm.controls.username.hasError('required')">
-        {{'labels.texts.Username is' | translate}} <strong>{{'labels.texts.required' | translate}}</strong>
-      </mat-error>
+      @if (loginForm.controls.username.hasError('required')) {<mat-error>
+          {{'labels.texts.Username is' | translate}} <strong>{{'labels.texts.required' | translate}}</strong>
+        </mat-error>}
     </mat-form-field>
   </div>
 
@@ -27,15 +31,19 @@
     <mat-label>{{'labels.inputs.Password' | translate}} *</mat-label>
     <mat-form-field class="custom-form-field">
       <input matInput required type="{{ passwordInputType }}" class="login-input" formControlName="password">
-      <button fxLayout="row" fxLayoutAlign="center center" mat-button
-        *ngIf="loginForm.controls.password.value && !loading" matSuffix mat-icon-button
-        (mousedown)="passwordInputType = 'text'" (mouseup)="passwordInputType = 'password'">
-        <fa-icon class="icon" *ngIf="passwordInputType === 'password'" icon="eye"></fa-icon>
-        <fa-icon class="icon" *ngIf="passwordInputType === 'text'" icon="eye-slash"></fa-icon>
-      </button>
-      <mat-error *ngIf="loginForm.controls.password.hasError('required')">
-        {{'labels.texts.Password is' | translate}} <strong>{{'labels.texts.required' | translate}}</strong>
-      </mat-error>
+      @if (loginForm.controls.password.value && !loading) {<button fxLayout="row" fxLayoutAlign="center center" mat-button
+          matSuffix mat-icon-button
+          (mousedown)="passwordInputType = 'text'" (mouseup)="passwordInputType = 'password'">
+          @if (passwordInputType === 'password') {
+            <fa-icon class="icon" icon="eye"></fa-icon>
+          }
+          @if (passwordInputType === 'text') {
+            <fa-icon class="icon" icon="eye-slash"></fa-icon>
+          }
+        </button>}
+      @if (loginForm.controls.password.hasError('required')) {<mat-error>
+          {{'labels.texts.Password is' | translate}} <strong>{{'labels.texts.required' | translate}}</strong>
+        </mat-error>}
     </mat-form-field>
   </div>
 
@@ -49,7 +57,9 @@
 
   <button mat-raised-button fxLayoutAlign="center center" fxLayout="row" class="custom-button" [disabled]="!loginForm.valid">
     {{'labels.buttons.Login' | translate}}
-    <mat-spinner [diameter]="20" *ngIf="loading"></mat-spinner>
+    @if (loading) {
+      <mat-spinner [diameter]="20"></mat-spinner>
+    }
   </button>
 
 

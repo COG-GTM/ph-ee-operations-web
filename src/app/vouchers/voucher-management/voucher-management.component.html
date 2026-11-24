@@ -7,46 +7,42 @@
       <mat-expansion-panel class="filter-header" #panel hideToggle>
         <mat-expansion-panel-header (click)="togglePanel()">
           <mat-panel-title fxLayout="row" fxLayoutGap="1rem" fxLayoutAlign="space-between center">
-            
-            <div *ngIf="!panel.expanded" fxFlex="100%" fxLayout="row wrap" fxLayoutAlign="flex-start center"
-              class="gap0">
-              
+
+            @if (!panel.expanded) {
+              <div fxFlex="100%" fxLayout="row wrap" fxLayoutAlign="flex-start center"
+                class="gap0">
               <button mat-button (click)="removeFilter('governmentEntity')" [ngClass]="{
                   'active-filter-button': selectedFilters.governmentEntity,
                   'filter-button': !selectedFilters.governmentEntity
                 }">
-                {{'labels.inputs.Government Entity'| translate}}
-              </button>
-              
+                  {{'labels.inputs.Government Entity'| translate}}
+                </button>
               <button mat-button (click)="removeFilter('serialNumber')" [ngClass]="{
                   'active-filter-button': selectedFilters.serialNumber,
                   'filter-button': !selectedFilters.serialNumber
                 }">
-                {{'labels.inputs.Serial Number'| translate}}
-              </button>
-              
+                  {{'labels.inputs.Serial Number'| translate}}
+                </button>
               <button mat-button (click)="removeFilter('functionalId')" [ngClass]="{
                   'active-filter-button': selectedFilters.functionalId,
                   'filter-button': !selectedFilters.functionalId
                 }">
-                {{'labels.inputs.Functional ID'| translate}}
-              </button>
-              
+                  {{'labels.inputs.Functional ID'| translate}}
+                </button>
               <button mat-button (click)="removeFilter('status')" [ngClass]="{
                   'active-filter-button': selectedFilters.status,
                   'filter-button': !selectedFilters.status
                 }">
-                {{'labels.inputs.Status'| translate}}
-              </button>
-              
+                  {{'labels.inputs.Status'| translate}}
+                </button>
               <button mat-button (click)="removeFilter('createdDate')" [ngClass]="{
                   'active-filter-button': selectedFilters.createdDate,
                   'filter-button': !selectedFilters.createdDate
                 }">
-                {{'labels.inputs.Date Voucher'| translate}}
-              
-              </button>
-            </div>
+                  {{'labels.inputs.Date Voucher'| translate}}
+                </button>
+              </div>
+            }
 
             <div fxFlex fxLayout="row" fxLayoutGap="1rem" (click)="togglePanel($event)" fxLayoutAlign="end center">
               <fa-icon icon="filter" size="xl"></fa-icon>
@@ -94,9 +90,11 @@
               <mat-label>{{ 'labels.inputs.Status' | translate }}</mat-label>
               <mat-form-field fxFlex="20%">
                 <mat-select [formControl]="status">
-                  <mat-option *ngFor="let status of statusOptions" [value]="status.code">
-                    {{ status.label }}
-                  </mat-option>
+                  @for (status of statusOptions; track status) {
+                    <mat-option [value]="status.code">
+                      {{ status.label }}
+                    </mat-option>
+                  }
                 </mat-select>
               </mat-form-field>
             </div>
@@ -116,61 +114,58 @@
 
   <div class="equal-width">
     <mat-card appearance="outlined" class="radius8 no-padding">
-      <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+      @if (isLoading) {
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      }
       <div class="table-container">
-        <table mat-table [dataSource]="dataSource" matSort *ngIf="!isLoading">
-          
-          <ng-container matColumnDef="serialNumber">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              {{ 'labels.inputs.Serial Number' | translate }}
-            </th>
-            <td mat-cell *matCellDef="let item">
-              <fa-icon icon="ticket" size="xl" class="ticket"></fa-icon>
-              <mifosx-identifier identifier="{{ item.serialNumber }}"></mifosx-identifier>
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="createdDate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              {{ 'labels.inputs.Date Voucher Created' | translate }}
-            </th>
-            <td mat-cell *matCellDef="let item">
-              {{ convertTimestampToUTCDate(item.createdDate) | dateFormat }}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="registeringInstitutionId">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              {{ 'labels.inputs.Government Entity' | translate }}
-            </th>
-            <td mat-cell *matCellDef="let item">
-              {{ item.registeringInstitutionId }}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="functionalId">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              {{ 'labels.inputs.Functional ID' | translate }}
-            </th>
-            <td mat-cell *matCellDef="let item">{{ item.payeeFunctionalID }}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              {{ 'labels.inputs.Status' | translate }}
-            </th>
-            <td mat-cell *matCellDef="let item" [ngClass]="statusStyle(item.status)">
-              {{ validateStatus(item.status) }}
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns" class="select-row"></tr>
-
-          <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" [attr.colspan]="displayedColumns.length">No data matching data found</td>
-          </tr>
-        </table>
+        @if (!isLoading) {
+          <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="serialNumber">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                {{ 'labels.inputs.Serial Number' | translate }}
+              </th>
+              <td mat-cell *matCellDef="let item">
+                <fa-icon icon="ticket" size="xl" class="ticket"></fa-icon>
+                <mifosx-identifier identifier="{{ item.serialNumber }}"></mifosx-identifier>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="createdDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                {{ 'labels.inputs.Date Voucher Created' | translate }}
+              </th>
+              <td mat-cell *matCellDef="let item">
+                {{ convertTimestampToUTCDate(item.createdDate) | dateFormat }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="registeringInstitutionId">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                {{ 'labels.inputs.Government Entity' | translate }}
+              </th>
+              <td mat-cell *matCellDef="let item">
+                {{ item.registeringInstitutionId }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="functionalId">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                {{ 'labels.inputs.Functional ID' | translate }}
+              </th>
+              <td mat-cell *matCellDef="let item">{{ item.payeeFunctionalID }}</td>
+            </ng-container>
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                {{ 'labels.inputs.Status' | translate }}
+              </th>
+              <td mat-cell *matCellDef="let item" [ngClass]="statusStyle(item.status)">
+                {{ validateStatus(item.status) }}
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns" class="select-row"></tr>
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" [attr.colspan]="displayedColumns.length">No data matching data found</td>
+            </tr>
+          </table>
+        }
       </div>
       <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
     </mat-card>

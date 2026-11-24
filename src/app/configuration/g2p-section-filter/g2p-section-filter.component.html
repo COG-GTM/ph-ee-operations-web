@@ -1,9 +1,11 @@
 <div fxLayout="row" fxLayout.lt-md="column" class="vouchers-wrap">
-    <mifosx-list-item *ngFor="let section of sections;" [section]="section"
-    [classFormatTitle]="'center'"
-    (sectionChange)="setActive($event)"
-    classFormat="small-height"
-    >
+  @for (section of sections; track section) {
+    <mifosx-list-item [section]="section"
+      [classFormatTitle]="'center'"
+      (sectionChange)="setActive($event)"
+      classFormat="small-height"
+      >
     </mifosx-list-item>
-  
-  </div>
+  }
+
+</div>

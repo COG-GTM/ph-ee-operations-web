@@ -13,28 +13,30 @@
             <div fxFlex="45" fxFlex.lt-md="100" fxLayout="column">
               <mat-label>Goverment Entity *</mat-label>
               <mat-form-field class="custom-g2p-field">
-                <ng-container *ngIf="!isEditing; else editGovtEntity">
+                @if (!isEditing) {
                   <input matInput formControlName="governmentEntity" required />
-                </ng-container>
-                <ng-template #editGovtEntity>
-                    <mat-select formControlName="governmentEntity" required placeholder="Select Government Entity">
-                        <mat-option *ngFor="let govt of configTemplate.govtEntities" [value]="govt.govInstId">{{ govt.name }}</mat-option>
-                    </mat-select>
-                </ng-template>
+                } @else {
+                  <mat-select formControlName="governmentEntity" required placeholder="Select Government Entity">
+                    @for (govt of configTemplate.govtEntities; track govt) {
+                      <mat-option [value]="govt.govInstId">{{ govt.name }}</mat-option>
+                    }
+                  </mat-select>
+                }
               </mat-form-field>
             </div>
 
             <div fxFlex="45" fxFlex.lt-md="100" fxLayout="column">
               <mat-label>Program *</mat-label>
               <mat-form-field class="custom-g2p-field">
-                <ng-container *ngIf="!isEditing; else editProgram">
+                @if (!isEditing) {
                   <input matInput formControlName="program" required />
-                </ng-container>
-                <ng-template #editProgram>
+                } @else {
                   <mat-select formControlName="program" required placeholder="Select Program">
-                    <mat-option *ngFor="let program of configTemplate.programs" [value]="program.programId">{{ program.programName }}</mat-option>
+                    @for (program of configTemplate.programs; track program) {
+                      <mat-option [value]="program.programId">{{ program.programName }}</mat-option>
+                    }
                   </mat-select>
-                </ng-template>
+                }
 
               </mat-form-field>
             </div>
@@ -42,14 +44,15 @@
             <div fxFlex="45" fxFlex.lt-md="100" fxLayout="column">
               <mat-label>Payer DFSP *</mat-label>
               <mat-form-field class="custom-g2p-field">
-                <ng-container *ngIf="!isEditing; else editDfsp">
+                @if (!isEditing) {
                   <input matInput formControlName="payerDfsp" required />
-                </ng-container>
-                <ng-template #editDfsp>
+                } @else {
                   <mat-select formControlName="payerDfsp" placeholder="Select Payer DFSP" required>
-                    <mat-option *ngFor="let dfsp of configTemplate.payerDfsps" [value]="dfsp.fspId">{{ dfsp.name }}</mat-option>
+                    @for (dfsp of configTemplate.payerDfsps; track dfsp) {
+                      <mat-option [value]="dfsp.fspId">{{ dfsp.name }}</mat-option>
+                    }
                   </mat-select>
-                </ng-template>
+                }
               </mat-form-field>
             </div>
 
@@ -63,15 +66,14 @@
             <div fxFlex="45" fxFlex.lt-md="100" fxLayout="column">
               <mat-label>Status *</mat-label>
               <mat-form-field class="custom-g2p-field">
-                <ng-container *ngIf="!isEditing; else editStatus">
+                @if (!isEditing) {
                   <input matInput formControlName="status" required />
-                </ng-container>
-                <ng-template #editStatus>
+                } @else {
                   <mat-select formControlName="status" required>
                     <mat-option value="Active">Active</mat-option>
                     <mat-option value="Inactive">Inactive</mat-option>
                   </mat-select>
-                </ng-template>
+                }
               </mat-form-field>
             </div>
 
@@ -79,14 +81,16 @@
         </form>
       </mat-card-content>
 
-      <mat-card-actions class="buttons-group" *ngIf="isEditing">
-        <button mat-stroked-button type="button" class="button" [routerLink]="['../']">
-          {{ 'labels.buttons.Cancel' | translate }}
-        </button>
-        <button mat-flat-button class="submit button" [disabled]="!programForm.valid">
-          {{ 'labels.buttons.Submit' | translate }}
-        </button>
-      </mat-card-actions>
+      @if (isEditing) {
+        <mat-card-actions class="buttons-group">
+          <button mat-stroked-button type="button" class="button" [routerLink]="['../']">
+            {{ 'labels.buttons.Cancel' | translate }}
+          </button>
+          <button mat-flat-button class="submit button" [disabled]="!programForm.valid">
+            {{ 'labels.buttons.Submit' | translate }}
+          </button>
+        </mat-card-actions>
+      }
     </form>
   </mat-card>
 </div>
