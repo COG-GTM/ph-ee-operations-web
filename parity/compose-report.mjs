@@ -56,7 +56,8 @@ if (fs.existsSync(resFile)) {
 const flows = [...new Set([...Object.keys(results.baseline), ...Object.keys(results.upgraded)])].sort();
 const count = p => {
   const v = Object.values(results[p]);
-  return `${v.filter(x => x && x !== 'failed' && x !== 'timedOut' && x !== 'skipped').length} passed / ${v.filter(x => x === 'failed' || x === 'timedOut').length} failed`;
+  const passed = x => x === 'passed' || x === 'flaky (passed on retry)';
+  return `${v.filter(passed).length} passed / ${v.filter(x => x !== 'skipped' && !passed(x)).length} failed`;
 };
 
 let md = `# Parity report: baseline (Angular 16, :4000) vs upgraded (Angular 21, :4200)\n\n`;
