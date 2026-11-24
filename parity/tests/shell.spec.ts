@@ -27,6 +27,10 @@ test('system page', async ({ page, calls, shot }) => {
   await page.goto('/system');
   await expect(page.getByText('Manage Roles and Permissions')).toBeVisible();
   await expect(page.getByText('Audit Trails')).toBeVisible();
+  await expect(page.getByText('Define or modify roles and associated permissions')).toBeVisible();
+  await expect(page.getByText(/Audit logs of all the activities/)).toBeVisible();
+  await expect(page.locator('mat-card mat-list-item fa-icon svg')).toHaveCount(2);
+  for (const svg of await page.locator('mat-card mat-list-item fa-icon svg').all()) await expect(svg).toBeVisible();
   await shot('system');
 });
 
