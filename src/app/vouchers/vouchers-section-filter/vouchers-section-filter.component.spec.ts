@@ -8,8 +8,8 @@ describe('VouchersSectionFilterComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [VouchersSectionFilterComponent]
-    });
+    imports: [VouchersSectionFilterComponent]
+});
     fixture = TestBed.createComponent(VouchersSectionFilterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

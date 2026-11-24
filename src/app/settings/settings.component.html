@@ -33,18 +33,22 @@
         <mat-form-field>
           <mat-label>Default Language</mat-label>
           <mat-select>
-            <mat-option *ngFor="let language of languages" [value]="language">
-              {{ language }}
-            </mat-option>
+            @for (language of languages; track language) {
+              <mat-option [value]="language">
+                {{ language }}
+              </mat-option>
+            }
           </mat-select>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Default Date Format</mat-label>
           <mat-select>
-            <mat-option *ngFor="let dateFormat of dateFormats" [value]="dateFormat">
-              {{ dateFormat }}
-            </mat-option>
+            @for (dateFormat of dateFormats; track dateFormat) {
+              <mat-option [value]="dateFormat">
+                {{ dateFormat }}
+              </mat-option>
+            }
           </mat-select>
         </mat-form-field>
 
@@ -94,9 +98,11 @@
         <mat-form-field>
           <mat-label>Default Font</mat-label>
           <mat-select>
-            <mat-option *ngFor="let font of fonts" [value]="font">
-              {{ font }}
-            </mat-option>
+            @for (font of fonts; track font) {
+              <mat-option [value]="font">
+                {{ font }}
+              </mat-option>
+            }
           </mat-select>
         </mat-form-field>
 

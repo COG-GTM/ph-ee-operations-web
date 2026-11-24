@@ -1,6 +1,6 @@
 <div class="container">
 
-  <mat-card>
+  <mat-card appearance="outlined">
 
     <div fxLayout="row" fxLayout.lt-md="column">
 
@@ -9,11 +9,11 @@
         <mat-nav-list>
 
           <mat-list-item [routerLink]="['roles-and-permissions']">
-            <mat-icon matListIcon>
+            <mat-icon matListItemIcon>
               <fa-icon icon="key" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Manage Roles and Permissions</h4>
-            <p matLine>Define or modify roles and associated permissions</p>
+            <span matListItemTitle>Manage Roles and Permissions</span>
+            <span matListItemLine>Define or modify roles and associated permissions</span>
           </mat-list-item>
 
         </mat-nav-list>
@@ -25,11 +25,11 @@
         <mat-nav-list>
 
           <mat-list-item [routerLink]="['audit-trails']">
-            <mat-icon matListIcon>
+            <mat-icon matListItemIcon>
               <fa-icon icon="money-check" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Audit Trails</h4>
-            <p matLine>Audit logs of all the activities, such as create client, disburse loans etc</p>
+            <span matListItemTitle>Audit Trails</span>
+            <span matListItemLine>Audit logs of all the activities, such as create client, disburse loans etc</span>
           </mat-list-item>
 
         </mat-nav-list>

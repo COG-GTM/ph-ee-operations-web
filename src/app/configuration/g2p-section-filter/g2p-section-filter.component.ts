@@ -1,23 +1,26 @@
 /** Angular Imports */
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 /** Custom Models */
 import { Section } from 'app/payment-hub/filter-selector/section-model';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { ListItemComponent } from '../../shared/list-item/list-item.component';
 
 /**
  * G2P Section Filter Component
  */
 @Component({
-  selector: 'mifosx-g2p-section-filter',
-  templateUrl: './g2p-section-filter.component.html',
-  styleUrls: ['./g2p-section-filter.component.scss']
+    selector: 'mifosx-g2p-section-filter',
+    templateUrl: './g2p-section-filter.component.html',
+    styleUrls: ['./g2p-section-filter.component.scss'],
+    imports: [FlexModule, ListItemComponent]
 })
 export class G2pSectionFilterComponent {
-  sections: Section[];
+  private router = inject(Router);
 
-  constructor(private router: Router) { }
+  sections: Section[];
 
   ngOnInit(): void {
 

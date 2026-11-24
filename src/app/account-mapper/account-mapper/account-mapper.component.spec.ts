@@ -8,8 +8,8 @@ describe('AccountMapperComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AccountMapperComponent]
-    });
+    imports: [AccountMapperComponent]
+});
     fixture = TestBed.createComponent(AccountMapperComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

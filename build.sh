@@ -4,7 +4,7 @@
 # Set default image tag and name
 IMAGE_TAG="local1"
 IMAGE_NAME="ph-ee-operations-web"
-BUILDER_IMAGE="node:19-alpine" 
+BUILDER_IMAGE="node:20-alpine" 
 NGINX_IMAGE="nginx:1.19.3" 
 ARCH="x86_64"
 export DOCKER_CLI_EXPERIMENTAL=enabled

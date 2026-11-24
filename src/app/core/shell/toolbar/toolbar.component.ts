@@ -1,9 +1,9 @@
 /** Angular Imports */
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, inject, input, output } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { style, animate, transition, trigger } from '@angular/animations';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
@@ -11,27 +11,43 @@ import { map } from 'rxjs/operators';
 
 /** Custom Services */
 import { AuthenticationService } from '../../authentication/authentication.service';
+import { LanguageSelectorComponent } from '../../../shared/language-selector/language-selector.component';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { TenantSelectorComponent } from '../../../shared/tenant-selector/tenant-selector.component';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatCard } from '@angular/material/card';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatFabButton } from '@angular/material/button';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Toolbar component.
  */
 @Component({
-  selector: 'mifosx-toolbar',
-  templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.scss'],
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate(500, style({ opacity: 1 }))
-      ]),
-      transition(':leave', [
-        animate(500, style({ opacity: 0 }))
-      ])
-    ])
-  ]
+    selector: 'mifosx-toolbar',
+    templateUrl: './toolbar.component.html',
+    styleUrls: ['./toolbar.component.scss'],
+    animations: [
+        trigger('fadeInOut', [
+            transition(':enter', [
+                style({ opacity: 0 }),
+                animate(500, style({ opacity: 1 }))
+            ]),
+            transition(':leave', [
+                animate(500, style({ opacity: 0 }))
+            ])
+        ])
+    ],
+    imports: [LanguageSelectorComponent, ExtendedModule, TenantSelectorComponent, FlexModule, MatCard, MatTooltip, MatFabButton, FaIconComponent, MatMenuTrigger, MatMenu, MatMenuItem, RouterLink, MatIcon, TranslateModule]
 })
 export class ToolbarComponent implements OnInit {
+  private breakpointObserver = inject(BreakpointObserver);
+  private router = inject(Router);
+  private authenticationService = inject(AuthenticationService);
+
 
   credentials: any;
 
@@ -47,18 +63,9 @@ export class ToolbarComponent implements OnInit {
   sidenavCollapsed = true;
 
   /** Instance of sidenav. */
-  @Input() sidenav: MatSidenav;
+  readonly sidenav = input<MatSidenav>(undefined);
   /** Sidenav collapse event. */
-  @Output() collapse = new EventEmitter<boolean>();
-
-  /**
-   * @param {BreakpointObserver} breakpointObserver Breakpoint observer to detect screen size.
-   * @param {Router} router Router for navigation.
-   * @param {AuthenticationService} authenticationService Authentication service.
-   */
-  constructor(private breakpointObserver: BreakpointObserver,
-    private router: Router,
-    private authenticationService: AuthenticationService) { }
+  readonly collapse = output<boolean>();
 
   /**
    * Subscribes to breakpoint for handset.
@@ -121,7 +128,7 @@ export class ToolbarComponent implements OnInit {
    * Toggles the current state of sidenav.
    */
   toggleSidenav() {
-    this.sidenav.toggle();
+    this.sidenav().toggle();
   }
 
   /**

@@ -1,10 +1,13 @@
 /** Angular Imports */
-import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
+import { Component, OnInit, inject } from '@angular/core';
+import { UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
 
 /** Custom Services */
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { SettingsService } from 'app/settings/settings.service';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/autocomplete';
 
 /**
  * Language selector component.
@@ -13,21 +16,18 @@ import { SettingsService } from 'app/settings/settings.service';
  *       to provide language support in the application.
  */
 @Component({
-  selector: 'mifosx-language-selector',
-  templateUrl: './language-selector.component.html',
-  styleUrls: ['./language-selector.component.scss']
+    selector: 'mifosx-language-selector',
+    templateUrl: './language-selector.component.html',
+    styleUrls: ['./language-selector.component.scss'],
+    imports: [MatFormField, MatLabel, MatSelect, ReactiveFormsModule, MatOption, TranslateModule]
 })
 export class LanguageSelectorComponent implements OnInit {
+  private translateService = inject(TranslateService);
+  private settingsService = inject(SettingsService);
+
 
   /** Language selector form control. */
   languageSelector = new UntypedFormControl();
-
-  /**
-   * Sets the language of the application in the selector on initial setup.
-   * @param {TranslateService} translateService Translate Service.
-   */
-  constructor(private translateService: TranslateService,
-    private settingsService: SettingsService) { }
 
   ngOnInit() {
     this.languageSelector = new UntypedFormControl(this.currentLanguage);

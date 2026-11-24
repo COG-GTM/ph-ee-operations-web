@@ -9,16 +9,11 @@ import { Route } from '../core/route/route.service';
 
 /** Custom Components */
 import { TransactionDetailsComponent } from './transactions/transaction-details.component';
-import { PaymentHubComponent } from './paymenthub.component';
-import { BatchesComponent } from './batches/batches.component';
-import { SubBatchesComponent } from './sub-batches/sub-batches.component';
-import { TransfersComponent } from './transfers/transfers.component';
-import { BatchesBulkImportComponent } from './batches-bulk-import/batches-bulk-import.component';
 
 /** Custom Resolvers */
-import { CurrenciesResolver } from './transactions/resolver/currencies.resolver';
-import { TransactionResolver } from './transactions/resolver/transaction.resolver';
-import { DfspResolver } from './transactions/resolver/dfsp.resolver';
+import { currenciesResolver } from './transactions/resolver/currencies.resolver';
+import { transactionResolver } from './transactions/resolver/transaction.resolver';
+import { dfspResolver } from './transactions/resolver/dfsp.resolver';
 
 /** Payment HUB Routes */
 const routes: Routes = [
@@ -28,7 +23,7 @@ const routes: Routes = [
       children: [
         {
           path: 'paymenthub',
-          component: PaymentHubComponent,
+          loadComponent: () => import('./paymenthub.component').then(m => m.PaymentHubComponent),
           data: { title: 'Payment Hub EE', breadcrumb: 'Payment Hub EE' },
           children: [
             {
@@ -39,12 +34,12 @@ const routes: Routes = [
             {
               path: 'batches',
               data: { breadcrumb: { skip: true } },
-              component: BatchesComponent,
+              loadComponent: () => import('./batches/batches.component').then(m => m.BatchesComponent),
             },
             {
               path: 'bulk-import',
               data: { breadcrumb: { alias: 'Batch Bulk Import' } },
-              component: BatchesBulkImportComponent,
+              loadComponent: () => import('./batches-bulk-import/batches-bulk-import.component').then(m => m.BatchesBulkImportComponent),
             },
             {
               path: 'sub-batches',
@@ -52,12 +47,12 @@ const routes: Routes = [
               children: [
                 {
                   path: '',
-                  component: SubBatchesComponent,
+                  loadComponent: () => import('./sub-batches/sub-batches.component').then(m => m.SubBatchesComponent),
                 },
                 {
                   path: ':batchId',
                   data: { breadcrumb: { alias: 'SubBatches' } },
-                  component: SubBatchesComponent,
+                  loadComponent: () => import('./sub-batches/sub-batches.component').then(m => m.SubBatchesComponent),
                 },
               ],
             },
@@ -75,12 +70,12 @@ const routes: Routes = [
                       children: [
                         {
                           path: '',
-                          component: TransfersComponent,
+                          loadComponent: () => import('./transfers/transfers.component').then(m => m.TransfersComponent),
                         },
                         {
                           path: ':subBatchId',
                           data: { breadcrumb: { alias: 'Transactions' } },
-                          component: TransfersComponent,
+                          loadComponent: () => import('./transfers/transfers.component').then(m => m.TransfersComponent),
                         },
                       ],
                     },
@@ -92,12 +87,12 @@ const routes: Routes = [
             {
               path: 'transfers',
               data: { breadcrumb: { skip: true } },
-              component: TransfersComponent,
+              loadComponent: () => import('./transfers/transfers.component').then(m => m.TransfersComponent),
             },
             {
               path: 'transactions',
               data: { breadcrumb: { skip: true } },
-              component: TransfersComponent,
+              loadComponent: () => import('./transfers/transfers.component').then(m => m.TransfersComponent),
             },
           ],
         },
@@ -114,6 +109,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [CurrenciesResolver, TransactionResolver, DfspResolver],
+  providers: [],
 })
 export class PaymentHubRoutingModule {}

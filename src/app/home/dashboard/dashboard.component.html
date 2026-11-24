@@ -1,6 +1,8 @@
 <div class="container" fxLayout="row" fxLayout.lt-md="column">
-  <div *ngFor="let section of sections">
-    <mifosx-list-item *userHasRole="section.roleName" [section]="section" classFormat="full-height padding-left">
-    </mifosx-list-item>
-  </div> 
+  @for (section of sections; track section) {
+    <div>
+      <mifosx-list-item *userHasRole="section.roleName" [section]="section" classFormat="full-height padding-left">
+      </mifosx-list-item>
+    </div>
+  }
 </div>

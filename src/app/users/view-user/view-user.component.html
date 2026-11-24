@@ -14,7 +14,7 @@
 
 <div class="container">
 
-  <mat-card>
+  <mat-card appearance="outlined">
 
     <mat-card-content>
       <h1>{{ userData.username }}</h1>
@@ -23,31 +23,33 @@
           <div fxFlex="45" fxFlex.lt-md="100" fxLayout="column">
             <mat-label>{{'labels.inputs.Type of User'| translate}} *</mat-label>
             <mat-form-field class="custom-form-field" [ngClass]="{ 'not-allowed': isEditing }">
-              <ng-container *ngIf="!isEditing; else editableSelectUserType">
+              @if (!isEditing) {
                 <input matInput formControlName="userTypes" required />
-              </ng-container>
-              <ng-template #editableSelectUserType>
+              } @else {
                 <mat-select formControlName="userTypes" multiple required>
-                  <mat-option *ngFor="let type of userTemplate.userTypes" [value]="type.name">{{
-                    type.name
+                  @for (type of userTemplate.userTypes; track type) {
+                    <mat-option [value]="type.name">{{
+                      type.name
                     }}</mat-option>
+                  }
                 </mat-select>
-              </ng-template>
+              }
             </mat-form-field>
           </div>
           <div fxFlex="45" fxFlex.lt-md="100" fxLayout="column">
             <mat-label>{{'labels.inputs.Role'| translate}} *</mat-label>
             <mat-form-field class="custom-form-field">
-              <ng-container *ngIf="!isEditing; else editableSelectRole">
+              @if (!isEditing) {
                 <input matInput formControlName="roles" required />
-              </ng-container>
-              <ng-template #editableSelectRole>
+              } @else {
                 <mat-select formControlName="roles" required multiple>
-                  <mat-option *ngFor="let role of userTemplate.availableRoles" [value]="role.name">{{
-                    role.name
+                  @for (role of userTemplate.availableRoles; track role) {
+                    <mat-option [value]="role.name">{{
+                      role.name
                     }}</mat-option>
+                  }
                 </mat-select>
-              </ng-template>
+              }
             </mat-form-field>
           </div>
           <div fxFlex="45" fxFlex.lt-md="100" fxLayout="column">
@@ -66,16 +68,17 @@
           <div fxFlex="45" fxFlex.lt-md="100" fxLayout="column">
             <mat-label>{{'labels.inputs.Status'| translate}} *</mat-label>
             <mat-form-field class="custom-form-field">
-              <ng-container *ngIf="!isEditing; else editableSelectStatus">
+              @if (!isEditing) {
                 <input matInput formControlName="status" required />
-              </ng-container>
-              <ng-template #editableSelectStatus>
+              } @else {
                 <mat-select formControlName="status" multiple required>
-                  <mat-option *ngFor="let status of userTemplate.userStatus" [value]="status.name">{{
-                    status.name
+                  @for (status of userTemplate.userStatus; track status) {
+                    <mat-option [value]="status.name">{{
+                      status.name
                     }}</mat-option>
+                  }
                 </mat-select>
-              </ng-template>
+              }
             </mat-form-field>
           </div>
 
@@ -92,19 +95,29 @@
             </mat-form-field>
           </div>
 
-          <div *ngIf="userData.attributes.fspId || userData.attributes.govtId" fxFlex="45" fxFlex.lt-md="100"
-            fxLayout="column">
-            <mat-label *ngIf="userForm.get('idType').value === 'govtId'">{{'labels.inputs.GOVT ID '| translate}} *</mat-label>
-            <mat-label *ngIf="userForm.get('idType').value === 'fspId'">{{'labels.inputs.FSP ID'| translate}} *</mat-label>
-            <mat-form-field class="custom-form-field" [ngClass]="{ 'not-allowed': !isEditing }">
-              <input matInput formControlName="id" required />
-            </mat-form-field>
-          </div>
+          @if (userData.attributes.fspId || userData.attributes.govtId) {
+            <div fxFlex="45" fxFlex.lt-md="100"
+              fxLayout="column">
+              @if (userForm.get('idType').value === 'govtId') {
+                <mat-label>{{'labels.inputs.GOVT ID '| translate}} *</mat-label>
+              }
+              @if (userForm.get('idType').value === 'fspId') {
+                <mat-label>{{'labels.inputs.FSP ID'| translate}} *</mat-label>
+              }
+              <mat-form-field class="custom-form-field" [ngClass]="{ 'not-allowed': !isEditing }">
+                <input matInput formControlName="id" required />
+              </mat-form-field>
+            </div>
+          }
         </div>
 
         <mat-card-actions>
-          <button mat-button (click)="save()" *ngIf="isEditing">Save</button>
-          <button mat-button (click)="toggleEdit()" *ngIf="isEditing">Cancel</button>
+          @if (isEditing) {
+            <button mat-button (click)="save()">Save</button>
+          }
+          @if (isEditing) {
+            <button mat-button (click)="toggleEdit()">Cancel</button>
+          }
         </mat-card-actions>
       </form>
     </mat-card-content>

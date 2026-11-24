@@ -1,5 +1,5 @@
 <div class="container">
-  <mat-card>
+  <mat-card appearance="outlined">
     <form [formGroup]="programForm" (ngSubmit)="submit()">
       <mat-card-content>
         <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="content">
@@ -7,11 +7,13 @@
             <mat-label>Goverment Entity *</mat-label>
             <mat-form-field class="custom-g2p-field">
               <mat-select formControlName="governmentEntity" placeholder="Select government Entity" required>
-                <mat-option *ngFor="let entity of govtEntities" [value]="entity.govInstId">
-                  {{ entity.name }}
-                </mat-option>
+                @for (entity of govtEntities; track entity) {
+                  <mat-option [value]="entity.govInstId">
+                    {{ entity.name }}
+                  </mat-option>
+                }
               </mat-select>
-              <mat-error *ngIf="programForm.controls.governmentEntity.hasError('required')"> Government Entity <strong>required</strong> </mat-error>
+              @if (programForm.controls.governmentEntity.hasError('required')) {<mat-error> Government Entity <strong>required</strong> </mat-error>}
             </mat-form-field>
           </div>
 
@@ -19,11 +21,13 @@
             <mat-label>Program *</mat-label>
             <mat-form-field class="custom-g2p-field">
               <mat-select formControlName="program" placeholder="Select Programs" required>
-                <mat-option *ngFor="let program of programs" [value]="program.programId">
-                  {{ program.programName }}
-                </mat-option>
+                @for (program of programs; track program) {
+                  <mat-option [value]="program.programId">
+                    {{ program.programName }}
+                  </mat-option>
+                }
               </mat-select>
-              <mat-error *ngIf="programForm.controls.program.hasError('required')"> Program is <strong>required</strong> </mat-error>
+              @if (programForm.controls.program.hasError('required')) {<mat-error> Program is <strong>required</strong> </mat-error>}
             </mat-form-field>
           </div>
 
@@ -31,11 +35,13 @@
             <mat-label>Payer DFSP *</mat-label>
             <mat-form-field class="custom-g2p-field">
               <mat-select formControlName="payerDfsp" placeholder="Select Payer DFSP" required>
-                <mat-option *ngFor="let dfsp of payerDfsps" [value]="dfsp.fspId">
-                  {{ dfsp.name }}
-                </mat-option>
+                @for (dfsp of payerDfsps; track dfsp) {
+                  <mat-option [value]="dfsp.fspId">
+                    {{ dfsp.name }}
+                  </mat-option>
+                }
               </mat-select>
-              <mat-error *ngIf="programForm.controls.payerDfsp.hasError('required')"> Payer DFSP is <strong>required</strong> </mat-error>
+              @if (programForm.controls.payerDfsp.hasError('required')) {<mat-error> Payer DFSP is <strong>required</strong> </mat-error>}
             </mat-form-field>
           </div>
 
@@ -43,11 +49,11 @@
             <mat-label>Payment Account *</mat-label>
             <mat-form-field class="custom-g2p-field">
               <input matInput formControlName="account" placeholder="Enter Account Number" required />
-              <mat-error *ngIf="programForm.controls.account.hasError('required')"> Account is <strong>required</strong> </mat-error>
-              <mat-error *ngIf="programForm.controls.account.hasError('pattern')">
-                Account Number <strong>cannot contain any special character or alphabets</strong>
-              </mat-error>
-              <mat-error *ngIf="programForm.controls.account.hasError('minlength')"> Account Number <strong>should be of 12 digits</strong> </mat-error>
+              @if (programForm.controls.account.hasError('required')) {<mat-error> Account is <strong>required</strong> </mat-error>}
+              @if (programForm.controls.account.hasError('pattern')) {<mat-error>
+                  Account Number <strong>cannot contain any special character or alphabets</strong>
+                </mat-error>}
+              @if (programForm.controls.account.hasError('minlength')) {<mat-error> Account Number <strong>should be of 12 digits</strong> </mat-error>}
             </mat-form-field>
           </div>
 
@@ -58,7 +64,7 @@
                 <mat-option value="Active">Active</mat-option>
                 <mat-option value="Inactive">Inactive</mat-option>
               </mat-select>
-              <mat-error *ngIf="programForm.controls.status.hasError('required')"> Status is <strong>required</strong> </mat-error>
+              @if (programForm.controls.status.hasError('required')) {<mat-error> Status is <strong>required</strong> </mat-error>}
             </mat-form-field>
           </div>
         </div>

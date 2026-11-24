@@ -13,12 +13,12 @@
     justify-content: center;
     align-items: center;
     gap: 1rem;
-
+    /* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
     mat-card{
       padding: 10px;
     }
     
-    .mat-fab {
+    .mat-mdc-fab {
       background-color: $white;
       color: $black;
       border: 1px solid $mid-grey;

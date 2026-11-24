@@ -1,19 +1,34 @@
 /** Angular Imports */
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, Input, inject, output } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 
 /** Custom Services */
 import { AuthenticationService } from '../../authentication/authentication.service';
+import { NgClass, NgStyle } from '@angular/common';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { MatNavList, MatListItem, MatListItemIcon, MatListItemTitle } from '@angular/material/list';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { MatLine } from '@angular/material/grid-list';
+import { HasRoleDirective } from '../../../directives/has-role/has-role.directive';
+import { MatFabButton } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Sidenav component.
  */
 @Component({
-  selector: 'mifosx-sidenav',
-  templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.scss']
+    selector: 'mifosx-sidenav',
+    templateUrl: './sidenav.component.html',
+    styleUrls: ['./sidenav.component.scss'],
+    imports: [NgClass, ExtendedModule, FlexModule, FaIconComponent, MatNavList, MatListItem, MatListItemIcon, MatListItemTitle, MatTooltip, RouterLink, MatIcon, MatLine, HasRoleDirective, NgStyle, MatFabButton, TranslateModule]
 })
 export class SidenavComponent implements OnInit {
+  private router = inject(Router);
+  private authenticationService = inject(AuthenticationService);
+
 
   //User Management Expansion
   isUserManagementExpanded:boolean = false;
@@ -22,16 +37,9 @@ export class SidenavComponent implements OnInit {
 
   /** True if sidenav is in collapsed state. */
   @Input() sidenavCollapsed: boolean;
-  @Output() sideNavControl: EventEmitter<boolean> = new EventEmitter;
+  readonly sideNavControl = output<boolean>();
   /** Username of authenticated user. */
   username: string;
-
-  /**
-   * @param {Router} router Router for navigation.
-   * @param {AuthenticationService} authenticationService Authentication Service.
-   */
-  constructor(private router: Router,
-    private authenticationService: AuthenticationService) { }
 
   /**
    * Sets the username of the authenticated user.

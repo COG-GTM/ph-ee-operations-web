@@ -15,13 +15,20 @@
       },
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/web-app",
+            "outputPath": {
+              "base": "dist/web-app",
+              "browser": ""
+            },
             "index": "src/index.html",
-            "main": "src/main.ts",
+            "stylePreprocessorOptions": {
+              "includePaths": ["src"]
+            },
             "tsConfig": "src/tsconfig.app.json",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": [
+              "src/polyfills.ts"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/robots.txt",
@@ -49,12 +56,11 @@
               "uuid",
               "js-sha3"
             ],
-            "vendorChunk": true,
             "extractLicenses": false,
-            "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "browser": "src/main.ts"
           },
           "configurations": {
             "production": {
@@ -69,9 +75,7 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "serviceWorker": true,
+              "serviceWorker": "ngsw-config.json",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -99,21 +103,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "mifosx-web-app:build"
+            "buildTarget": "mifosx-web-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "mifosx-web-app:build:production"
+              "buildTarget": "mifosx-web-app:build:production"
             },
             "kubernetes": {
-              "browserTarget": "mifosx-web-app:build:kubernetes"
+              "buildTarget": "mifosx-web-app:build:kubernetes"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "mifosx-web-app:build"
+            "buildTarget": "mifosx-web-app:build"
           }
         },
         "test": {
@@ -187,5 +191,31 @@
   },
   "cli": {
     "analytics": false
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "type": "component"
+    },
+    "@schematics/angular:directive": {
+      "type": "directive"
+    },
+    "@schematics/angular:service": {
+      "type": "service"
+    },
+    "@schematics/angular:guard": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:interceptor": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:module": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:pipe": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:resolver": {
+      "typeSeparator": "."
+    }
   }
 }

@@ -1,8 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { Route } from "app/core/route/route.service";
-import { VisualizationsComponent } from "./visualizations/visualizations.component";
-import { VisualizationsSelectorComponent } from "./visualizations-selector/visualizations-selector.component";
 
 /**
  * Visualizations Routes
@@ -19,11 +17,11 @@ const routes: Routes = [
             children: [
               {
                 path: "",
-                component: VisualizationsSelectorComponent,
+                loadComponent: () => import('./visualizations-selector/visualizations-selector.component').then(m => m.VisualizationsSelectorComponent),
               },
               {
                 path: "user-management",
-                component: VisualizationsComponent,
+                loadComponent: () => import('./visualizations/visualizations.component').then(m => m.VisualizationsComponent),
                 data: { title: "Visualizations", breadcrumb: "User Management" },
               
               }

@@ -1,9 +1,15 @@
 /** Angular Imports */
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject, viewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatNoDataRow, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { MatCard } from '@angular/material/card';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatIcon } from '@angular/material/icon';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -11,11 +17,15 @@ import { ActivatedRoute } from '@angular/router';
  * Users component.
  */
 @Component({
-  selector: 'mifosx-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss'],
+    selector: 'mifosx-users',
+    templateUrl: './users.component.html',
+    styleUrls: ['./users.component.scss'],
+    imports: [MatCard, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatFormField, MatLabel, MatInput, MatIcon, FaIconComponent, MatCellDef, MatCell, MatNoDataRow, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, RouterLink, MatPaginator, TranslateModule]
 })
 export class UsersComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private cdr = inject(ChangeDetectorRef);
+
   /** Users data. */
   usersData: any;
   /** Columns to be displayed in users table. */
@@ -24,16 +34,16 @@ export class UsersComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
 
   /** Paginator for users table. */
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  readonly paginator = viewChild(MatPaginator);
   /** Sorter for users table. */
-  @ViewChild(MatSort) sort: MatSort;
+  readonly sort = viewChild(MatSort);
 
   /**
    * Retrieves the users data from `resolve`.
    * @param {ActivatedRoute} route Activated Route.
    */
 
-  constructor(private route: ActivatedRoute, private cdr: ChangeDetectorRef) {
+  constructor() {
     this.route.data.subscribe((data: { users: any }) => {
       this.usersData = data.users;
     });
@@ -100,8 +110,8 @@ export class UsersComponent implements OnInit {
   setUsers() {
     this.dataSource = new MatTableDataSource(this.usersData);
 
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator();
+    this.dataSource.sort = this.sort();
 
     this.dataSource.sortingDataAccessor = (item, property) => {
       console.log(item, property);

@@ -1,21 +1,35 @@
 /** Angular Imports */
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
+import { ChangeDetectorRef, Component, ViewChild, inject, viewChild } from '@angular/core';
+import { UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatExpansionPanel } from '@angular/material/expansion';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatNoDataRow } from '@angular/material/table';
+import { MatExpansionPanel, MatAccordion, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
 
 import { G2PPaymentConfigService } from '../services/g2p-payment-config.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatButton } from '@angular/material/button';
+import { NgClass } from '@angular/common';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { MatLabel, MatFormField } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatCard } from '@angular/material/card';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'mifosx-g2p-payment',
-  templateUrl: './g2p-payment.component.html',
-  styleUrls: ['./g2p-payment.component.scss'],
+    selector: 'mifosx-g2p-payment',
+    templateUrl: './g2p-payment.component.html',
+    styleUrls: ['./g2p-payment.component.scss'],
+    imports: [FlexModule, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatButton, NgClass, ExtendedModule, FaIconComponent, MatLabel, MatFormField, MatInput, ReactiveFormsModule, MatCard, MatProgressBar, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, RouterLink, MatNoDataRow, MatPaginator, TranslateModule]
 })
 export class G2pPaymentComponent {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  private route = inject(ActivatedRoute);
+  private cdr = inject(ChangeDetectorRef);
+
+  readonly paginator = viewChild(MatPaginator);
   @ViewChild(MatSort) set matSort(sort: MatSort) {
     this.dataSource.sort = sort;
     this.dataSource.sortingDataAccessor = (item: any, property) => {
@@ -33,7 +47,7 @@ export class G2pPaymentComponent {
       }
     };
   }
-  @ViewChild('panel') panel: MatExpansionPanel;
+  readonly panel = viewChild<MatExpansionPanel>('panel');
 
   /** government Entity form control. */
   governmentEntity = new UntypedFormControl();
@@ -66,7 +80,7 @@ export class G2pPaymentComponent {
   /**
    * @param route ActivatedRoute
    */
-  constructor(private route: ActivatedRoute, private cdr: ChangeDetectorRef) {
+  constructor() {
     this.route.data.subscribe((data: any) => {
       this.programData = data.g2pPayments;
     });
@@ -83,7 +97,7 @@ export class G2pPaymentComponent {
   getConfigs(): void {
     this.dataSource = new MatTableDataSource(this.programData);
     this.cdr.detectChanges();
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator();
     this.dataSource.sort = this.matSort;
   }
 
@@ -109,7 +123,7 @@ export class G2pPaymentComponent {
     const filterValues = this.collectFilterValues();
     this.applyFilters(filterValues);
     this.updateSelectedFilters();
-    this.panel.close();
+    this.panel().close();
   }
 
   /**
@@ -172,6 +186,6 @@ export class G2pPaymentComponent {
     if (event) {
       event.stopPropagation();
     }
-    this.panel.toggle();
+    this.panel().toggle();
   }
 }

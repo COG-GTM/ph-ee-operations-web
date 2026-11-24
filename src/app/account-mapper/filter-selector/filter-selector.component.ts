@@ -1,29 +1,34 @@
 /** Angular Imports */
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 /** Custom Services */
 import { AuthenticationService } from 'app/core/authentication/authentication.service';
 
 /** Custom Models */
 import { Section } from 'app/payment-hub/filter-selector/section-model';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { ListItemComponent } from '../../shared/list-item/list-item.component';
 
 
 /**
  * Filter selector component.
  */
 @Component({
-  selector: 'mifosx-filter-selector',
-  templateUrl: './filter-selector.component.html',
-  styleUrls: ['./filter-selector.component.scss']
+    selector: 'mifosx-filter-selector',
+    templateUrl: './filter-selector.component.html',
+    styleUrls: ['./filter-selector.component.scss'],
+    imports: [FlexModule, ListItemComponent]
 })
 export class FilterSelectorComponent {
+  private authenticationService = inject(AuthenticationService);
+
   sections: Section[];
   credentials: any;
 
   /**
    * @param {AuthenticationService} authenticationService Authentication service.
    */
-  constructor(private authenticationService: AuthenticationService) {
+  constructor() {
     this.credentials = this.authenticationService.userDetails;
    }
 

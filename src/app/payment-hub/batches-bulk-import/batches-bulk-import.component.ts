@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { Component, OnInit, inject } from '@angular/core';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 import { AlertService } from 'app/core/alert/alert.service';
 import { NgxCsvParser } from 'ngx-csv-parser';
 
@@ -7,20 +7,39 @@ import * as XLSX from 'xlsx';
 import { BatchesService } from '../batches/batches.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { BatchInstruction } from '../batches/model/batch.model';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { environment } from 'environments/environment';
 
 import { sha3_256 } from 'js-sha3';
 import { firstValueFrom } from 'rxjs';
 import * as uuid from 'uuid';
 import { SignatureService } from '../services/signature.service';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatButton } from '@angular/material/button';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { DragDropFileComponent } from '../../shared/drag-drop-file/drag-drop-file.component';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { DecimalPipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'mifosx-batches-bulk-import',
-  templateUrl: './batches-bulk-import.component.html',
-  styleUrls: ['./batches-bulk-import.component.scss']
+    selector: 'mifosx-batches-bulk-import',
+    templateUrl: './batches-bulk-import.component.html',
+    styleUrls: ['./batches-bulk-import.component.scss'],
+    imports: [FlexModule, MatButton, FaIconComponent, DragDropFileComponent, MatProgressBar, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, DecimalPipe, TranslateModule]
 })
 export class BatchesBulkImportComponent implements OnInit {
+  private alertService = inject(AlertService);
+  private csvParse = inject(NgxCsvParser);
+  private formBuilder = inject(UntypedFormBuilder);
+  private batchesService = inject(BatchesService);
+  private settingsService = inject(SettingsService);
+  private signatureService = inject(SignatureService);
+
   createBatchForm: UntypedFormGroup;
 
   files: File[] = [];
@@ -34,13 +53,6 @@ export class BatchesBulkImportComponent implements OnInit {
   isLoading = false;
 
   totalAmount = 0;
-
-  constructor(private alertService: AlertService,
-    private csvParse: NgxCsvParser,
-    private formBuilder: UntypedFormBuilder,
-    private batchesService: BatchesService,
-    private settingsService: SettingsService,
-    private signatureService: SignatureService) { }
 
   ngOnInit(): void {
     this.createBatchForm = this.formBuilder.group({

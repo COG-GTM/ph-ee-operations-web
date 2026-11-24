@@ -1,8 +1,8 @@
 /** Angular Imports */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 /** Custom Services */
 import { UsersService } from '../services/users.service';
@@ -12,16 +12,36 @@ import { AlertService } from 'app/core/alert/alert.service';
 /** Custom Components */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
 import { UpdatePasswordDialogComponent } from 'app/shared/update-password-dialog/update-password-dialog.component';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatButton } from '@angular/material/button';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { MatCard, MatCardContent, MatCardActions } from '@angular/material/card';
+import { MatLabel, MatFormField } from '@angular/material/form-field';
+import { NgClass } from '@angular/common';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { MatInput } from '@angular/material/input';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/autocomplete';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * View user component.
  */
 @Component({
-  selector: 'mifosx-view-user',
-  templateUrl: './view-user.component.html',
-  styleUrls: ['./view-user.component.scss'],
+    selector: 'mifosx-view-user',
+    templateUrl: './view-user.component.html',
+    styleUrls: ['./view-user.component.scss'],
+    imports: [FlexModule, MatButton, FaIconComponent, MatCard, MatCardContent, ReactiveFormsModule, MatLabel, MatFormField, NgClass, ExtendedModule, MatInput, MatSelect, MatOption, MatCardActions, TranslateModule]
 })
 export class ViewUserComponent implements OnInit {
+  private usersService = inject(UsersService);
+  private keycloakAdminService = inject(KeycloakAdminService);
+  private alertService = inject(AlertService);
+  private fb = inject(FormBuilder);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private dialog = inject(MatDialog);
+
   /** User Data. */
   userData: any;
   /** Edit User Form */
@@ -40,15 +60,7 @@ export class ViewUserComponent implements OnInit {
    * @param {Router} router Router for navigation.
    * @param {MatDialog} dialog Dialog reference.
    */
-  constructor(
-    private usersService: UsersService,
-    private keycloakAdminService: KeycloakAdminService,
-    private alertService: AlertService,
-    private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private dialog: MatDialog
-  ) {
+  constructor() {
     this.route.data.subscribe((data: { user: any }) => {
       this.userData = data.user;
     });

@@ -1,14 +1,11 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, inject } from '@angular/core';
 import { SettingsService } from 'app/settings/settings.service';
 import moment from 'moment';
 
-@Pipe({
-  name: 'datetimeFormat'
-})
+@Pipe({ name: 'datetimeFormat' })
 export class DatetimeFormatPipe implements PipeTransform {
+  private settingsService = inject(SettingsService);
 
-  constructor(private settingsService: SettingsService) {
-  }
 
   transform(value: any, datetimeFormat?: string): any {
     if (typeof value === 'undefined') {

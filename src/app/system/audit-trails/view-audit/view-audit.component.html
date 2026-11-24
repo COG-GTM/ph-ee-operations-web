@@ -2,7 +2,7 @@
 
   <div fxFlex="46%">
 
-    <mat-card>
+    <mat-card appearance="outlined">
 
       <mat-card-content>
 
@@ -64,29 +64,41 @@
             {{ auditTrailData.madeOnDate | date }}
           </div>
 
-          <div fxFlex="50%" class="mat-body-strong" *ngIf="auditTrailData.officeName">
-            Office
-          </div>
+          @if (auditTrailData.officeName) {
+            <div fxFlex="50%" class="mat-body-strong">
+              Office
+            </div>
+          }
 
-          <div fxFlex="50%" *ngIf="auditTrailData.officeName">
-            {{ auditTrailData.officeName }}
-          </div>
+          @if (auditTrailData.officeName) {
+            <div fxFlex="50%">
+              {{ auditTrailData.officeName }}
+            </div>
+          }
 
-          <div fxFlex="50%" class="mat-body-strong" *ngIf="auditTrailData.savingsAccountNo">
-            Savings Account No
-          </div>
+          @if (auditTrailData.savingsAccountNo) {
+            <div fxFlex="50%" class="mat-body-strong">
+              Savings Account No
+            </div>
+          }
 
-          <div fxFlex="50%" *ngIf="auditTrailData.savingsAccountNo">
-            {{ auditTrailData.savingsAccountNo }}
-          </div>
+          @if (auditTrailData.savingsAccountNo) {
+            <div fxFlex="50%">
+              {{ auditTrailData.savingsAccountNo }}
+            </div>
+          }
 
-          <div fxFlex="50%" class="mat-body-strong" *ngIf="auditTrailData.groupLevelName">
-            Group Level
-          </div>
+          @if (auditTrailData.groupLevelName) {
+            <div fxFlex="50%" class="mat-body-strong">
+              Group Level
+            </div>
+          }
 
-          <div fxFlex="50%" *ngIf="auditTrailData.groupLevelName">
-            {{ auditTrailData.groupLevelName }}
-          </div>
+          @if (auditTrailData.groupLevelName) {
+            <div fxFlex="50%">
+              {{ auditTrailData.groupLevelName }}
+            </div>
+          }
 
         </div>
 

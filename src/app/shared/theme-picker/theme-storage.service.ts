@@ -1,5 +1,5 @@
 /** Angular Imports */
-import {Injectable, EventEmitter} from '@angular/core';
+import { Injectable, EventEmitter, inject } from '@angular/core';
 
 /** Custom Model */
 import { Theme } from './theme.model';
@@ -14,6 +14,8 @@ import { ThemeManagerService } from './theme-manager.service';
   providedIn: 'root'
 })
 export class ThemeStorageService {
+  themeManagerService = inject(ThemeManagerService);
+
 
   /** Key to store current theme of application in local storage. */
   private themeStorageKey = 'mifosXTheme';
@@ -24,7 +26,7 @@ export class ThemeStorageService {
    * Initializes theme update event.
    * @param {ThemeManagerService} themeManagerService
    */
-  constructor(public themeManagerService: ThemeManagerService) {
+  constructor() {
     this.onThemeUpdate = new EventEmitter<Theme>();
   }
 

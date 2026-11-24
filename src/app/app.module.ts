@@ -2,7 +2,7 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { DatePipe, LocationStrategy } from '@angular/common';
 
 /** Tanslation Imports */
@@ -42,42 +42,7 @@ import { AppRoutingModule } from './app-routing.module';
  *
  * Core module and all feature modules should be imported here in proper order.
  */
-@NgModule({
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (http: HttpClient, locationStrategy: LocationStrategy) => {
-          return new TranslateHttpLoader(http, `${ window.location.protocol }//${ window.location.host }${locationStrategy.getBaseHref()}assets/translations/`, '.json');
-        },
-        deps: [HttpClient, LocationStrategy]
-      }
-    }),
-    KeycloakAngularModule,
-    NgxChartsModule,
-    CoreModule,
-    HomeModule,
-    LoginModule,
-    SettingsModule,
-    SystemModule,
-    UsersModule,
-    PaymentHubModule,
-    VouchersModule,
-    AccountMapperModule,
-    VisualizationsModule,
-    ConfigurationModule,
-    AppRoutingModule
-  ],
-  declarations: [WebAppComponent, NotFoundComponent],
-  providers: [
-    DatePipe
-  ],
-  bootstrap: [WebAppComponent]
-})
-export class AppModule { }
+
 
 export function httpTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, `/assets/translations/`, '.json');

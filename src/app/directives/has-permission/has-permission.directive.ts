@@ -7,9 +7,7 @@ import { AuthenticationService } from '../../core/authentication/authentication.
 /**
  * Has Permission Directive
  */
-@Directive({
-  selector: '[userHasPermission]'
-})
+@Directive({ selector: '[userHasPermission]' })
 export class HasPermissionDirective {
 
   /** User Permissions */

@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { SettingsService } from 'app/settings/settings.service';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
@@ -9,12 +9,12 @@ import { catchError, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class BatchesService {
+  private http = inject(HttpClient);
+  private settingsService = inject(SettingsService);
+
 
   apiPrefix: string = environment.backend.operations;
   bulkConnectorOps: string = environment.backend.bulkConnectorOps;
-
-  constructor(private http: HttpClient,
-    private settingsService: SettingsService) { }
 
   /**
    * @returns {Observable<any>} Users data

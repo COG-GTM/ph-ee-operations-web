@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Section } from 'app/payment-hub/filter-selector/section-model';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { ListItemComponent } from '../../shared/list-item/list-item.component';
 
 @Component({
-  selector: 'mifosx-vouchers-section-filter',
-  templateUrl: './vouchers-section-filter.component.html',
-  styleUrls: ['./vouchers-section-filter.component.scss']
+    selector: 'mifosx-vouchers-section-filter',
+    templateUrl: './vouchers-section-filter.component.html',
+    styleUrls: ['./vouchers-section-filter.component.scss'],
+    imports: [FlexModule, ListItemComponent]
 })
 export class VouchersSectionFilterComponent implements OnInit {
 

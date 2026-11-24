@@ -1,7 +1,7 @@
 <span>{{ 'labels.texts.Add a new user to the network' | translate }}</span>
 <div class="container">
 
-  <mat-card>
+  <mat-card appearance="outlined">
 
     <form [formGroup]="userForm" (ngSubmit)="submit()">
 
@@ -13,130 +13,142 @@
             <mat-form-field class="custom-form-field">
               <mat-select formControlName="userTypes" required placeholder="PayEE User"
                 (selectionChange)="onUserTypeChange($event.value)">
-                <mat-option *ngFor="let type of userTypes" [value]="type.name">{{
-                  type.name
+                @for (type of userTypes; track type) {
+                  <mat-option [value]="type.name">{{
+                    type.name
                   }}</mat-option>
+                }
               </mat-select>
-              <mat-error *ngIf="userForm.controls.userTypes.hasError('required')">
-                UserType is <strong>required</strong>
-              </mat-error>
+              @if (userForm.controls.userTypes.hasError('required')) {<mat-error>
+                  UserType is <strong>required</strong>
+                </mat-error>}
             </mat-form-field>
           </div>
-          
+
           <div fxFlex="45" fxFlex.lt-md="100" fxLayout="column">
             <mat-label>{{'labels.inputs.Role'| translate}} *</mat-label>
             <mat-form-field class="custom-form-field">
               <mat-select formControlName="roles" placeholder="Normal User" required multiple>
-                <mat-option *ngFor="let role of rolesData" [value]="role.name">{{
-                  role.name
+                @for (role of rolesData; track role) {
+                  <mat-option [value]="role.name">{{
+                    role.name
                   }}</mat-option>
+                }
               </mat-select>
-              <mat-error *ngIf="userForm.controls.roles.hasError('required')">
-                role is <strong>required</strong>
-              </mat-error>
+              @if (userForm.controls.roles.hasError('required')) {<mat-error>
+                  role is <strong>required</strong>
+                </mat-error>}
             </mat-form-field>
           </div>
 
-          </div>
-          <h2>{{ 'labels.heading.User Information' | translate }}</h2>
-          <div fxLayoutAlign="space-between center" class="gap" fxLayout="row wrap">
-            <div fxFlex="45" fxFlex.lt-md="100" fxLayout="column">
-              <mat-label>{{'labels.inputs.First Name'| translate}} *</mat-label>
-              <mat-form-field class="custom-form-field">
-                <input matInput formControlName="firstName" required placeholder="Alice" />
-                <mat-error *ngIf="userForm.controls.firstName.hasError('pattern')">
+        </div>
+        <h2>{{ 'labels.heading.User Information' | translate }}</h2>
+        <div fxLayoutAlign="space-between center" class="gap" fxLayout="row wrap">
+          <div fxFlex="45" fxFlex.lt-md="100" fxLayout="column">
+            <mat-label>{{'labels.inputs.First Name'| translate}} *</mat-label>
+            <mat-form-field class="custom-form-field">
+              <input matInput formControlName="firstName" required placeholder="Alice" />
+              @if (userForm.controls.firstName.hasError('pattern')) {<mat-error>
                   First Name
                   <strong>cannot contain any special character or numbers</strong>
-                </mat-error>
-                <mat-error *ngIf="userForm.controls.firstName.hasError('required')">
+                </mat-error>}
+              @if (userForm.controls.firstName.hasError('required')) {<mat-error>
                   First Name is <strong>required</strong>
-                </mat-error>
-              </mat-form-field>
-            </div>
+                </mat-error>}
+            </mat-form-field>
+          </div>
 
-            <div fxFlex="45" fxFlex.lt-md="100" fxLayout="column">
-              <mat-label>{{'labels.inputs.Last Name'| translate}} *</mat-label>
-              <mat-form-field class="custom-form-field">
-                <input matInput formControlName="lastName" placeholder="Jones" required />
-                <mat-error *ngIf="userForm.controls.lastName.hasError('pattern')">
+          <div fxFlex="45" fxFlex.lt-md="100" fxLayout="column">
+            <mat-label>{{'labels.inputs.Last Name'| translate}} *</mat-label>
+            <mat-form-field class="custom-form-field">
+              <input matInput formControlName="lastName" placeholder="Jones" required />
+              @if (userForm.controls.lastName.hasError('pattern')) {<mat-error>
                   Last Name
                   <strong>cannot contain any special character or numbers</strong>
-                </mat-error>
-                <mat-error *ngIf="userForm.controls.lastName.hasError('required')">
+                </mat-error>}
+              @if (userForm.controls.lastName.hasError('required')) {<mat-error>
                   Last Name is <strong>required</strong>
-                </mat-error>
-              </mat-form-field>
-            </div>
+                </mat-error>}
+            </mat-form-field>
+          </div>
 
-            <div fxFlex="45" fxFlex.lt-md="100" fxLayout="column">
-              <mat-label>{{'labels.inputs.User Name'| translate}} *</mat-label>
-              <mat-form-field class="custom-form-field">
-                <input matInput formControlName="username" placeholder="alicejone123" required />
-                <mat-error *ngIf="userForm.controls.username.hasError('pattern')">
+          <div fxFlex="45" fxFlex.lt-md="100" fxLayout="column">
+            <mat-label>{{'labels.inputs.User Name'| translate}} *</mat-label>
+            <mat-form-field class="custom-form-field">
+              <input matInput formControlName="username" placeholder="alicejone123" required />
+              @if (userForm.controls.username.hasError('pattern')) {<mat-error>
                   User Name
                   <strong>cannot begin with a special character or number</strong>
-                </mat-error>
-                <mat-error *ngIf="userForm.controls.username.hasError('required')">
+                </mat-error>}
+              @if (userForm.controls.username.hasError('required')) {<mat-error>
                   User Name is <strong>required</strong>
-                </mat-error>
-              </mat-form-field>
-            </div>
+                </mat-error>}
+            </mat-form-field>
+          </div>
 
-            <div fxFlex="45" fxFlex.lt-md="100" fxLayout="column">
-              <mat-label>{{'labels.inputs.Email'| translate}} *</mat-label>
-              <mat-form-field class="custom-form-field">
-                <input matInput formControlName="email" placeholder="alice@mifos.org" required />
-                <mat-error *ngIf="userForm.controls.email.hasError('email')">
+          <div fxFlex="45" fxFlex.lt-md="100" fxLayout="column">
+            <mat-label>{{'labels.inputs.Email'| translate}} *</mat-label>
+            <mat-form-field class="custom-form-field">
+              <input matInput formControlName="email" placeholder="alice@mifos.org" required />
+              @if (userForm.controls.email.hasError('email')) {<mat-error>
                   Email is <strong>invalid</strong>
-                </mat-error>
-                <mat-error *ngIf="userForm.controls.email.hasError('required')">
+                </mat-error>}
+              @if (userForm.controls.email.hasError('required')) {<mat-error>
                   Email is <strong>required</strong>
-                </mat-error>
-              </mat-form-field>
-            </div>
-            
-            <div fxFlex="45" fxFlex.lt-md="100" fxLayout="column">
-              <mat-label>{{'labels.inputs.Mobile Number'| translate}} *</mat-label>
-              <mat-form-field class="custom-form-field">
-                <input matInput required formControlName="mobileNo" placeholder="9745678910" />
-                <mat-error *ngIf="userForm.controls.mobileNo.hasError('pattern')">
+                </mat-error>}
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="45" fxFlex.lt-md="100" fxLayout="column">
+            <mat-label>{{'labels.inputs.Mobile Number'| translate}} *</mat-label>
+            <mat-form-field class="custom-form-field">
+              <input matInput required formControlName="mobileNo" placeholder="9745678910" />
+              @if (userForm.controls.mobileNo.hasError('pattern')) {<mat-error>
                   Mobile Number is <strong>invalid</strong>
-                </mat-error>
-                <mat-error *ngIf="userForm.controls.mobileNo.hasError('required')">
+                </mat-error>}
+              @if (userForm.controls.mobileNo.hasError('required')) {<mat-error>
                   Mobile Number is <strong>required</strong>
-                </mat-error>
-              </mat-form-field>
-            </div>
-          
-            <div fxFlex="45" fxFlex.lt-md="100" fxLayout="column" *ngIf="showFspIdField">
+                </mat-error>}
+            </mat-form-field>
+          </div>
+
+          @if (showFspIdField) {
+            <div fxFlex="45" fxFlex.lt-md="100" fxLayout="column">
               <mat-label>{{'labels.inputs.FSP ID'| translate}} *</mat-label>
               <mat-form-field class="custom-form-field">
                 <mat-select required formControlName="fspID" placeholder="Select FSP ID">
-                  <mat-option *ngFor="let fsp of fspIds" [value]="fsp">
-                    {{ fsp.name }}
-                  </mat-option>
+                  @for (fsp of fspIds; track fsp) {
+                    <mat-option [value]="fsp">
+                      {{ fsp.name }}
+                    </mat-option>
+                  }
                 </mat-select>
-                <mat-error *ngIf="userForm.controls.fspID.hasError('required')">
-                  FSP ID is <strong>required</strong>
-                </mat-error>
+                @if (userForm.controls.fspID.hasError('required')) {<mat-error>
+                    FSP ID is <strong>required</strong>
+                  </mat-error>}
               </mat-form-field>
             </div>
-          
-            <div fxFlex="45" fxFlex.lt-md="100" fxLayout="column" *ngIf="showGovtIdField">
+          }
+
+          @if (showGovtIdField) {
+            <div fxFlex="45" fxFlex.lt-md="100" fxLayout="column">
               <mat-label>{{'labels.inputs.Govt ID'| translate}} *</mat-label>
               <mat-form-field class="custom-form-field">
                 <mat-select required formControlName="govtID" placeholder="Select Govt ID">
-                  <mat-option *ngFor="let govtId of govtIds" [value]="govtId">
-                    {{ govtId.name }}
-                  </mat-option>
+                  @for (govtId of govtIds; track govtId) {
+                    <mat-option [value]="govtId">
+                      {{ govtId.name }}
+                    </mat-option>
+                  }
                 </mat-select>
-                <mat-error *ngIf="userForm.controls.govtID.hasError('required')">
-                  Govt ID is <strong>required</strong>
-                </mat-error>
+                @if (userForm.controls.govtID.hasError('required')) {<mat-error>
+                    Govt ID is <strong>required</strong>
+                  </mat-error>}
               </mat-form-field>
             </div>
+          }
 
-        </div>  
+        </div>
       </mat-card-content>
 
       <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end center" fxLayoutGap="16px">

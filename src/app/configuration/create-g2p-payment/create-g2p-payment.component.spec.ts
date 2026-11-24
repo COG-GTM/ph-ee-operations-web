@@ -8,8 +8,8 @@ describe('CreateG2pProgramComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CreateG2pProgramComponent]
-    });
+    imports: [CreateG2pProgramComponent]
+});
     fixture = TestBed.createComponent(CreateG2pProgramComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -6,9 +6,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { Route } from 'app/core/route/route.service';
 
 /** Custom Components */
-import { AccountMapperComponent } from './account-mapper/account-mapper.component';
-import { BeneficiariesComponent } from './beneficiaries/beneficiaries.component';
-import { CreateBeneficiariesComponent } from './create-beneficiaries/create-beneficiaries.component';
 
 /**
  * Account Mapper Routes
@@ -20,7 +17,7 @@ const routes: Routes = [
       children: [
         {
           path: 'account-mapper',
-          component: AccountMapperComponent,
+          loadComponent: () => import('./account-mapper/account-mapper.component').then(m => m.AccountMapperComponent),
           data: { title: 'Account Mapper', breadcrumb: 'Account Mapper' },
           children: [
             {
@@ -30,12 +27,12 @@ const routes: Routes = [
             },
             {
               path: "beneficiaries",
-              component: BeneficiariesComponent,
+              loadComponent: () => import('./beneficiaries/beneficiaries.component').then(m => m.BeneficiariesComponent),
               data: { breadcrumb: { skip: true } },
             },
             {
               path: "create-beneficiaries",
-              component: CreateBeneficiariesComponent,
+              loadComponent: () => import('./create-beneficiaries/create-beneficiaries.component').then(m => m.CreateBeneficiariesComponent),
               data: { breadcrumb: { skip: true } },
             },
           ],

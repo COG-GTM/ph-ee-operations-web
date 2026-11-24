@@ -8,8 +8,8 @@ describe('G2pSectionFilterComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [G2pSectionFilterComponent]
-    });
+    imports: [G2pSectionFilterComponent]
+});
     fixture = TestBed.createComponent(G2pSectionFilterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

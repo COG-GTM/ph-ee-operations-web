@@ -8,8 +8,8 @@ describe('UploadDialogComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [UploadDialogComponent]
-    });
+    imports: [UploadDialogComponent]
+});
     fixture = TestBed.createComponent(UploadDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

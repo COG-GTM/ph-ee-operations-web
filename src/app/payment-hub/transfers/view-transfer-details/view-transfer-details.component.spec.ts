@@ -8,8 +8,8 @@ describe('ViewTransferDetailsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ViewTransferDetailsComponent]
-    });
+    imports: [ViewTransferDetailsComponent]
+});
     fixture = TestBed.createComponent(ViewTransferDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

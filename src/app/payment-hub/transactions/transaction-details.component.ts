@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
@@ -23,25 +23,40 @@ import { FormfieldBase } from 'app/shared/form-dialog/formfield/model/formfield-
 import { InputBase } from 'app/shared/form-dialog/formfield/model/input-base';
 import { AlertService } from 'app/core/alert/alert.service';
 import { AuthenticationService } from 'app/core/authentication/authentication.service';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatButton } from '@angular/material/button';
+import { MatGridList, MatGridTile } from '@angular/material/grid-list';
+import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
+import { NgClass } from '@angular/common';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
 
 /**
  * View transaction component.
  */
 @Component({
-  selector: 'mifosx-transaction-details',
-  templateUrl: './transaction-details.component.html',
-  styleUrls: ['./transaction-details.component.scss'],
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({ height: '0px', minHeight: '0', display: 'none' })),
-      state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ],
+    selector: 'mifosx-transaction-details',
+    templateUrl: './transaction-details.component.html',
+    styleUrls: ['./transaction-details.component.scss'],
+    animations: [
+        trigger('detailExpand', [
+            state('collapsed', style({ height: '0px', minHeight: '0', display: 'none' })),
+            state('expanded', style({ height: '*' })),
+            transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+        ]),
+    ],
+    imports: [FlexModule, MatButton, MatGridList, MatGridTile, MatCard, MatCardTitle, MatCardContent, NgClass, ExtendedModule, FaIconComponent, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow]
 })
 export class TransactionDetailsComponent implements OnInit {
+  private transactionsService = inject(TransactionsService);
+  private alertService = inject(AlertService);
+  private authService = inject(AuthenticationService);
+  private route = inject(ActivatedRoute);
+  dialog = inject(MatDialog);
+
 
   // TODO: Update once language and date settings are setup
 
@@ -66,11 +81,7 @@ export class TransactionDetailsComponent implements OnInit {
    * @param {ActivatedRoute} route Activated Route.
    * @param {MatDialog} dialog Dialog reference.
    */
-  constructor(private transactionsService: TransactionsService,
-    private alertService: AlertService,
-    private authService: AuthenticationService,
-    private route: ActivatedRoute,
-    public dialog: MatDialog) {
+  constructor() {
     this.route.data.subscribe((data: {
       dfspEntries: DfspEntry[]
     }) => {
@@ -108,7 +119,7 @@ export class TransactionDetailsComponent implements OnInit {
     });
     const source = from(this.datasource.tasks);
     const example = source.pipe(
-      groupBy(transaction => transaction['type']),
+      groupBy((transaction: any) => transaction['type']),
       mergeMap(group => group.pipe(toArray()))
     );
     const subscribe = example.subscribe(val => {

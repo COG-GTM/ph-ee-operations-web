@@ -1,5 +1,5 @@
 /** Angular Routes */
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 /** rxjs Imports */
@@ -21,10 +21,8 @@ import { DfspEntry } from '../model/dfsp.model';
   providedIn: 'root',
 })
 export class TransactionsService {
-  /**
-   * @param {HttpClient} http Http Client to send requests.
-   */
-  constructor(private http: HttpClient) { }
+  private http = inject(HttpClient);
+
 
   /**
    * Gets all the filtered transactions.

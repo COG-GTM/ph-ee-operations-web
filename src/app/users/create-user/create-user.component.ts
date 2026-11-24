@@ -1,8 +1,8 @@
 /** Angular Imports */
-import { Component, OnInit } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { Component, OnInit, inject } from '@angular/core';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router, ActivatedRoute, RouterLink } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 /** Custom Services */
 import { UsersService } from '../services/users.service';
@@ -13,17 +13,33 @@ import { JbpmService } from '../services/users-jbpm.service';
 import { SuccessDialogComponent } from 'app/shared/success-dialog/success-dialog.component';
 import { User } from '../models/user.model';
 import { AlertService } from 'app/core/alert/alert.service';
+import { MatCard, MatCardContent, MatCardActions } from '@angular/material/card';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatLabel, MatFormField, MatError } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/autocomplete';
+import { MatInput } from '@angular/material/input';
+import { MatButton } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 /**
  * Create user component.
  */
 @Component({
-  selector: 'mifosx-create-user',
-  templateUrl: './create-user.component.html',
-  styleUrls: ['./create-user.component.scss']
+    selector: 'mifosx-create-user',
+    templateUrl: './create-user.component.html',
+    styleUrls: ['./create-user.component.scss'],
+    imports: [MatCard, ReactiveFormsModule, MatCardContent, FlexModule, MatLabel, MatFormField, MatSelect, MatOption, MatError, MatInput, MatCardActions, MatButton, RouterLink, TranslateModule]
 })
 export class CreateUserComponent implements OnInit {
+  private formBuilder = inject(UntypedFormBuilder);
+  private usersService = inject(UsersService);
+  private alertService = inject(AlertService);
+  private dialog = inject(MatDialog);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+
 
   /** User form. */
   userForm: UntypedFormGroup;
@@ -53,12 +69,7 @@ export class CreateUserComponent implements OnInit {
    * @param {ActivatedRoute} route Activated Route.
    * @param {Router} router Router for navigation.
    */
-  constructor(private formBuilder: UntypedFormBuilder,
-              private usersService: UsersService,
-              private alertService: AlertService,
-              private dialog: MatDialog,
-              private route: ActivatedRoute,
-              private router: Router) {
+  constructor() {
     this.route.data.subscribe((data: {
         usersTemplate: any
       }) => {

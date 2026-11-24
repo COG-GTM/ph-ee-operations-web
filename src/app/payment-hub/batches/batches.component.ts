@@ -1,11 +1,11 @@
 /** Angular Imports */
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material/table';
+import { Component, OnInit, inject, viewChild } from '@angular/core';
+import { UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatNoDataRow } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatExpansionPanel } from '@angular/material/expansion';
+import { MatExpansionPanel, MatAccordion, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
 
 /** Custom Models */
 import { Dates } from 'app/core/utils/dates';
@@ -13,17 +13,38 @@ import { Batch, BatchData } from './model/batch.model';
 
 /** Custom Services */
 import { BatchesService } from './batches.service';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatButton } from '@angular/material/button';
+import { NgClass, DecimalPipe } from '@angular/common';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { MatLabel, MatFormField, MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/autocomplete';
+import { MatCard } from '@angular/material/card';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { IdentifierComponent } from '../../shared/identifier/identifier.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { DatetimeFormatPipe } from '../../pipes/datetime-format.pipe';
 
 @Component({
-  selector: 'mifosx-batches',
-  templateUrl: './batches.component.html',
-  styleUrls: ['./batches.component.scss'],
+    selector: 'mifosx-batches',
+    templateUrl: './batches.component.html',
+    styleUrls: ['./batches.component.scss'],
+    imports: [FlexModule, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatButton, NgClass, ExtendedModule, FaIconComponent, MatLabel, MatFormField, MatInput, MatDatepickerInput, ReactiveFormsModule, MatDatepickerToggle, MatSuffix, MatDatepicker, MatSelect, MatOption, MatCard, MatProgressBar, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, IdentifierComponent, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatNoDataRow, MatPaginator, DecimalPipe, TranslateModule, DatetimeFormatPipe]
 })
 export class BatchesComponent implements OnInit {
+  private dates = inject(Dates);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private batchesService = inject(BatchesService);
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('panel') panel: MatExpansionPanel;
+
+  readonly paginator = viewChild(MatPaginator);
+  readonly sort = viewChild(MatSort);
+  readonly panel = viewChild<MatExpansionPanel>('panel');
 
   /** Minimum transaction date allowed. */
   minDate = new Date(2000, 0, 1);
@@ -75,11 +96,6 @@ export class BatchesComponent implements OnInit {
   pageSize = 50;
   isLoading = false;
 
-  constructor(private dates: Dates,
-    private route: ActivatedRoute,
-    private router: Router,
-    private batchesService: BatchesService) { }
-
   ngOnInit(): void {
     this.getBatches();
   }
@@ -91,8 +107,8 @@ export class BatchesComponent implements OnInit {
       (batches: Batch) => {
         this.batchesData = batches;
         this.dataSource = new MatTableDataSource(this.batchesData.data);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator();
+        this.dataSource.sort = this.sort();
         this.dataSource.sortingDataAccessor = this.getSortingAccessor();
         this.totalRows = batches.totalBatches;
         this.isLoading = false;
@@ -154,7 +170,7 @@ export class BatchesComponent implements OnInit {
     this.dataSource.filter = JSON.stringify(filterValues);
 
     this.updateSelectedFilters();
-    this.panel.close();
+    this.panel().close();
   }
 
   /** Create filter values based on form controls */
@@ -238,6 +254,6 @@ export class BatchesComponent implements OnInit {
   /** Toggle filter panel */
   togglePanel(event?: MouseEvent): void {
     if (event) event.stopPropagation();
-    this.panel.toggle();
+    this.panel().toggle();
   }
 }

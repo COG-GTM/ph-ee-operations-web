@@ -1,6 +1,6 @@
 /** Angular Imports */
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 /** Rxjs Imports */
 import { Observable } from 'rxjs';
@@ -16,17 +16,13 @@ import { environment } from 'environments/environment';
   providedIn: 'root',
 })
 export class JbpmService {
+  private http = inject(HttpClient);
+
 
   /** Jbpm API URL */
   private jbpmApiUrl = environment.jbpm.jbpmApiUrl;
   private containerId = environment.jbpm.containerId;
   private credentials = environment.jbpm.credentials;
-
-  /**
-   * Constructor
-   * @param {HttpClient} http Http Client.
-   */
-  constructor(private http: HttpClient) {}
 
   /**
    * Get Credentials

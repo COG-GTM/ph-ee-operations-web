@@ -1,5 +1,6 @@
 /** Angular Imports */
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
+import { ResolveFn } from '@angular/router';
 
 
 /** rxjs Imports */
@@ -11,20 +12,7 @@ import { UsersService } from './services/users.service';
 /**
  * Users template data resolver.
  */
-@Injectable()
-export class UsersTemplateResolver  {
-
-  /**
-   * @param {UsersService} usersService Users service.
-   */
-  constructor(private usersService: UsersService) {}
-
-  /**
-   * Returns the users template data.
-   * @returns {Observable<any>}
-   */
-  resolve(): Observable<any> {
-    return this.usersService.getUsersTemplate();
-  }
-
-}
+export const usersTemplateResolver: ResolveFn<any> = () => {
+  const usersService = inject(UsersService);
+  return usersService.getUsersTemplate();
+};

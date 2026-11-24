@@ -1,5 +1,6 @@
 /** Angular Imports */
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
+import { ResolveFn } from '@angular/router';
 
 
 /** rxjs Imports */
@@ -13,19 +14,7 @@ import { DfspEntry } from '../model/dfsp.model';
 /**
  * Currencies data resolver.
  */
-@Injectable()
-export class DfspResolver  {
-
-    /**
-     * @param {TransactionsService} transactionsService Transactions service.
-     */
-    constructor(private transactionsService: TransactionsService) { }
-
-    /**
-     * Returns the currencies data.
-     * @returns {Observable<any>}
-     */
-    resolve(): Observable<any> {
-        return this.transactionsService.getDfspEntries();
-    }
-}
+export const dfspResolver: ResolveFn<any> = () => {
+  const transactionsService = inject(TransactionsService);
+  return transactionsService.getDfspEntries();
+};

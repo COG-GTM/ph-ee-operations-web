@@ -1,11 +1,11 @@
 /** Angular Imports */
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
-import { UntypedFormControl } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, AfterViewInit, inject, viewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
+import { UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
+import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 
 /** rxjs Imports */
 import { merge } from 'rxjs';
@@ -21,16 +21,31 @@ import { PaymentHubComponent } from 'app/payment-hub/paymenthub.component';
 import { DfspEntry } from '../model/dfsp.model';
 import { transactionStatusData as statuses } from '../helper/transaction.helper';
 import { RetryResolveDialogComponent } from '../retry-resolve-dialog/retry-resolve-dialog.component';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatAutocompleteTrigger, MatOption, MatAutocomplete } from '@angular/material/autocomplete';
+import { MatSelect } from '@angular/material/select';
+import { MatTooltip } from '@angular/material/tooltip';
+import { NgClass, AsyncPipe } from '@angular/common';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { MatButton } from '@angular/material/button';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 
 /**
  * Transactions component.
  */
 @Component({
-  selector: 'mifosx-outgoing-transactions',
-  templateUrl: './outgoing-transactions.component.html',
-  styleUrls: ['./outgoing-transactions.component.scss']
+    selector: 'mifosx-outgoing-transactions',
+    templateUrl: './outgoing-transactions.component.html',
+    styleUrls: ['./outgoing-transactions.component.scss'],
+    imports: [FlexModule, MatFormField, MatLabel, MatInput, ReactiveFormsModule, MatAutocompleteTrigger, MatSelect, MatOption, MatAutocomplete, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatTooltip, NgClass, ExtendedModule, MatButton, FaIconComponent, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, RouterLink, MatPaginator, AsyncPipe]
 })
 export class OutgoingTransactionsComponent implements OnInit, AfterViewInit {
+  private transactionsService = inject(TransactionsService);
+  private route = inject(ActivatedRoute);
+  dialog = inject(MatDialog);
+
 
   /** Minimum transaction date allowed. */
   minDate = new Date(2000, 0, 1);
@@ -103,9 +118,9 @@ export class OutgoingTransactionsComponent implements OnInit, AfterViewInit {
   ];
 
   /** Paginator for transactions table. */
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  readonly paginator = viewChild(MatPaginator);
   /** Sorter for transactions table. */
-  @ViewChild(MatSort) sort: MatSort;
+  readonly sort = viewChild(MatSort);
 
   /**
    * Retrieves the offices and gl accounts data from `resolve`.
@@ -113,9 +128,7 @@ export class OutgoingTransactionsComponent implements OnInit, AfterViewInit {
    * @param {ActivatedRoute} route Activated Route.
    * @param {MatDialog} dialog Dialog reference.
    */
-  constructor(private transactionsService: TransactionsService,
-    private route: ActivatedRoute,
-    public dialog: MatDialog) {
+  constructor() {
     this.route.data.subscribe((data: {
       currencies: any
       dfspEntries: DfspEntry[]
@@ -245,9 +258,9 @@ export class OutgoingTransactionsComponent implements OnInit, AfterViewInit {
       )
       .subscribe();
 
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.sort().sortChange.subscribe(() => this.paginator().pageIndex = 0);
 
-    merge(this.sort.sortChange, this.paginator.page)
+    merge(this.sort().sortChange, this.paginator().page)
       .pipe(
         tap(() => this.loadTransactionsPage())
       )
@@ -258,10 +271,11 @@ export class OutgoingTransactionsComponent implements OnInit, AfterViewInit {
    * Loads a page of transactions.
    */
   loadTransactionsPage() {
-    if (!this.sort.direction) {
-      delete this.sort.active;
+    const sort = this.sort();
+    if (!sort.direction) {
+      delete sort.active;
     }
-    this.dataSource.getTransactions(this.filterTransactionsBy, this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
+    this.dataSource.getTransactions(this.filterTransactionsBy, sort.active, sort.direction, this.paginator().pageIndex, this.paginator().pageSize);
   }
 
   /**
@@ -270,7 +284,7 @@ export class OutgoingTransactionsComponent implements OnInit, AfterViewInit {
    * @param {string} property Property to filter data by.
    */
   applyFilter(filterValue: string, property: string) {
-    this.paginator.pageIndex = 0;
+    this.paginator().pageIndex = 0;
     const findIndex = this.filterTransactionsBy.findIndex(filter => filter.type === property);
     this.filterTransactionsBy[findIndex].value = filterValue;
     this.loadTransactionsPage();
@@ -394,8 +408,10 @@ export class OutgoingTransactionsComponent implements OnInit, AfterViewInit {
    */
   getTransactions() {
     this.dataSource = new TransactionsDataSource(this.transactionsService);
-    if (this.sort && this.paginator) {
-      this.dataSource.getTransactions(this.filterTransactionsBy, this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
+    const sort = this.sort();
+    const paginator = this.paginator();
+    if (sort && paginator) {
+      this.dataSource.getTransactions(this.filterTransactionsBy, sort.active, sort.direction, paginator.pageIndex, paginator.pageSize);
     } else {
       this.dataSource.getTransactions(this.filterTransactionsBy, '', '', 0, 10);
     }

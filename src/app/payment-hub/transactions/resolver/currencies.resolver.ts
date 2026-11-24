@@ -1,5 +1,6 @@
 /** Angular Imports */
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
+import { ResolveFn } from '@angular/router';
 
 
 /** rxjs Imports */
@@ -12,19 +13,7 @@ import { Currency } from '../model/currency.model';
 /**
  * Currencies data resolver.
  */
-@Injectable()
-export class CurrenciesResolver  {
-
-    /**
-     * @param {TransactionsService} transactionsService Transactions service.
-     */
-    constructor(private transactionsService: TransactionsService) { }
-
-    /**
-     * Returns the currencies data.
-     * @returns {Observable<any>}
-     */
-    resolve(): Observable<any> {
-        return this.transactionsService.getCurrencies();
-    }
-}
+export const currenciesResolver: ResolveFn<any> = () => {
+  const transactionsService = inject(TransactionsService);
+  return transactionsService.getCurrencies();
+};

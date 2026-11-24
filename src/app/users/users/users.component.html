@@ -1,7 +1,7 @@
 <span>{{ 'labels.texts.All Users of the Network' | translate }}</span>
 <div class="container">
 
-  <mat-card class="radius8 no-padding view-user">
+  <mat-card appearance="outlined" class="radius8 no-padding view-user">
 
     <div class="table-container">
 
@@ -9,15 +9,16 @@
 
         <ng-container matColumnDef="userType">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            <div class="column-label" *ngIf="!showFilter['userType']; else userTypeFilter">
-              {{ 'labels.inputs.Type of User' | translate }}
-            </div>
-            <ng-template #userTypeFilter>
+            @if (!showFilter['userType']) {
+              <div class="column-label">
+                {{ 'labels.inputs.Type of User' | translate }}
+              </div>
+            } @else {
               <mat-form-field (click)="$event.stopPropagation()" class="column-label">
                 <mat-label>{{ 'labels.inputs.Type of User' | translate }}</mat-label>
                 <input matInput (click)="$event.stopPropagation()" (keyup)="applyFilter($event.target.value, 'userType')" />
               </mat-form-field>
-            </ng-template>
+            }
             <mat-icon class="hidden-search-icon" (click)="toggleFilter('userType'); $event.stopPropagation()">
               <fa-icon icon="search" size="2xs"></fa-icon>
             </mat-icon>
@@ -27,15 +28,16 @@
 
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            <div class="column-label" *ngIf="!showFilter['name']; else nameFilter">
-              {{ 'labels.inputs.Name' | translate }}
-            </div>
-            <ng-template #nameFilter>
+            @if (!showFilter['name']) {
+              <div class="column-label">
+                {{ 'labels.inputs.Name' | translate }}
+              </div>
+            } @else {
               <mat-form-field (click)="$event.stopPropagation()" class="column-label">
                 <mat-label>{{ 'labels.inputs.Name' | translate }}</mat-label>
                 <input matInput (click)="$event.stopPropagation()" (keyup)="applyFilter($event.target.value, 'name')" />
               </mat-form-field>
-            </ng-template>
+            }
             <mat-icon class="hidden-search-icon" (click)="toggleFilter('name'); $event.stopPropagation()">
               <fa-icon icon="search" size="2xs"></fa-icon>
             </mat-icon>
@@ -47,15 +49,16 @@
 
         <ng-container matColumnDef="email">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            <div class="column-label" *ngIf="!showFilter['email']; else emailFilter">
-              {{ 'labels.inputs.Email' | translate }}
-            </div>
-            <ng-template #emailFilter>
+            @if (!showFilter['email']) {
+              <div class="column-label">
+                {{ 'labels.inputs.Email' | translate }}
+              </div>
+            } @else {
               <mat-form-field (click)="$event.stopPropagation()" class="column-label">
                 <mat-label>{{ 'labels.inputs.Email' | translate }}</mat-label>
                 <input matInput (click)="$event.stopPropagation()" (keyup)="applyFilter($event.target.value, 'email')" />
               </mat-form-field>
-            </ng-template>
+            }
             <mat-icon class="hidden-search-icon" (click)="toggleFilter('email'); $event.stopPropagation()">
               <fa-icon icon="search" size="2xs"></fa-icon>
             </mat-icon>
@@ -65,15 +68,16 @@
 
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            <div class="column-label" *ngIf="!showFilter['id']; else IdFilter">
-              {{ 'labels.inputs.ID' | translate }}
-            </div>
-            <ng-template #IdFilter>
+            @if (!showFilter['id']) {
+              <div class="column-label">
+                {{ 'labels.inputs.ID' | translate }}
+              </div>
+            } @else {
               <mat-form-field (click)="$event.stopPropagation()" class="column-label">
                 <mat-label>{{ 'labels.inputs.ID' | translate }}</mat-label>
                 <input matInput (click)="$event.stopPropagation()" (keyup)="applyFilter($event.target.value, 'id')" />
               </mat-form-field>
-            </ng-template>
+            }
             <mat-icon class="hidden-search-icon" (click)="toggleFilter('id'); $event.stopPropagation()">
               <fa-icon icon="search" size="2xs"></fa-icon>
             </mat-icon>
@@ -92,9 +96,9 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns" [routerLink]="[row.id]" class="select-row"></tr>
       </table>
     </div>
-  
+
     <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
-    
+
   </mat-card>
 
 </div>

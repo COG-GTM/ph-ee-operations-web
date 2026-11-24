@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { LoginContext } from '../login-context.model';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
@@ -9,8 +9,8 @@ import { OAuth2Token } from '../o-auth2-token.model';
   providedIn: 'root'
 })
 export class OauthKeycloakService {
+  private http = inject(HttpClient);
 
-  constructor(private http: HttpClient) { }
 
   token(loginContext: LoginContext): Observable<any> {
 

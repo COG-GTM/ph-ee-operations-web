@@ -1,41 +1,47 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, inject, input } from '@angular/core';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { AlertService } from 'app/core/alert/alert.service';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { ExternalIdentifierPipe } from '../../pipes/external-identifier.pipe';
 
 @Component({
-  selector: 'mifosx-identifier',
-  templateUrl: './identifier.component.html',
-  styleUrls: ['./identifier.component.scss']
+    selector: 'mifosx-identifier',
+    templateUrl: './identifier.component.html',
+    styleUrls: ['./identifier.component.scss'],
+    imports: [FaIconComponent, ExternalIdentifierPipe]
 })
 export class IdentifierComponent  implements OnInit {
-  @Input() identifier: string;
-  @Input() completed = false;
-  @Input() display = 'right';
+  private clipboard = inject(Clipboard);
+  private alertService = inject(AlertService);
+
+  readonly identifier = input<string>(undefined);
+  readonly completed = input(false);
+  readonly display = input('right');
 
   iconVisible = false;
   displayL = false;
   displayR = true;
   emptyValue = false;
 
-  constructor(private clipboard: Clipboard,
-    private alertService: AlertService) { }
-
   ngOnInit(): void {
-    this.emptyValue = (!this.identifier || this.identifier === '');
-    this.displayL = (this.display === 'left');
-    this.displayR = (this.display === 'right');
+    const identifier = this.identifier();
+    this.emptyValue = (!identifier || identifier === '');
+    this.displayL = (this.display() === 'left');
+    this.displayR = (this.display() === 'right');
   }
 
   isLongValue(): boolean {
-    if (this.identifier == null) {
+    const identifier = this.identifier();
+    if (identifier == null) {
       return false;
     }
-    return (this.identifier.length > 15);
+    return (identifier.length > 15);
   }
 
   copyValue(): void {
-    this.clipboard.copy(this.identifier);
-    this.alertService.alert({ type: 'Clipboard', message: 'Copied: ' + this.identifier });
+    const identifier = this.identifier();
+    this.clipboard.copy(identifier);
+    this.alertService.alert({ type: 'Clipboard', message: 'Copied: ' + identifier });
   }
 
   mouseEnter() {

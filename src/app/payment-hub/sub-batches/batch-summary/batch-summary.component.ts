@@ -1,16 +1,23 @@
-import { Component, Inject } from '@angular/core';
-import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog'
+import { Component, inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogContent } from '@angular/material/dialog'
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
-  selector: 'mifosx-batch-summary',
-  templateUrl: './batch-summary.component.html',
-  styleUrls: ['./batch-summary.component.scss']
+    selector: 'mifosx-batch-summary',
+    templateUrl: './batch-summary.component.html',
+    styleUrls: ['./batch-summary.component.scss'],
+    imports: [MatDialogTitle, FaIconComponent, CdkScrollable, MatDialogContent, TranslateModule]
 })
 export class BatchSummaryComponent {
+  dialogRef = inject<MatDialogRef<BatchSummaryComponent>>(MatDialogRef);
+  data = inject(MAT_DIALOG_DATA);
+
   batch: any;
 
-  constructor(
-    public dialogRef: MatDialogRef<BatchSummaryComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor() {
+      const data = this.data;
+
       this.batch = data.batch;
   }
 }

@@ -1,6 +1,6 @@
 /** Angular Imports */
-import { Component, OnInit } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, inject } from '@angular/core';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 
 /** rxjs Imports */
 import { finalize } from 'rxjs/operators';
@@ -8,16 +8,30 @@ import { finalize } from 'rxjs/operators';
 /** Custom Services */
 import { AuthenticationService } from '../../core/authentication/authentication.service';
 import { environment } from 'environments/environment';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatLabel, MatFormField, MatError, MatSuffix } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/autocomplete';
+import { MatInput } from '@angular/material/input';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Login form component.
  */
 @Component({
-  selector: 'mifosx-login-form',
-  templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.scss']
+    selector: 'mifosx-login-form',
+    templateUrl: './login-form.component.html',
+    styleUrls: ['./login-form.component.scss'],
+    imports: [ReactiveFormsModule, FlexModule, MatLabel, MatFormField, MatSelect, MatOption, MatError, MatInput, MatButton, MatIconButton, MatSuffix, FaIconComponent, MatCheckbox, MatProgressSpinner, TranslateModule]
 })
 export class LoginFormComponent implements OnInit {
+  private formBuilder = inject(UntypedFormBuilder);
+  private authenticationService = inject(AuthenticationService);
+
 
   /** Login form group. */
   loginForm: UntypedFormGroup;
@@ -28,13 +42,6 @@ export class LoginFormComponent implements OnInit {
 
   tenantIdDefault: string = environment.tenant;
   tenantIdsDefault: string[] = environment.tenants.split(',');
-
-  /**
-   * @param {FormBuilder} formBuilder Form Builder.
-   * @param {AuthenticationService} authenticationService Authentication Service.
-   */
-  constructor(private formBuilder: UntypedFormBuilder,
-    private authenticationService: AuthenticationService) { }
 
   /**
    * Creates login form.

@@ -11,17 +11,15 @@ import { VouchersBulkImportComponent } from './vouchers-bulk-import/vouchers-bul
 
 
 @NgModule({
-  declarations: [
-    VouchersComponent,
-    VoucherManagementComponent,
-    VouchersSectionFilterComponent,
-    VouchersBulkImportComponent
-  ],
-  imports: [
-    VouchersRoutingModule,
-    CommonModule,
-    SharedModule,
-    PipesModule
-  ]
+    imports: [
+        VouchersRoutingModule,
+        CommonModule,
+        SharedModule,
+        PipesModule,
+        VouchersComponent,
+        VoucherManagementComponent,
+        VouchersSectionFilterComponent,
+        VouchersBulkImportComponent
+    ]
 })
 export class VouchersModule { }

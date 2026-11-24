@@ -1,6 +1,6 @@
 /** Angular Imports */
-import { Component, EventEmitter, Inject, Output } from '@angular/core';
-import { MatLegacyDialogRef as MatDialogRef,MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 /** Custom Services */
 import { AlertService } from 'app/core/alert/alert.service';
@@ -11,15 +11,25 @@ import { VoucherInstruction } from 'app/vouchers/models/vouchers-model';
 
 /** External Imports */
 import * as XLSX from 'xlsx';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { MatButton } from '@angular/material/button';
+import { DragDropFileComponent } from '../drag-drop-file/drag-drop-file.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 /** Upload Dialog Componenent */
 @Component({
-  selector: 'mifosx-upload-dialog',
-  templateUrl: './upload-dialog.component.html',
-  styleUrls: ['./upload-dialog.component.scss']
+    selector: 'mifosx-upload-dialog',
+    templateUrl: './upload-dialog.component.html',
+    styleUrls: ['./upload-dialog.component.scss'],
+    imports: [FlexModule, FaIconComponent, MatButton, DragDropFileComponent, TranslateModule]
 })
 export class UploadDialogComponent {
+   private alertService = inject(AlertService);
+   dialogRef = inject<MatDialogRef<UploadDialogComponent>>(MatDialogRef);
+   data = inject(MAT_DIALOG_DATA);
+
 
    /** Indicates whether the file processing is in progress */
    isLoading = false;
@@ -31,13 +41,8 @@ export class UploadDialogComponent {
    voucherInstructions: VoucherInstruction[] = [];
  
    /** Event emitter to notify parent component of the imported data */
+   // EventEmitter (not output()): the FileReader emits after the dialog has closed and been destroyed.
    @Output() importedData = new EventEmitter<any>();
- 
-   constructor(
-     private alertService: AlertService,
-     public dialogRef: MatDialogRef<UploadDialogComponent>,
-     @Inject(MAT_DIALOG_DATA) public data: any
-   ) {}
  
    /**
     * Handles file selection, processes the file and closes the dialog.

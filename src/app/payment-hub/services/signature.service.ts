@@ -21,7 +21,7 @@
 // }
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'environments/environment';
@@ -30,7 +30,8 @@ import { environment } from 'environments/environment';
   providedIn: 'root'
 })
 export class SignatureService {
-  constructor(private http: HttpClient) { }
+  private http = inject(HttpClient);
+
 
   createSignature(payload: string, correlationId: string, tenantId: string): Observable<string> {
     const headers = new HttpHeaders({

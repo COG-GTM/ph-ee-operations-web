@@ -1,12 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({
-  name: 'statusLookup'
-})
+@Pipe({ name: 'statusLookup' })
 export class StatusLookupPipe implements PipeTransform {
 
   transform(status: string): string {
-    const cssClassNameLookup = {
+    const cssClassNameLookup: Record<string, string> = {
       'true': 'status-active',
       'false': 'status-deleted',
       'Active': 'status-active',

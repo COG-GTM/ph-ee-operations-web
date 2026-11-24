@@ -20,7 +20,7 @@ import { ListItemComponent } from './list-item/list-item.component';
 import { TenantSelectorComponent } from './tenant-selector/tenant-selector.component';
 import { IdentifierComponent } from './identifier/identifier.component';
 import { PipesModule } from 'app/pipes/pipes.module';
-import { BreadcrumbModule, BreadcrumbService } from 'xng-breadcrumb';
+import { BreadcrumbComponent, BreadcrumbItemDirective, BreadcrumbService } from 'xng-breadcrumb';
 import { NgxCsvParserModule } from 'ngx-csv-parser';
 import { DragDropFileComponent } from './drag-drop-file/drag-drop-file.component';
 import { NgxFileDropModule } from 'ngx-file-drop';
@@ -41,11 +41,10 @@ import { UploadDialogComponent } from './upload-dialog/upload-dialog.component';
         ReactiveFormsModule,
         PipesModule,
         TranslateModule,
-        BreadcrumbModule,
+        BreadcrumbComponent,
+        BreadcrumbItemDirective,
         NgxCsvParserModule,
-        NgxFileDropModule
-    ],
-    declarations: [
+        NgxFileDropModule,
         FormfieldComponent,
         FormDialogComponent,
         DeleteDialogComponent,
@@ -75,7 +74,8 @@ import { UploadDialogComponent } from './upload-dialog/upload-dialog.component';
         ListItemComponent,
         TenantSelectorComponent,
         IdentifierComponent,
-        BreadcrumbModule,
+        BreadcrumbComponent,
+        BreadcrumbItemDirective,
         NgxCsvParserModule,
         NgxFileDropModule,
         DragDropFileComponent,

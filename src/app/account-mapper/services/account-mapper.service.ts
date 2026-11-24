@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 /** Environment Configuration */
@@ -12,13 +12,10 @@ import { environment } from 'environments/environment';
   providedIn: 'root'
 })
 export class AccountMapperService {
+  private http = inject(HttpClient);
+
 
   apiPrefix: string = environment.backend.account;
-
-  /**
-   * @param {HttpClient} http HttpClient
-   */
-  constructor(private http: HttpClient) { }
 
   /**
    * @param {number} page Page number

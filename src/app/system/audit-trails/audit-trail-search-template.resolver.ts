@@ -1,5 +1,6 @@
 /** Angular Imports */
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
+import { ResolveFn } from '@angular/router';
 
 
 /** rxjs Imports */
@@ -11,20 +12,7 @@ import { SystemService } from '../system.service';
 /**
  * Audit Trail Search Template data resolver.
  */
-@Injectable()
-export class AuditTrailSearchTemplateResolver  {
-
-  /**
-   * @param {SystemService} systemService System service.
-   */
-  constructor(private systemService: SystemService) {}
-
-  /**
-   * Returns the Audit Trail Search Template data.
-   * @returns {Observable<any>}
-   */
-  resolve(): Observable<any> {
-    return this.systemService.getAuditTrailSearchTemplate();
-  }
-
-}
+export const auditTrailSearchTemplateResolver: ResolveFn<any> = () => {
+  const systemService = inject(SystemService);
+  return systemService.getAuditTrailSearchTemplate();
+};

@@ -1,34 +1,34 @@
 /** Angular Imports */
-import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, inject } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 
 /** Custom Services */
 import { SystemService } from '../../system.service';
+import { MatCard, MatCardContent, MatCardActions } from '@angular/material/card';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatButton } from '@angular/material/button';
 
 /**
  * Add Role Component.
  */
 @Component({
-  selector: 'mifosx-add-role',
-  templateUrl: './add-role.component.html',
-  styleUrls: ['./add-role.component.scss']
+    selector: 'mifosx-add-role',
+    templateUrl: './add-role.component.html',
+    styleUrls: ['./add-role.component.scss'],
+    imports: [MatCard, ReactiveFormsModule, MatCardContent, FlexModule, MatFormField, MatLabel, MatInput, MatError, MatCardActions, MatButton, RouterLink]
 })
 export class AddRoleComponent implements OnInit {
+  private formBuilder = inject(UntypedFormBuilder);
+  private systemService = inject(SystemService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+
 
   /** Role form. */
   roleForm: UntypedFormGroup;
-
-  /**
-   * @param {FormBuilder} formBuilder Form Builder.
-   * @param {SystemService} systemService System Service.
-   * @param {ActivatedRoute} route Activated Route.
-   * @param {Router} router Router for navigation.
-   */
-  constructor(private formBuilder: UntypedFormBuilder,
-              private systemService: SystemService,
-              private route: ActivatedRoute,
-              private router: Router) { }
 
   /**
    * Creates the role form.

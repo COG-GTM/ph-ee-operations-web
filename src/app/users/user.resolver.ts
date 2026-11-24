@@ -1,6 +1,6 @@
 /** Angular Imports */
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot } from '@angular/router';
+import { inject } from '@angular/core';
+import { ActivatedRouteSnapshot, ResolveFn } from '@angular/router';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
@@ -12,19 +12,8 @@ import { KeycloakAdminService } from './services/users-keycloak.service';
 /**
  * User data resolver.
  */
-@Injectable()
-export class UserResolver  {
-
-  /**
-   * @param {UsersService} usersService Users service.
-   */
-  constructor(private keycloakAdminService: KeycloakAdminService) {}
-
-  /**
-   * Returns the user data.
-   * @returns {Observable<any>}
-   */
-  resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    const userId = route.paramMap.get('id');
-    return this.keycloakAdminService.getUserById(userId);  }
-}
+export const userResolver: ResolveFn<any> = (route: ActivatedRouteSnapshot) => {
+  const keycloakAdminService = inject(KeycloakAdminService);
+  const userId = route.paramMap.get('id');
+  return keycloakAdminService.getUserById(userId);
+};

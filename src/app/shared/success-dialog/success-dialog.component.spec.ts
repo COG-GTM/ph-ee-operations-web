@@ -8,8 +8,8 @@ describe('SuccessDialogComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SuccessDialogComponent]
-    });
+    imports: [SuccessDialogComponent]
+});
     fixture = TestBed.createComponent(SuccessDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

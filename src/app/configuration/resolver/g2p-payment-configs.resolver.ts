@@ -1,5 +1,6 @@
 /** Angular Imports */
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
+import { ResolveFn } from '@angular/router';
 
 
 /** rxjs Imports */
@@ -11,20 +12,7 @@ import { G2PPaymentConfigService } from '../services/g2p-payment-config.service'
 /**
  * G2P Payment Configs resolver.
  */
-@Injectable()
-export class G2PPaymentConfigsResolver {
-
-    /**
-     * @param {G2PPaymentConfigService} g2pPaymentConfigService Users service.
-     */
-    constructor(private g2pPaymentConfigService: G2PPaymentConfigService) { }
-
-    /**
-     * Returns the G2p Payment Configs data.
-     * @returns {Observable<any>}
-     */
-    resolve(): Observable<any> {
-        return this.g2pPaymentConfigService.getG2pPayments();
-    }
-
-}
+export const g2pPaymentConfigsResolver: ResolveFn<any> = () => {
+  const g2pPaymentConfigService = inject(G2PPaymentConfigService);
+  return g2pPaymentConfigService.getG2pPayments();
+};

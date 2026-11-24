@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 /** rxjs Imports */
@@ -27,6 +27,11 @@ import jwt_decode from 'jwt-decode';
  */
 @Injectable()
 export class AuthenticationService {
+  private http = inject(HttpClient);
+  private alertService = inject(AlertService);
+  private oauthKeycloakService = inject(OauthKeycloakService);
+  private g2pPaymentService = inject(G2PPaymentConfigService);
+
 
   /** Denotes whether the user credentials should persist through sessions. */
   private rememberMe: boolean;
@@ -67,10 +72,7 @@ export class AuthenticationService {
    * @param {OauthKeycloakService} oauthKeycloakService Oauth Keycloak Service.
    * @param {G2PPaymentConfigService} g2pPaymentService G2P Payment Service.
    */
-  constructor(private http: HttpClient,
-    private alertService: AlertService,
-    private oauthKeycloakService: OauthKeycloakService,
-    private g2pPaymentService: G2PPaymentConfigService) {
+  constructor() {
     this.storage = sessionStorage;
 
     this.init();
@@ -109,7 +111,7 @@ export class AuthenticationService {
 
   hasAccess(permission: String): Boolean {
     const credentials = JSON.parse(this.getStoreageItem(this.credentialsStorageKey));
-    const decoded = jwt_decode(credentials.accessToken);
+    const decoded = jwt_decode<any>(credentials.accessToken);
     const authorities = decoded['authorities'];
     return authorities.includes('ALL_FUNCTIONS') || authorities.includes(permission);
   }

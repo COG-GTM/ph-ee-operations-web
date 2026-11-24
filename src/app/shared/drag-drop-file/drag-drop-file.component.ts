@@ -1,14 +1,18 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { NgxFileDropEntry } from 'ngx-file-drop';
+import { Component, output } from '@angular/core';
+import { NgxFileDropEntry, NgxFileDropModule } from 'ngx-file-drop';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'mifosx-drag-drop-file',
-  templateUrl: './drag-drop-file.component.html',
-  styleUrls: ['./drag-drop-file.component.scss']
+    selector: 'mifosx-drag-drop-file',
+    templateUrl: './drag-drop-file.component.html',
+    styleUrls: ['./drag-drop-file.component.scss'],
+    imports: [NgxFileDropModule, FlexModule, FaIconComponent, TranslateModule]
 })
 export class DragDropFileComponent {
 
-  @Output() onFileChange = new EventEmitter<File>();
+  readonly onFileChange = output<File>();
 
   public files: NgxFileDropEntry[] = [];
 

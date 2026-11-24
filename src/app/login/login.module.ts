@@ -16,14 +16,12 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
  * All components related to user authentication should be declared here.
  */
 @NgModule({
-  imports: [
-    SharedModule,
-    LoginRoutingModule
-  ],
-  declarations: [
-    LoginComponent,
-    LoginFormComponent,
-    ResetPasswordComponent
-  ]
+    imports: [
+        SharedModule,
+        LoginRoutingModule,
+        LoginComponent,
+        LoginFormComponent,
+        ResetPasswordComponent
+    ]
 })
 export class LoginModule { }

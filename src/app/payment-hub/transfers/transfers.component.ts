@@ -1,12 +1,12 @@
 /** Angular Imports */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject, viewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { UntypedFormControl } from '@angular/forms';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
+import { UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { MatExpansionPanel } from '@angular/material/expansion';
-import { MatSort } from '@angular/material/sort';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatExpansionPanel, MatAccordion, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
 
 /** Custom Models and Utils */
 import { Dates } from 'app/core/utils/dates';
@@ -18,20 +18,43 @@ import { TransfersService } from './transfers.service';
 /** Custom Components */
 import { ViewTransferDetailsComponent } from './view-transfer-details/view-transfer-details.component';
 import { SubBatchSummaryComponent } from './sub-batch-summary/sub-batch-summary.component';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatButton } from '@angular/material/button';
+import { NgClass } from '@angular/common';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { MatLabel, MatFormField, MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/autocomplete';
+import { MatCard } from '@angular/material/card';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { MatTooltip } from '@angular/material/tooltip';
+import { IdentifierComponent } from '../../shared/identifier/identifier.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { FormatNumberPipe } from '../../pipes/format-number.pipe';
+import { DatetimeFormatPipe } from '../../pipes/datetime-format.pipe';
 
 @Component({
-  selector: 'mifosx-transfers',
-  templateUrl: './transfers.component.html',
-  styleUrls: ['./transfers.component.scss'],
+    selector: 'mifosx-transfers',
+    templateUrl: './transfers.component.html',
+    styleUrls: ['./transfers.component.scss'],
+    imports: [FlexModule, MatButton, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, NgClass, ExtendedModule, FaIconComponent, MatLabel, MatFormField, MatInput, MatDatepickerInput, ReactiveFormsModule, MatDatepickerToggle, MatSuffix, MatDatepicker, MatSelect, MatOption, MatCard, MatProgressBar, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatTooltip, IdentifierComponent, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, TranslateModule, FormatNumberPipe, DatetimeFormatPipe]
 })
 export class TransfersComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private dates = inject(Dates);
+  private dialog = inject(MatDialog);
+  private transfersService = inject(TransfersService);
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  readonly paginator = viewChild(MatPaginator);
   @ViewChild(MatSort) set matSort(sort: MatSort) {
     this.dataSource.sort = sort;
     this.setSortingAccessor();
   }
-  @ViewChild('panel') panel: MatExpansionPanel;
+  readonly panel = viewChild<MatExpansionPanel>('panel');
 
   /** Amount form control */
   amount = new UntypedFormControl();
@@ -70,13 +93,6 @@ export class TransfersComponent implements OnInit {
   subBatchId: string;
   transferData: any;
   subBatchData: SubBatchDetail;
-
-  constructor(
-    private route: ActivatedRoute,
-    private dates: Dates,
-    private dialog: MatDialog,
-    private transfersService: TransfersService
-  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -156,7 +172,7 @@ export class TransfersComponent implements OnInit {
     const filterData = this.filterTransferData();
     this.updateDataSource(filterData);
     this.updateSelectedFilters();
-    this.panel.close();
+    this.panel().close();
   }
 
   /** Filter transfer data based on form controls */
@@ -179,7 +195,7 @@ export class TransfersComponent implements OnInit {
   /** Update the data source */
   private updateDataSource(data: Transfer[]): void {
     this.dataSource.data = data;
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator();
   }
 
   /** Update the selected filters state */
@@ -206,7 +222,7 @@ export class TransfersComponent implements OnInit {
   /** Toggle the filter panel */
   togglePanel(event?: MouseEvent): void {
     event?.stopPropagation();
-    this.panel.toggle();
+    this.panel().toggle();
   }
 
   /** View sub-batch summary */

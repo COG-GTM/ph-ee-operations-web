@@ -1,6 +1,6 @@
 /** Angular Imports */
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
 
 /** Custom Services */
 import { Logger } from '../../logger/logger.service';
@@ -15,33 +15,18 @@ const log = new Logger('AuthenticationGuard');
 /**
  * Route access authorization.
  */
-@Injectable()
-export class AuthenticationGuard  {
-
-  /**
-   * @param {Router} router Router for navigation.
-   * @param {AuthenticationService} authenticationService Authentication Service.
-   */
-  constructor(private router: Router,
-              private authenticationService: AuthenticationService) { }
-
-  /**
-   * Ensures route access is authorized only when user is authenticated, otherwise redirects to login.
-   *
-   * @returns {boolean} True if user is authenticated.
-   */
-  canActivate(): boolean {
-    if (environment.auth.enabled === 'false') {
-      return true;
-    }
-    if (this.authenticationService.isAuthenticated()) {
-      return true;
-    }
-
-    log.debug('User not authenticated, redirecting to login...');
-    this.authenticationService.logout();
-    this.router.navigate(['/login'], { replaceUrl: true });
-    return false;
+export const authenticationGuard: CanActivateFn = () => {
+  const router = inject(Router);
+  const authenticationService = inject(AuthenticationService);
+  if (environment.auth.enabled === 'false') {
+    return true;
+  }
+  if (authenticationService.isAuthenticated()) {
+    return true;
   }
 
-}
+  log.debug('User not authenticated, redirecting to login...');
+  authenticationService.logout();
+  router.navigate(['/login'], { replaceUrl: true });
+  return false;
+};

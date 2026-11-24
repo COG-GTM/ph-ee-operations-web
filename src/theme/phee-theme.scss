@@ -1,5 +1,7 @@
 @use '@angular/material' as mat;
-@import '@angular/material/theming';
+// Contrast colors formerly provided by the removed '@angular/material/theming' entry point.
+$dark-primary-text: rgba(black, 0.87);
+$light-primary-text: white;
 
 // Plus imports for other components in your app.
 // Custom material palette
@@ -15,23 +17,24 @@
 //  If you specify typography styles for the components you use elsewhere, you should delete this line.
 //  If you don't need the default component typographies but still want the hierarchy styles,
 //  you can delete this line and instead use:
-//    `@include mat.legacy-typography-hierarchy(mat.define-legacy-typography-config());`
-@include mat.all-legacy-component-typographies();
-@include mat.legacy-core();
+//    `@include mat.legacy-typography-hierarchy(mat.define-typography-config());`
+@include mat.all-component-typographies();
+@include mat.elevation-classes();
+@include mat.app-background();
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$mifosx-app-primary: mat.define-palette($mat-primary);
-$mifosx-app-accent:  mat.define-palette($mat-accent);
+$mifosx-app-primary: mat.m2-define-palette($mat-primary);
+$mifosx-app-accent:  mat.m2-define-palette($mat-accent);
 
 // The warn palette is optional (defaults to red).
-$mifosx-app-warn:    mat.define-palette(mat.$red-palette);
+$mifosx-app-warn:    mat.m2-define-palette(mat.$m2-red-palette);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$mifosx-app-theme: mat.define-light-theme($mifosx-app-primary, $mifosx-app-accent, $mifosx-app-warn);
+$mifosx-app-theme: mat.m2-define-light-theme($mifosx-app-primary, $mifosx-app-accent, $mifosx-app-warn);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include mat.all-legacy-component-themes($mifosx-app-theme);
+@include mat.all-component-themes($mifosx-app-theme);

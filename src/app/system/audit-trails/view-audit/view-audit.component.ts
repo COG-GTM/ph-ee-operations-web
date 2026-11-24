@@ -1,19 +1,25 @@
 /** Angular Imports */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, inject, viewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatCard, MatCardContent } from '@angular/material/card';
+import { DatePipe } from '@angular/common';
 
 /**
  * View Audit Component.
  */
 @Component({
-  selector: 'mifosx-view-audit',
-  templateUrl: './view-audit.component.html',
-  styleUrls: ['./view-audit.component.scss']
+    selector: 'mifosx-view-audit',
+    templateUrl: './view-audit.component.html',
+    styleUrls: ['./view-audit.component.scss'],
+    imports: [FlexModule, MatCard, MatCardContent, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, DatePipe]
 })
 export class ViewAuditComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+
 
   /** Audit Trail Data. */
   auditTrailData: any;
@@ -23,15 +29,15 @@ export class ViewAuditComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
 
   /** Paginator for audit trails table. */
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  readonly paginator = viewChild(MatPaginator);
   /** Sorter for audit trails table. */
-  @ViewChild(MatSort) sort: MatSort;
+  readonly sort = viewChild(MatSort);
 
   /**
    * Retrieves the audit trail data from `resolve`.
    * @param {ActivatedRoute} route Activated Route.
    */
-  constructor(private route: ActivatedRoute) {
+  constructor() {
     this.route.data.subscribe((data: { auditTrail: any }) => {
       this.auditTrailData = data.auditTrail;
     });
@@ -59,8 +65,8 @@ export class ViewAuditComponent implements OnInit {
    */
   setAuditTrailCommands() {
     this.dataSource = new MatTableDataSource(this.auditTrailCommandsData);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator();
+    this.dataSource.sort = this.sort();
   }
 
 }

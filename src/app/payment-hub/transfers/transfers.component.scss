@@ -13,7 +13,7 @@ table {
   }
 }
 
-.mat-paginator-range-label {
+.mat-mdc-paginator-range-label {
   display: hidden;
 }
 
@@ -31,7 +31,7 @@ table {
   }
 }
 
-.mat-cell {
+.mat-mdc-cell {
   word-wrap: break-word !important;
   white-space: unset !important;
   overflow-wrap: break-word;
@@ -43,7 +43,7 @@ table {
   hyphens: auto;
 }
 
-.mat-cell.cdk-column-completedAt {
+.mat-mdc-cell.cdk-column-completedAt {
   flex: 0 0 110px !important;
   width: 110px !important;
 }

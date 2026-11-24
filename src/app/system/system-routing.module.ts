@@ -5,16 +5,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { Route } from '../core/route/route.service';
 
 /** Component Imports */
-import { SystemComponent } from './system.component';
-import { RolesAndPermissionsComponent } from './roles-and-permissions/roles-and-permissions.component';
-import { AddRoleComponent } from './roles-and-permissions/add-role/add-role.component';
-import { AuditTrailsComponent } from './audit-trails/audit-trails.component';
-import { ViewAuditComponent } from './audit-trails/view-audit/view-audit.component';
 
 /** Custom Resolvers */
-import { RolesAndPermissionsResolver } from './roles-and-permissions/roles-and-permissions.resolver';
-import { AuditTrailSearchTemplateResolver } from './audit-trails/audit-trail-search-template.resolver';
-import { AuditTrailResolver } from './audit-trails/view-audit/audit-trail.resolver';
+import { rolesAndPermissionsResolver } from './roles-and-permissions/roles-and-permissions.resolver';
+import { auditTrailSearchTemplateResolver } from './audit-trails/audit-trail-search-template.resolver';
+import { auditTrailResolver } from './audit-trails/view-audit/audit-trail.resolver';
 
 
 const routes: Routes = [
@@ -25,7 +20,7 @@ const routes: Routes = [
       children: [
         {
           path: '',
-          component: SystemComponent
+          loadComponent: () => import('./system.component').then(m => m.SystemComponent)
         },
         {
           path: 'roles-and-permissions',
@@ -33,14 +28,14 @@ const routes: Routes = [
           children: [
             {
               path: '',
-              component: RolesAndPermissionsComponent,
+              loadComponent: () => import('./roles-and-permissions/roles-and-permissions.component').then(m => m.RolesAndPermissionsComponent),
               resolve: {
-                roles: RolesAndPermissionsResolver
+                roles: rolesAndPermissionsResolver
               }
             },
             {
               path: 'add',
-              component: AddRoleComponent,
+              loadComponent: () => import('./roles-and-permissions/add-role/add-role.component').then(m => m.AddRoleComponent),
               data: { title: 'Add Role', breadcrumb: 'Add' }
             }
           ]
@@ -51,17 +46,17 @@ const routes: Routes = [
           children: [
             {
               path: '',
-              component: AuditTrailsComponent,
+              loadComponent: () => import('./audit-trails/audit-trails.component').then(m => m.AuditTrailsComponent),
               resolve: {
-                auditTrailSearchTemplate: AuditTrailSearchTemplateResolver
+                auditTrailSearchTemplate: auditTrailSearchTemplateResolver
               }
             },
             {
              path: ':id',
-             component: ViewAuditComponent,
+             loadComponent: () => import('./audit-trails/view-audit/view-audit.component').then(m => m.ViewAuditComponent),
              data: { title: 'View Audit', routeParamBreadcrumb: 'id' },
              resolve: {
-               auditTrail: AuditTrailResolver
+               auditTrail: auditTrailResolver
              }
             }
           ]
@@ -74,10 +69,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [
-    RolesAndPermissionsResolver,
-    AuditTrailSearchTemplateResolver,
-    AuditTrailResolver
-  ]
+  providers: []
 })
 export class SystemRoutingModule { }

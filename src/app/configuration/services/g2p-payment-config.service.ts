@@ -1,6 +1,6 @@
 /** Angular Imports */
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 /** Environment Configuration */
 import { environment } from 'environments/environment';
@@ -15,14 +15,11 @@ import { forkJoin, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class G2PPaymentConfigService {
+  private http = inject(HttpClient);
+
 
   /** API URL Prefix */
   apiPrefix: string = environment.backend.g2pPaymentConfigApi;
-
-  /**
-   * @param {HttpClient} http HttpClient.
-   */
-  constructor(private http: HttpClient) { }
 
   /**
    * @returns {Observable<any>} Users data

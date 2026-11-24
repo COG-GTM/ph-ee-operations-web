@@ -8,8 +8,8 @@ describe('SubBatchesComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SubBatchesComponent]
-    });
+    imports: [SubBatchesComponent]
+});
     fixture = TestBed.createComponent(SubBatchesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

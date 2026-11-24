@@ -8,8 +8,8 @@ describe('TransfersComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TransfersComponent]
-    });
+    imports: [TransfersComponent]
+});
     fixture = TestBed.createComponent(TransfersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

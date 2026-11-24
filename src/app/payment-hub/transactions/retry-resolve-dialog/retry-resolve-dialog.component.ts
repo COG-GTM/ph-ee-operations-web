@@ -1,20 +1,26 @@
 /** Angular Imports */
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
+import { Component, OnInit, inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
+import { MatButton } from '@angular/material/button';
 
 
 @Component({
-  selector: 'mifosx-retry-resolve-dialog',
-  templateUrl: './retry-resolve-dialog.component.html',
-  styleUrls: ['./retry-resolve-dialog.component.scss']
+    selector: 'mifosx-retry-resolve-dialog',
+    templateUrl: './retry-resolve-dialog.component.html',
+    styleUrls: ['./retry-resolve-dialog.component.scss'],
+    imports: [MatDialogTitle, MatDialogActions, MatButton, MatDialogClose]
 })
 export class RetryResolveDialogComponent implements OnInit {
+  dialogRef = inject<MatDialogRef<RetryResolveDialogComponent>>(MatDialogRef);
+  data = inject(MAT_DIALOG_DATA);
+
 
   workflowInstanceKey: any;
   action: string;
 
-  constructor(public dialogRef: MatDialogRef<RetryResolveDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor() {
+    const data = this.data;
+
     this.workflowInstanceKey = data.workflowInstanceKey;
     this.action = data.action;
   }

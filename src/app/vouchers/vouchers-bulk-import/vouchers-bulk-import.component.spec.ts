@@ -8,8 +8,8 @@ describe('VouchersBulkImportComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [VouchersBulkImportComponent]
-    });
+    imports: [VouchersBulkImportComponent]
+});
     fixture = TestBed.createComponent(VouchersBulkImportComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

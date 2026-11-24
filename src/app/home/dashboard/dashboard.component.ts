@@ -3,14 +3,18 @@ import { Component, OnInit } from '@angular/core';
 
 /** Section Model */
 import { Section } from 'app/payment-hub/filter-selector/section-model';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { HasRoleDirective } from '../../directives/has-role/has-role.directive';
+import { ListItemComponent } from '../../shared/list-item/list-item.component';
 
 /**
  * Dashboard component.
  */
 @Component({
-  selector: 'mifosx-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+    selector: 'mifosx-dashboard',
+    templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.scss'],
+    imports: [FlexModule, HasRoleDirective, ListItemComponent]
 })
 export class DashboardComponent implements OnInit {
 

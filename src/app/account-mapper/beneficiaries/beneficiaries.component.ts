@@ -1,10 +1,10 @@
 /** Angular Imports */
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, inject, viewChild } from '@angular/core';
+import { UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatExpansionPanel } from '@angular/material/expansion';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatNoDataRow } from '@angular/material/table';
+import { MatExpansionPanel, MatAccordion, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
 
 /** Custom Services */
 import { AccountMapperService } from '../services/account-mapper.service';
@@ -13,22 +13,39 @@ import { AuthenticationService } from 'app/core/authentication/authentication.se
 /** Custom Models */
 import { Account, AccountData } from '../models/account-mapper.model';
 import { Dates } from 'app/core/utils/dates';
+import { FlexModule } from '@angular/flex-layout/flex';
+import { MatButton } from '@angular/material/button';
+import { NgClass } from '@angular/common';
+import { ExtendedModule } from '@angular/flex-layout/extended';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { MatLabel, MatFormField } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatCard } from '@angular/material/card';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { IdentifierComponent } from '../../shared/identifier/identifier.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Beneficiaries Component
  */
 @Component({
-  selector: 'mifosx-beneficiaries',
-  templateUrl: './beneficiaries.component.html',
-  styleUrls: ['./beneficiaries.component.scss'],
+    selector: 'mifosx-beneficiaries',
+    templateUrl: './beneficiaries.component.html',
+    styleUrls: ['./beneficiaries.component.scss'],
+    imports: [FlexModule, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatButton, NgClass, ExtendedModule, FaIconComponent, MatLabel, MatFormField, MatInput, ReactiveFormsModule, MatCard, MatProgressBar, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, IdentifierComponent, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatNoDataRow, MatPaginator, TranslateModule]
 })
 export class BeneficiariesComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  private dates = inject(Dates);
+  private accountMapperService = inject(AccountMapperService);
+  private cdr = inject(ChangeDetectorRef);
+  private authenticationService = inject(AuthenticationService);
+
+  readonly paginator = viewChild(MatPaginator);
   @ViewChild(MatSort) set matSort(sort: MatSort) {
     this.dataSource.sort = sort;
     this.setSortingAccessor();
   }
-  @ViewChild('panel') panel: MatExpansionPanel;
+  readonly panel = viewChild<MatExpansionPanel>('panel');
 
   /** government Entity form control. */
   governmentEntity = new UntypedFormControl();
@@ -64,10 +81,7 @@ export class BeneficiariesComponent implements OnInit {
     financialAddress: false,
   };
 
-  constructor(private dates: Dates,
-    private accountMapperService: AccountMapperService,
-    private cdr: ChangeDetectorRef,
-    private authenticationService: AuthenticationService) {
+  constructor() {
     this.credentials = this.authenticationService.userDetails;
   }
 
@@ -110,7 +124,7 @@ export class BeneficiariesComponent implements OnInit {
       (accounts: AccountData) => {
         this.dataSource = new MatTableDataSource(accounts.content);
         this.cdr.detectChanges();
-        this.dataSource.paginator = this.paginator;
+        this.dataSource.paginator = this.paginator();
         this.totalRows = accounts.totalElements;
         this.isLoading = false;
       },
@@ -184,7 +198,7 @@ export class BeneficiariesComponent implements OnInit {
     this.setFilterPredicate();
     this.applyFilters(filterValues);
     this.updateSelectedFilters();
-    this.panel.close();
+    this.panel().close();
   }
 
   /**
@@ -247,7 +261,7 @@ export class BeneficiariesComponent implements OnInit {
     if (event) {
       event.stopPropagation();
     }
-    this.panel.toggle();
+    this.panel().toggle();
   }
 
   /**
