@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, input } from '@angular/core';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { AlertService } from 'app/core/alert/alert.service';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
@@ -14,9 +14,9 @@ export class IdentifierComponent  implements OnInit {
   private clipboard = inject(Clipboard);
   private alertService = inject(AlertService);
 
-  @Input() identifier: string;
-  @Input() completed = false;
-  @Input() display = 'right';
+  readonly identifier = input<string>(undefined);
+  readonly completed = input(false);
+  readonly display = input('right');
 
   iconVisible = false;
   displayL = false;
@@ -24,21 +24,24 @@ export class IdentifierComponent  implements OnInit {
   emptyValue = false;
 
   ngOnInit(): void {
-    this.emptyValue = (!this.identifier || this.identifier === '');
-    this.displayL = (this.display === 'left');
-    this.displayR = (this.display === 'right');
+    const identifier = this.identifier();
+    this.emptyValue = (!identifier || identifier === '');
+    this.displayL = (this.display() === 'left');
+    this.displayR = (this.display() === 'right');
   }
 
   isLongValue(): boolean {
-    if (this.identifier == null) {
+    const identifier = this.identifier();
+    if (identifier == null) {
       return false;
     }
-    return (this.identifier.length > 15);
+    return (identifier.length > 15);
   }
 
   copyValue(): void {
-    this.clipboard.copy(this.identifier);
-    this.alertService.alert({ type: 'Clipboard', message: 'Copied: ' + this.identifier });
+    const identifier = this.identifier();
+    this.clipboard.copy(identifier);
+    this.alertService.alert({ type: 'Clipboard', message: 'Copied: ' + identifier });
   }
 
   mouseEnter() {

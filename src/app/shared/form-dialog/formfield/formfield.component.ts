@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, input } from '@angular/core';
 import { UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { FormfieldBase } from './model/formfield-base';
@@ -18,7 +18,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
 })
 export class FormfieldComponent implements OnInit {
 
-  @Input() form: UntypedFormGroup;
+  readonly form = input<UntypedFormGroup>(undefined);
   @Input() formfield: FormfieldBase;
 
   constructor() { }

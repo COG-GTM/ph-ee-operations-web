@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, input } from '@angular/core';
 import { Section } from './section-model';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
@@ -15,7 +15,7 @@ export class FilterSelectorComponent implements OnInit {
   private router = inject(Router);
 
 
-  @Input() currentSection: string;
+  readonly currentSection = input<string>(undefined);
   sections: Section[];
 
   ngOnInit(): void {

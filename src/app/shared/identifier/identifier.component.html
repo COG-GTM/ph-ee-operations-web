@@ -4,19 +4,19 @@
       <span (click)="copyValue()"><fa-icon icon="copy" size="sm"
       title="Copy External Id"></fa-icon></span>
     }
-    @if (displayL && !completed && iconVisible && isLongValue()) {
+    @if (displayL && !completed() && iconVisible && isLongValue()) {
       <span class="m-l-3"><fa-icon icon="eye" size="sm"
-      [title]="identifier"></fa-icon></span>
+      [title]="identifier()"></fa-icon></span>
     }
-    @if (!completed) {
-      <span class="m-l-5">{{ identifier | externalIdentifier }}</span>
+    @if (!completed()) {
+      <span class="m-l-5">{{ identifier() | externalIdentifier }}</span>
     }
-    @if (completed) {
-      <span class="m-l-5">{{ identifier }}</span>
+    @if (completed()) {
+      <span class="m-l-5">{{ identifier() }}</span>
     }
-    @if (displayR && !completed && iconVisible && isLongValue()) {
+    @if (displayR && !completed() && iconVisible && isLongValue()) {
       <span class="m-l-5"><fa-icon icon="eye" size="sm"
-      [title]="identifier"></fa-icon></span>
+      [title]="identifier()"></fa-icon></span>
     }
     @if (displayR && iconVisible) {
       <span class="m-l-3" (click)="copyValue()"><fa-icon icon="copy" size="sm"

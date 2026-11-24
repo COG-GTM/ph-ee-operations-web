@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit, Input, EventEmitter, Output, inject } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, inject, input } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { style, animate, transition, trigger } from '@angular/animations';
@@ -63,7 +63,7 @@ export class ToolbarComponent implements OnInit {
   sidenavCollapsed = true;
 
   /** Instance of sidenav. */
-  @Input() sidenav: MatSidenav;
+  readonly sidenav = input<MatSidenav>(undefined);
   /** Sidenav collapse event. */
   @Output() collapse = new EventEmitter<boolean>();
 
@@ -128,7 +128,7 @@ export class ToolbarComponent implements OnInit {
    * Toggles the current state of sidenav.
    */
   toggleSidenav() {
-    this.sidenav.toggle();
+    this.sidenav().toggle();
   }
 
   /**
