@@ -1,0 +1,16 @@
+{
+  "name": "phee-parity",
+  "private": true,
+  "description": "Playwright parity suite: baseline (Angular 16, :4000) vs upgraded (Angular 21, :4200)",
+  "scripts": {
+    "test": "playwright test",
+    "test:baseline": "playwright test --project=baseline",
+    "test:upgraded": "playwright test --project=upgraded",
+    "report": "node compose-report.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.49.1",
+    "pixelmatch": "5.3.0",
+    "pngjs": "7.0.0"
+  }
+}
