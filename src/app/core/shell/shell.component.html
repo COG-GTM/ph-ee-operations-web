@@ -6,15 +6,15 @@
     #sidenav
     class="sidebar-panel"
     [ngClass]="{
-      'sidebar-full': !sidenavCollapsed,
-      'sidebar-compact': sidenavCollapsed
+      'sidebar-full': !sidenavCollapsed(),
+      'sidebar-compact': sidenavCollapsed()
     }"
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="!(isHandset$ | async)">
+    [attr.role]="isHandset() ? 'dialog' : 'navigation'"
+    [mode]="isHandset() ? 'over' : 'side'"
+    [opened]="!isHandset()">
 
     <mifosx-sidenav 
-      [sidenavCollapsed]="sidenavCollapsed"
+      [sidenavCollapsed]="sidenavCollapsed()"
       (sideNavControl)="sideNavControl($event)"
     >
     </mifosx-sidenav>
@@ -24,7 +24,7 @@
   <!-- Content -->
   <mat-sidenav-content>
     <!-- Progress Bar -->
-    <mat-progress-bar [mode]="progressBarMode"></mat-progress-bar>
+    <mat-progress-bar [mode]="progressBarMode()"></mat-progress-bar>
 
     <!-- Toolbar -->
     <mifosx-toolbar [sidenav]="sidenav" (collapse)="toggleCollapse($event)"></mifosx-toolbar>
