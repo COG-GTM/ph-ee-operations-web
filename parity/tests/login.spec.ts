@@ -17,6 +17,13 @@ test('login: page renders, validation errors, sign in', async ({ page, calls, sh
   const username = `parity_${RUN}`;
   await user.fill(username);
   await pass.fill(randomPassword());
+  // Press-and-hold password reveal button appears once a password is typed.
+  const reveal = page.locator('mat-form-field').filter({ has: pass }).getByRole('button');
+  await expect(reveal).toBeVisible();
+  await reveal.hover(); await page.mouse.down();
+  await expect(pass).toHaveAttribute('type', 'text');
+  await page.mouse.up();
+  await expect(pass).toHaveAttribute('type', 'password');
   // Material MDC (v15+) keeps a focused field's error until blur; legacy components cleared it on keystroke.
   await pass.blur();
   await expect(page.locator('mat-error')).toHaveCount(0);
