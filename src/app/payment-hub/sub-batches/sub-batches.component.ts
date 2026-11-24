@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject, viewChild } from '@angular/core';
 import { TransactionsDataSource } from '../transactions/dataSource/transactions.datasource';
 import { Dates } from 'app/core/utils/dates';
 import { Batch } from '../batches/model/batch.model';
@@ -43,8 +43,8 @@ export class SubBatchesComponent implements OnInit {
   private dialog = inject(MatDialog);
 
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild('panel') panel: MatExpansionPanel;
+  readonly paginator = viewChild(MatPaginator);
+  readonly panel = viewChild<MatExpansionPanel>('panel');
   @ViewChild(MatSort) set matSort(sort: MatSort) {
     this.dataSource.sort = sort;
     this.setSortingAccessor();
@@ -166,7 +166,7 @@ export class SubBatchesComponent implements OnInit {
     const filteredData = this.filterSubBatchData();
     this.updateDataSource(filteredData);
     this.updateSelectedFilters();
-    this.panel.close();
+    this.panel().close();
   }
 
   /** Filter sub-batch data based on form controls */
@@ -194,7 +194,7 @@ export class SubBatchesComponent implements OnInit {
   /** Update data source */
   private updateDataSource(data: BatchDetail[]): void {
     this.dataSource.data = data;
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator();
   }
 
   /** Update selected filters state */
@@ -218,7 +218,7 @@ export class SubBatchesComponent implements OnInit {
   /** Toggle the filter panel */
   togglePanel(event?: MouseEvent): void {
     event?.stopPropagation();
-    this.panel.toggle();
+    this.panel().toggle();
   }
 
   /** View batch summary */

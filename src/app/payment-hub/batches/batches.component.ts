@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, OnInit, inject, viewChild } from '@angular/core';
 import { UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatNoDataRow } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -42,9 +42,9 @@ export class BatchesComponent implements OnInit {
   private batchesService = inject(BatchesService);
 
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('panel') panel: MatExpansionPanel;
+  readonly paginator = viewChild(MatPaginator);
+  readonly sort = viewChild(MatSort);
+  readonly panel = viewChild<MatExpansionPanel>('panel');
 
   /** Minimum transaction date allowed. */
   minDate = new Date(2000, 0, 1);
@@ -107,8 +107,8 @@ export class BatchesComponent implements OnInit {
       (batches: Batch) => {
         this.batchesData = batches;
         this.dataSource = new MatTableDataSource(this.batchesData.data);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator();
+        this.dataSource.sort = this.sort();
         this.dataSource.sortingDataAccessor = this.getSortingAccessor();
         this.totalRows = batches.totalBatches;
         this.isLoading = false;
@@ -170,7 +170,7 @@ export class BatchesComponent implements OnInit {
     this.dataSource.filter = JSON.stringify(filterValues);
 
     this.updateSelectedFilters();
-    this.panel.close();
+    this.panel().close();
   }
 
   /** Create filter values based on form controls */
@@ -254,6 +254,6 @@ export class BatchesComponent implements OnInit {
   /** Toggle filter panel */
   togglePanel(event?: MouseEvent): void {
     if (event) event.stopPropagation();
-    this.panel.toggle();
+    this.panel().toggle();
   }
 }

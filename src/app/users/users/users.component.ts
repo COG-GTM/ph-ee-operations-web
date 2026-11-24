@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { ChangeDetectorRef, Component, OnInit, ViewChild, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject, viewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatNoDataRow, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
@@ -34,9 +34,9 @@ export class UsersComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
 
   /** Paginator for users table. */
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  readonly paginator = viewChild(MatPaginator);
   /** Sorter for users table. */
-  @ViewChild(MatSort) sort: MatSort;
+  readonly sort = viewChild(MatSort);
 
   /**
    * Retrieves the users data from `resolve`.
@@ -110,8 +110,8 @@ export class UsersComponent implements OnInit {
   setUsers() {
     this.dataSource = new MatTableDataSource(this.usersData);
 
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator();
+    this.dataSource.sort = this.sort();
 
     this.dataSource.sortingDataAccessor = (item, property) => {
       console.log(item, property);

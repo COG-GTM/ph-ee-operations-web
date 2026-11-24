@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { ChangeDetectorRef, Component, OnInit, ViewChild, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, inject, viewChild } from '@angular/core';
 import { UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
@@ -40,12 +40,12 @@ export class BeneficiariesComponent implements OnInit {
   private cdr = inject(ChangeDetectorRef);
   private authenticationService = inject(AuthenticationService);
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  readonly paginator = viewChild(MatPaginator);
   @ViewChild(MatSort) set matSort(sort: MatSort) {
     this.dataSource.sort = sort;
     this.setSortingAccessor();
   }
-  @ViewChild('panel') panel: MatExpansionPanel;
+  readonly panel = viewChild<MatExpansionPanel>('panel');
 
   /** government Entity form control. */
   governmentEntity = new UntypedFormControl();
@@ -124,7 +124,7 @@ export class BeneficiariesComponent implements OnInit {
       (accounts: AccountData) => {
         this.dataSource = new MatTableDataSource(accounts.content);
         this.cdr.detectChanges();
-        this.dataSource.paginator = this.paginator;
+        this.dataSource.paginator = this.paginator();
         this.totalRows = accounts.totalElements;
         this.isLoading = false;
       },
@@ -198,7 +198,7 @@ export class BeneficiariesComponent implements OnInit {
     this.setFilterPredicate();
     this.applyFilters(filterValues);
     this.updateSelectedFilters();
-    this.panel.close();
+    this.panel().close();
   }
 
   /**
@@ -261,7 +261,7 @@ export class BeneficiariesComponent implements OnInit {
     if (event) {
       event.stopPropagation();
     }
-    this.panel.toggle();
+    this.panel().toggle();
   }
 
   /**

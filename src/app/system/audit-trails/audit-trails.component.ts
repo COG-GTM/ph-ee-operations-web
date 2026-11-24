@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit, ViewChild, AfterViewInit, inject } from '@angular/core';
+import { Component, OnInit, AfterViewInit, inject, viewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -133,9 +133,9 @@ export class AuditTrailsComponent implements OnInit, AfterViewInit {
   checker = new UntypedFormControl();
 
   /** Paginator for audit trails table. */
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  readonly paginator = viewChild(MatPaginator);
   /** Sorter for audit trails table. */
-  @ViewChild(MatSort) sort: MatSort;
+  readonly sort = viewChild(MatSort);
 
   /**
    * Retrieves the audit trail search template data from `resolve`.
@@ -250,9 +250,9 @@ export class AuditTrailsComponent implements OnInit, AfterViewInit {
         })
       ).subscribe();
 
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.sort().sortChange.subscribe(() => this.paginator().pageIndex = 0);
 
-    merge(this.sort.sortChange, this.paginator.page)
+    merge(this.sort().sortChange, this.paginator().page)
       .pipe(
         tap(() => this.loadAuditTrailsPage())
       ).subscribe();
@@ -263,17 +263,18 @@ export class AuditTrailsComponent implements OnInit, AfterViewInit {
    */
   getAuditTrails() {
     this.dataSource = new AuditTrailsDataSource(this.systemService);
-    this.dataSource.getAuditTrails(this.filterAuditTrailsBy, this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
+    this.dataSource.getAuditTrails(this.filterAuditTrailsBy, this.sort().active, this.sort().direction, this.paginator().pageIndex, this.paginator().pageSize);
   }
 
   /**
    * Loads a page of audit trails.
    */
   loadAuditTrailsPage() {
-    if (!this.sort.direction) {
-      delete this.sort.active;
+    const sort = this.sort();
+    if (!sort.direction) {
+      delete sort.active;
     }
-    this.dataSource.getAuditTrails(this.filterAuditTrailsBy, this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
+    this.dataSource.getAuditTrails(this.filterAuditTrailsBy, sort.active, sort.direction, this.paginator().pageIndex, this.paginator().pageSize);
   }
 
   /**
@@ -282,7 +283,7 @@ export class AuditTrailsComponent implements OnInit, AfterViewInit {
    * @param {string} property Property to filter data by.
    */
   applyFilter(filterValue: string, property: string) {
-    this.paginator.pageIndex = 0;
+    this.paginator().pageIndex = 0;
     const findIndex = this.filterAuditTrailsBy.findIndex(filter => filter.type === property);
     this.filterAuditTrailsBy[findIndex].value = filterValue;
     this.loadAuditTrailsPage();
@@ -398,7 +399,8 @@ export class AuditTrailsComponent implements OnInit, AfterViewInit {
     const replacer = (key: any, value: any) => value === undefined ? '' : value;
     const header = ['ID', 'Resource ID', 'Status', 'Office', 'Made On', 'Maker', 'Checked On', 'Checker', 'Entity', 'Action', 'Client'];
     const headerCode = ['id', 'resourceId', 'processingResult', 'officeName', 'madeOnDate', 'maker', 'checkedOnDate', 'checker', 'entityName', 'actionName', 'clientName'];
-    this.systemService.getAuditTrails(this.filterAuditTrailsBy, this.sort.active ? this.sort.active : '', this.sort.direction, 0, -1).subscribe((response: any) => {
+    const sort = this.sort();
+    this.systemService.getAuditTrails(this.filterAuditTrailsBy, sort.active ? sort.active : '', this.sort().direction, 0, -1).subscribe((response: any) => {
       if (response !== undefined) {
         let csv = response.pageItems.map((row: any) => headerCode.map(fieldName => (fieldName === 'madeOnDate' || fieldName === 'checkedOnDate') && (JSON.stringify(row[fieldName], replacer) !== '""')
           ? this.datePipe.transform(JSON.stringify(row[fieldName], replacer), dateFormat)

@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, OnInit, inject, viewChild } from '@angular/core';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -51,9 +51,9 @@ export class VouchersBulkImportComponent implements OnInit {
 
 
   /** Paginator for table. */
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  readonly paginator = viewChild(MatPaginator);
   /** Sorter for reports table. */
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  readonly sort = viewChild(MatSort);
 
   /** Imported data from file. */
   importedData: any;
@@ -142,8 +142,8 @@ export class VouchersBulkImportComponent implements OnInit {
   clearData(): void {
     this.voucherInstructions = [];
     this.dataSource = new MatTableDataSource(this.voucherInstructions);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator();
+    this.dataSource.sort = this.sort();
     this.totalRows = 0;
     this.files = [];
     this.createVoucherForm.patchValue({
@@ -155,7 +155,7 @@ export class VouchersBulkImportComponent implements OnInit {
 
   /** Page changed event */
   pageChanged(event: PageEvent) {
-    this.paginator.pageSize = event.pageSize;
+    this.paginator().pageSize = event.pageSize;
     this.currentPage = event.pageIndex;
   }
 
@@ -196,8 +196,8 @@ export class VouchersBulkImportComponent implements OnInit {
    * */
   updateTableData(data: VoucherData[]): void {
     this.dataSource.data = data;
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator();
+    this.dataSource.sort = this.sort();
   }
 
 }

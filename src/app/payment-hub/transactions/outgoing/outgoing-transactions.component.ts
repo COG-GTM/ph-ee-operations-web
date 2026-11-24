@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit, ViewChild, AfterViewInit, inject } from '@angular/core';
+import { Component, OnInit, AfterViewInit, inject, viewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
@@ -118,9 +118,9 @@ export class OutgoingTransactionsComponent implements OnInit, AfterViewInit {
   ];
 
   /** Paginator for transactions table. */
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  readonly paginator = viewChild(MatPaginator);
   /** Sorter for transactions table. */
-  @ViewChild(MatSort) sort: MatSort;
+  readonly sort = viewChild(MatSort);
 
   /**
    * Retrieves the offices and gl accounts data from `resolve`.
@@ -258,9 +258,9 @@ export class OutgoingTransactionsComponent implements OnInit, AfterViewInit {
       )
       .subscribe();
 
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.sort().sortChange.subscribe(() => this.paginator().pageIndex = 0);
 
-    merge(this.sort.sortChange, this.paginator.page)
+    merge(this.sort().sortChange, this.paginator().page)
       .pipe(
         tap(() => this.loadTransactionsPage())
       )
@@ -271,10 +271,11 @@ export class OutgoingTransactionsComponent implements OnInit, AfterViewInit {
    * Loads a page of transactions.
    */
   loadTransactionsPage() {
-    if (!this.sort.direction) {
-      delete this.sort.active;
+    const sort = this.sort();
+    if (!sort.direction) {
+      delete sort.active;
     }
-    this.dataSource.getTransactions(this.filterTransactionsBy, this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
+    this.dataSource.getTransactions(this.filterTransactionsBy, sort.active, sort.direction, this.paginator().pageIndex, this.paginator().pageSize);
   }
 
   /**
@@ -283,7 +284,7 @@ export class OutgoingTransactionsComponent implements OnInit, AfterViewInit {
    * @param {string} property Property to filter data by.
    */
   applyFilter(filterValue: string, property: string) {
-    this.paginator.pageIndex = 0;
+    this.paginator().pageIndex = 0;
     const findIndex = this.filterTransactionsBy.findIndex(filter => filter.type === property);
     this.filterTransactionsBy[findIndex].value = filterValue;
     this.loadTransactionsPage();
@@ -407,8 +408,10 @@ export class OutgoingTransactionsComponent implements OnInit, AfterViewInit {
    */
   getTransactions() {
     this.dataSource = new TransactionsDataSource(this.transactionsService);
-    if (this.sort && this.paginator) {
-      this.dataSource.getTransactions(this.filterTransactionsBy, this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
+    const sort = this.sort();
+    const paginator = this.paginator();
+    if (sort && paginator) {
+      this.dataSource.getTransactions(this.filterTransactionsBy, sort.active, sort.direction, paginator.pageIndex, paginator.pageSize);
     } else {
       this.dataSource.getTransactions(this.filterTransactionsBy, '', '', 0, 10);
     }

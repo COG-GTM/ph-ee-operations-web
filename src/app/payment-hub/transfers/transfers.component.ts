@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject, viewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 import { UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
@@ -49,12 +49,12 @@ export class TransfersComponent implements OnInit {
   private transfersService = inject(TransfersService);
 
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  readonly paginator = viewChild(MatPaginator);
   @ViewChild(MatSort) set matSort(sort: MatSort) {
     this.dataSource.sort = sort;
     this.setSortingAccessor();
   }
-  @ViewChild('panel') panel: MatExpansionPanel;
+  readonly panel = viewChild<MatExpansionPanel>('panel');
 
   /** Amount form control */
   amount = new UntypedFormControl();
@@ -172,7 +172,7 @@ export class TransfersComponent implements OnInit {
     const filterData = this.filterTransferData();
     this.updateDataSource(filterData);
     this.updateSelectedFilters();
-    this.panel.close();
+    this.panel().close();
   }
 
   /** Filter transfer data based on form controls */
@@ -195,7 +195,7 @@ export class TransfersComponent implements OnInit {
   /** Update the data source */
   private updateDataSource(data: Transfer[]): void {
     this.dataSource.data = data;
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator();
   }
 
   /** Update the selected filters state */
@@ -222,7 +222,7 @@ export class TransfersComponent implements OnInit {
   /** Toggle the filter panel */
   togglePanel(event?: MouseEvent): void {
     event?.stopPropagation();
-    this.panel.toggle();
+    this.panel().toggle();
   }
 
   /** View sub-batch summary */

@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { ChangeDetectorRef, Component, OnInit, ViewChild, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, inject, viewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatNoDataRow } from '@angular/material/table';
@@ -42,7 +42,7 @@ export class UserRequestsComponent implements OnInit {
   dataSource = new MatTableDataSource();
 
   /** Table paginator and sort */
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  readonly paginator = viewChild(MatPaginator);
   @ViewChild(MatSort) set matSort(sort: MatSort) {
     this.dataSource.sort = sort;
   }
@@ -123,7 +123,7 @@ export class UserRequestsComponent implements OnInit {
       .subscribe((userRequests) => {
         this.dataSource.data = userRequests;
         this.cdr.detectChanges();
-        this.dataSource.paginator = this.paginator;
+        this.dataSource.paginator = this.paginator();
       });
   }
 

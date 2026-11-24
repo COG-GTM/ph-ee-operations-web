@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, OnInit, inject, viewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
@@ -35,9 +35,9 @@ export class RolesAndPermissionsComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
 
   /** Paginator for roles and permissions table. */
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  readonly paginator = viewChild(MatPaginator);
   /** Sorter for roles and permissions table. */
-  @ViewChild(MatSort) sort: MatSort;
+  readonly sort = viewChild(MatSort);
 
   /**
    * Retrieves the roles data from `resolve`.
@@ -69,8 +69,8 @@ export class RolesAndPermissionsComponent implements OnInit {
    */
   setRoles() {
     this.dataSource = new MatTableDataSource(this.roleData);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator();
+    this.dataSource.sort = this.sort();
   }
 
 }

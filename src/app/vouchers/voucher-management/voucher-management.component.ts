@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject, viewChild } from '@angular/core';
 import { UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
@@ -39,12 +39,12 @@ export class VoucherManagementComponent implements OnInit {
   private dates = inject(Dates);
   private vouchersService = inject(VouchersService);
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  readonly paginator = viewChild(MatPaginator);
   @ViewChild(MatSort) set matSort(sort: MatSort) {
     this.dataSource.sort = sort;
     this.setSortingAccessor();
   }
-  @ViewChild('panel') panel: MatExpansionPanel;
+  readonly panel = viewChild<MatExpansionPanel>('panel');
 
   /** Minimum transaction date allowed. */
   minDate = new Date(2000, 0, 1);
@@ -102,7 +102,7 @@ export class VoucherManagementComponent implements OnInit {
       this.vouchersData = batches;
       if (this.vouchersData && this.vouchersData.content) {
         this.dataSource = new MatTableDataSource(this.vouchersData.content);
-        this.dataSource.paginator = this.paginator;
+        this.dataSource.paginator = this.paginator();
       }
       this.isLoading = false;
     });
@@ -189,7 +189,7 @@ export class VoucherManagementComponent implements OnInit {
     const filterValues = this.getFilterValues();
     this.applyFilters(filterValues);
     this.updateSelectedFilters();
-    this.panel.close();
+    this.panel().close();
   }
 
   /**
@@ -260,6 +260,6 @@ export class VoucherManagementComponent implements OnInit {
     if (event) {
       event.stopPropagation();
     }
-    this.panel.toggle();
+    this.panel().toggle();
   }
 }

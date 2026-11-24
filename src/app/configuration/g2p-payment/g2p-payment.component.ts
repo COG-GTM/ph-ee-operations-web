@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { ChangeDetectorRef, Component, ViewChild, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild, inject, viewChild } from '@angular/core';
 import { UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
@@ -29,7 +29,7 @@ export class G2pPaymentComponent {
   private route = inject(ActivatedRoute);
   private cdr = inject(ChangeDetectorRef);
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  readonly paginator = viewChild(MatPaginator);
   @ViewChild(MatSort) set matSort(sort: MatSort) {
     this.dataSource.sort = sort;
     this.dataSource.sortingDataAccessor = (item: any, property) => {
@@ -47,7 +47,7 @@ export class G2pPaymentComponent {
       }
     };
   }
-  @ViewChild('panel') panel: MatExpansionPanel;
+  readonly panel = viewChild<MatExpansionPanel>('panel');
 
   /** government Entity form control. */
   governmentEntity = new UntypedFormControl();
@@ -97,7 +97,7 @@ export class G2pPaymentComponent {
   getConfigs(): void {
     this.dataSource = new MatTableDataSource(this.programData);
     this.cdr.detectChanges();
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator();
     this.dataSource.sort = this.matSort;
   }
 
@@ -123,7 +123,7 @@ export class G2pPaymentComponent {
     const filterValues = this.collectFilterValues();
     this.applyFilters(filterValues);
     this.updateSelectedFilters();
-    this.panel.close();
+    this.panel().close();
   }
 
   /**
@@ -186,6 +186,6 @@ export class G2pPaymentComponent {
     if (event) {
       event.stopPropagation();
     }
-    this.panel.toggle();
+    this.panel().toggle();
   }
 }
