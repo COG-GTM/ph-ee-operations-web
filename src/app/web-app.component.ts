@@ -1,6 +1,6 @@
 /** Angular Imports */
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute, RouterOutlet } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -34,7 +34,7 @@ const log = new Logger('PHEE');
     selector: 'mifosx-web-app',
     templateUrl: './web-app.component.html',
     styleUrls: ['./web-app.component.scss'],
-    standalone: false
+    imports: [RouterOutlet]
 })
 export class WebAppComponent implements OnInit {
 

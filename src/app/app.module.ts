@@ -42,34 +42,7 @@ import { AppRoutingModule } from './app-routing.module';
  *
  * Core module and all feature modules should be imported here in proper order.
  */
-@NgModule({ declarations: [WebAppComponent], bootstrap: [WebAppComponent], imports: [BrowserModule,
-        BrowserAnimationsModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: (http: HttpClient, locationStrategy: LocationStrategy) => {
-                    return new TranslateHttpLoader(http, `${window.location.protocol}//${window.location.host}${locationStrategy.getBaseHref()}assets/translations/`, '.json');
-                },
-                deps: [HttpClient, LocationStrategy]
-            }
-        }),
-        KeycloakAngularModule,
-        NgxChartsModule,
-        CoreModule,
-        HomeModule,
-        LoginModule,
-        SettingsModule,
-        SystemModule,
-        UsersModule,
-        PaymentHubModule,
-        VouchersModule,
-        AccountMapperModule,
-        VisualizationsModule,
-        ConfigurationModule,
-        AppRoutingModule, NotFoundComponent], providers: [
-        DatePipe
-    ] })
-export class AppModule { }
+
 
 export function httpTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, `/assets/translations/`, '.json');
