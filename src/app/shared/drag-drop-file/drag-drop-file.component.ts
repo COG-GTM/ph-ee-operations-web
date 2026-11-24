@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { NgxFileDropEntry, NgxFileDropModule } from 'ngx-file-drop';
 import { FlexModule } from '@angular/flex-layout/flex';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
@@ -12,7 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class DragDropFileComponent {
 
-  @Output() onFileChange = new EventEmitter<File>();
+  readonly onFileChange = output<File>();
 
   public files: NgxFileDropEntry[] = [];
 

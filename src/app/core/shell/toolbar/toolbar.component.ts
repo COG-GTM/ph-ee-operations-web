@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit, EventEmitter, Output, inject, input } from '@angular/core';
+import { Component, OnInit, inject, input, output } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { style, animate, transition, trigger } from '@angular/animations';
@@ -65,7 +65,7 @@ export class ToolbarComponent implements OnInit {
   /** Instance of sidenav. */
   readonly sidenav = input<MatSidenav>(undefined);
   /** Sidenav collapse event. */
-  @Output() collapse = new EventEmitter<boolean>();
+  readonly collapse = output<boolean>();
 
   /**
    * Subscribes to breakpoint for handset.

@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit, Input, Output, EventEmitter, inject } from '@angular/core';
+import { Component, OnInit, Input, inject, output } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
 /** Custom Services */
@@ -37,7 +37,7 @@ export class SidenavComponent implements OnInit {
 
   /** True if sidenav is in collapsed state. */
   @Input() sidenavCollapsed: boolean;
-  @Output() sideNavControl: EventEmitter<boolean> = new EventEmitter;
+  readonly sideNavControl = output<boolean>();
   /** Username of authenticated user. */
   username: string;
 

@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 /** Custom Services */
@@ -41,7 +41,7 @@ export class UploadDialogComponent {
    voucherInstructions: VoucherInstruction[] = [];
  
    /** Event emitter to notify parent component of the imported data */
-   @Output() importedData = new EventEmitter<any>();
+   readonly importedData = output<any>();
  
    /**
     * Handles file selection, processes the file and closes the dialog.

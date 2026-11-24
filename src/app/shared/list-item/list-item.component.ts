@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, inject, input } from '@angular/core';
+import { Component, Input, inject, input, output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Section } from 'app/payment-hub/filter-selector/section-model';
 import { FlexModule } from '@angular/flex-layout/flex';
@@ -22,7 +22,7 @@ export class ListItemComponent {
   readonly classFormat = input<string>(undefined);
   readonly classFormatTitle = input<string>(undefined);
   readonly icon = input<string | null>(undefined);
-  @Output() sectionChange = new EventEmitter<Section>();
+  readonly sectionChange = output<Section>();
 
   goToRoute(): void {
     this.sectionChange.emit(this.section);
