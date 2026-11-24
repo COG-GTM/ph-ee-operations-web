@@ -16,6 +16,13 @@ test('batches: list, pagination, filter', async ({ page, calls, shot }) => {
   await expect(rows).toHaveCount(3);
   await page.getByRole('button', { name: 'First page' }).click();
   await expect(page.getByText('1 – 10 of 23')).toBeVisible();
+
+  // Client-side filter by batch reference number.
+  await page.getByRole('heading', { name: 'Filters' }).click();
+  await page.locator('xpath=//mat-label[normalize-space()="Batch Reference Number"]/following-sibling::mat-form-field//input').fill(`B-${RUN}-05`);
+  await page.getByRole('button', { name: 'Search' }).click();
+  await expect(rows).toHaveCount(1);
+  await expect(page.getByText(`B-${RUN}-05`, { exact: true })).toBeVisible();
 });
 
 test('transfers: list and pagination', async ({ page, calls, shot }) => {
